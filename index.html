@@ -53,7 +53,17 @@ body.quiz-active #final-quiz-page{display:block}
 .quiz-nav.primary{background:#167d9b}
 .quiz-nav:disabled{opacity:.45;cursor:not-allowed}
 #quiz-result{padding:14px;margin:14px 0;border-left:3px solid #73e4d6;background:#19364a;border-radius:9px}
-</style></head><body><div class="layout"><aside class="side collapsed" id="sidebar"><div class="logo">⚗ Chemistry<span>Quest</span></div><div class="small">උසස් පෙළ රසායන විද්‍යාව • 01 ඒකකය</div><button class="btn menu-button" id="menu">☰ පාඩම් තෝරන්න / වහන්න</button><a class="tg-side-link" href="https://t.me/motivatorAplus" target="_blank" rel="noopener noreferrer" aria-label="Motivator A+ Discussion Telegram group විවෘත කරන්න"><span class="tg-side-logo">A+</span><span>Telegram Group එකට යන්න ↗</span></a><div id="nav"></div></aside><main class="main"><div class="topbar"><div class="pill">🇱🇰 <button id="langSi" class="btn primary" style="padding:5px 12px">සිංහල</button> <button id="langEn" class="btn" style="padding:5px 12px">English</button></div><div class="pill" id="total">⭐ Mastered 0 / 22</div></div><aside class="tg-invite" aria-label="Motivator A+ Telegram Group invitation"><div class="tg-avatar" role="img" aria-label="Motivator A+ logo badge"><div class="tg-fallback"><strong>A+</strong><span>MOTIVATOR</span></div><img src="https://t.me/i/userpic/320/motivatorAplus.jpg" alt="Motivator A+ Discussion group photo" loading="lazy" onerror="this.remove()"></div><div class="tg-copy"><strong>📚 Motivator A+ Discussion</strong><p>රසායන විද්‍යාව ප්‍රශ්න අහන්න, අධ්‍යයන සහය ලබාගන්න, එකට ඉගෙන ගන්න. 💙</p></div><a class="tg-join" href="https://t.me/motivatorAplus" target="_blank" rel="noopener noreferrer" aria-label="Join Motivator A+ Discussion on Telegram">✈ Telegram Group එකට Join වෙන්න ↗</a></aside><section class="hero"><div><div class="eyebrow">01 ඒකකය · පරමාණුක ව්‍යුහය</div><h1 id="title">Cathode Ray Laboratory</h1><p id="subtitle">Virtual experiments සහ topic-based games එකම academy එකේ.</p></div><div class="pill" id="num">01 / 22</div></section><div class="main-grid"><section class="card"><div class="topic-label" id="code">1.1.1</div><h2>🔬 අන්තර්ක්‍රියාකාරී පරීක්ෂණාගාරය</h2><div id="visual" class="lab"></div><div id="controls"></div><div class="theory" id="theory"></div></section><section class="card"><h2>🎯 දැනුම පරීක්ෂාව</h2><p>පරීක්ෂණය කර ප්‍රශ්නයට පිළිතුරු දෙන්න. ඉන්පසු නිවැරදි පැහැදිලි කිරීම බලන්න.</p><div id="quiz"></div><div style="margin-top:18px" class="controls"><button class="btn" id="prev">← පෙර පාඩම</button><button class="btn primary" id="next">ඊළඟ පාඩම →</button></div><div class="progress"><div id="bar"></div></div><p class="small" id="progresstext"></p></section><section class="card wide"><h2>🗺 01 ඒකකයේ පාඩම් සිතියම</h2><p>01 ඒකකයේ පාඩම් 22 අතර මාරු වීමට වම් පැත්තේ මෙනුව හෝ පහළ පාඩම් සිතියම භාවිතා කරන්න.</p><div id="map" class="unit-map"></div></section></div></main></div><script>
+</style><style>
+#lesson-map-page{display:none;max-width:1100px;margin:22px auto}
+.map-page-heading{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+.map-page-heading h2{margin:0 0 7px}
+#mapOpen{white-space:nowrap;border-color:#478da9}
+body.map-active #lesson-map-page{display:block}
+body.map-active #unit-main-grid,body.map-active .unit-hero-lesson,body.map-active .tg-invite,body.map-active #final-quiz-page{display:none!important}
+#lesson-map-page .unit-map{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+#lesson-map-page .tile{min-height:95px}
+@media(max-width:650px){#lesson-map-page .unit-map{grid-template-columns:repeat(2,minmax(0,1fr))}.map-page-heading{align-items:flex-start}}
+</style></head><body><div class="layout"><aside class="side collapsed" id="sidebar"><div class="logo">⚗ Chemistry<span>Quest</span></div><div class="small">උසස් පෙළ රසායන විද්‍යාව • 01 ඒකකය</div><button class="btn menu-button" id="menu">☰ පාඩම් තෝරන්න / වහන්න</button><a class="tg-side-link" href="https://t.me/motivatorAplus" target="_blank" rel="noopener noreferrer" aria-label="Motivator A+ Discussion Telegram group විවෘත කරන්න"><span class="tg-side-logo">A+</span><span>Telegram Group එකට යන්න ↗</span></a><div id="nav"></div></aside><main class="main"><div class="topbar"><div class="pill">🇱🇰 <button id="langSi" class="btn primary" style="padding:5px 12px">සිංහල</button> <button id="langEn" class="btn" style="padding:5px 12px">English</button></div><button type="button" class="btn" id="mapOpen" aria-controls="lesson-map-page" aria-expanded="false">🗺 පාඩම් සිතියම</button><div class="pill" id="total">⭐ Mastered 0 / 22</div></div><aside class="tg-invite" aria-label="Motivator A+ Telegram Group invitation"><div class="tg-avatar" role="img" aria-label="Motivator A+ logo badge"><div class="tg-fallback"><strong>A+</strong><span>MOTIVATOR</span></div><img src="https://t.me/i/userpic/320/motivatorAplus.jpg" alt="Motivator A+ Discussion group photo" loading="lazy" onerror="this.remove()"></div><div class="tg-copy"><strong>📚 Motivator A+ Discussion</strong><p>රසායන විද්‍යාව ප්‍රශ්න අහන්න, අධ්‍යයන සහය ලබාගන්න, එකට ඉගෙන ගන්න. 💙</p></div><a class="tg-join" href="https://t.me/motivatorAplus" target="_blank" rel="noopener noreferrer" aria-label="Join Motivator A+ Discussion on Telegram">✈ Telegram Group එකට Join වෙන්න ↗</a></aside><section class="hero"><div><div class="eyebrow">01 ඒකකය · පරමාණුක ව්‍යුහය</div><h1 id="title">Cathode Ray Laboratory</h1><p id="subtitle">Virtual experiments සහ topic-based games එකම academy එකේ.</p></div><div class="pill" id="num">01 / 22</div></section><div class="main-grid"><section class="card"><div class="topic-label" id="code">1.1.1</div><h2>🔬 අන්තර්ක්‍රියාකාරී පරීක්ෂණාගාරය</h2><div id="visual" class="lab"></div><div id="controls"></div><div class="theory" id="theory"></div></section><section class="card"><h2>🎯 දැනුම පරීක්ෂාව</h2><p>පරීක්ෂණය කර ප්‍රශ්නයට පිළිතුරු දෙන්න. ඉන්පසු නිවැරදි පැහැදිලි කිරීම බලන්න.</p><div id="quiz"></div><div style="margin-top:18px" class="controls"><button class="btn" id="prev">← පෙර පාඩම</button><button class="btn primary" id="next">ඊළඟ පාඩම →</button></div><div class="progress"><div id="bar"></div></div><p class="small" id="progresstext"></p></section></div><section class="card wide" id="lesson-map-page" aria-label="පාඩම් සිතියම"><div class="map-page-heading"><div><h2 id="mapTitle">🗺 01 ඒකකයේ පාඩම් සිතියම</h2><p id="mapIntro">පාඩම් 22 අතරින් ඕනෑම පාඩමක් තෝරා විවෘත කරන්න.</p></div><button type="button" class="btn" id="mapBack">← පාඩමට ආපසු</button></div><div id="map" class="unit-map"></div></section></main></div><script>
 'use strict';
 const topics=[
 ['1.1.1','Cathode Rays','Cathode Ray Tube Lab','Vacuum tube එකේ cathode සිට electron beam එක යන ආකාරය නිරීක්ෂණය කරන්න. Cathode rays ඍණ ආරෝපිත අංශු වේ.','Electric field එකක් යටතේ cathode rays වංගුවන්නේ කුමන තහඩුව දෙසටද?',['ධන තහඩුව දෙසට','ඍණ තහඩුව දෙසට','වංගු නොවේ'],0,'Electrons ඍණ ආරෝපිත බැවින් ධන තහඩුවට ආකර්ෂණය වේ.','cathode'],
@@ -969,5 +979,21 @@ function renderFinalQuiz(){
  const prev=document.getElementById('prev');if(prev)prev.onclick=()=>setTopic(Math.max(0,current-1));
  addQuizEntry();
  render(); // Initialize the overridden Cathode dropdown and final-quiz navigation on first load.
+})();
+</script><script>
+(function(){
+ const open=document.getElementById('mapOpen'),back=document.getElementById('mapBack');
+ if(!open||!back)return;
+ const close=()=>{document.body.classList.remove('map-active');open.setAttribute('aria-expanded','false');open.classList.remove('primary')};
+ const oldSetTopic=setTopic;
+ setTopic=function(i){close();oldSetTopic(i)};
+ open.onclick=()=>{
+  const showing=document.body.classList.contains('map-active');
+  if(showing){close();return}
+  if(typeof quizView!=='undefined'&&quizView){quizView=false;document.body.classList.remove('quiz-active');render()}
+  document.body.classList.add('map-active');open.setAttribute('aria-expanded','true');open.classList.add('primary');
+  window.scrollTo({top:0,behavior:'smooth'});
+ };
+ back.onclick=()=>{close();window.scrollTo({top:0,behavior:'smooth'})};
 })();
 </script></body></html>
