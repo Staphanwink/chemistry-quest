@@ -526,7 +526,7 @@ function renderIntegratedPositiveLab(){
  </select><small style="display:block;margin-top:7px;color:#b9dced">ගුණයක් තෝරද්දී පහළ නළයේ animation එක හා පරීක්ෂණ controls වෙනස් වේ.</small></div>
  <canvas id="integratedCanvas" width="900" height="490" aria-label="වමේ ධන කිරණ ගුණ, මැද සිදුරු කැතෝඩය, දකුණේ ඉලෙක්ට්‍රෝන හා වායු ගැටීම"></canvas>
  <div class="int-tools"><label>වායුව <select id="integratedGas"><option value="H2">H₂</option><option value="Ne" selected>Ne</option><option value="Ar">Ar</option></select></label>
- <label for="integratedBatch" class="int-particle-picker">අංශු ගණන <select id="integratedBatch" aria-label="එකවර එකතු කරන වායු අංශු ගණන"><option value="1">1</option><option value="3">3</option><option value="5" selected>5</option><option value="10">10</option></select></label><button id="integratedAdd">＋ අංශු 5ක් එකතු කරන්න</button><button id="integratedPower">⏸ Pause</button>
+ <label for="integratedBatch" class="int-particle-picker">අංශු ගණන <select id="integratedBatch" aria-label="එකවර එකතු කරන වායු අංශු ගණන"><option value="1">1</option><option value="3">3</option><option value="5">5</option><option value="10" selected>10</option></select></label><button id="integratedAdd">＋ අංශු 10ක් එකතු කරන්න</button><button id="integratedPower">⏸ Pause</button>
  <button id="integratedObject">＋ බාධකය තබන්න</button><button id="integratedFlip" hidden>⇅ ධ්‍රැව මාරු කරන්න</button>
  <label id="integratedFieldWrap" hidden>ක්ෂේත්‍රය <input id="integratedField" type="range" min="0" max="100" value="55"></label>
  <label>වේගය <input id="integratedSpeed" type="range" min="1" max="4" value="2"></label><button id="integratedReset">↻ Reset</button></div>
@@ -542,36 +542,34 @@ function renderIntegratedPositiveLab(){
  const updateMetrics=()=>{$('integratedAtoms').textContent=st.atoms.length;$('integratedHits').textContent=st.hits;$('integratedWheelHits').textContent=st.wheelHits;$('integratedRatio').textContent=gasData[st.gas].ratio};
  function notice(s){$('integratedReading').textContent=s}
  function sync(){const picker=$('integratedPropertySelect');if(picker)picker.value=st.mode;$('integratedPower').textContent=st.run?'⏸ Pause':'▶ Start';$('integratedObject').hidden=!['shadow','wheel'].includes(st.mode);$('integratedObject').textContent=st.object?'− '+(st.mode==='wheel'?'සකය':'බාධකය')+' ඉවත් කරන්න':'＋ '+(st.mode==='wheel'?'සකය':'බාධකය')+' තබන්න';$('integratedFlip').hidden=st.mode!=='electric';$('integratedFieldWrap').hidden=st.mode!=='electric';updateMetrics()}
- const MAX_GAS_ATOMS=24;
+ // Keep the Add 10 control available on every press, with no 24-atom lockout.
  function refreshAddButton(){
-  const remaining=MAX_GAS_ATOMS-st.atoms.length;
-  const batch=Math.max(1,Math.min(10,Number($('integratedBatch').value)||5));
-  $('integratedAdd').disabled=remaining<=0;
+  const batch=Math.max(1,Math.min(10,Number($('integratedBatch').value)||10));
+  $('integratedAdd').disabled=false;
   $('integratedAdd').textContent='＋ අංශු '+batch+'ක් එකතු කරන්න';
-  $('integratedAdd').title='නළයේ ඉතිරි ඉඩ: '+remaining+' / '+MAX_GAS_ATOMS;
+  $('integratedAdd').title='තවත් අංශු '+batch+'ක් එකතු කරන්න';
  }
- function addGas(count=Number($('integratedBatch').value)||5,quiet=false){
-  const requested=Math.max(1,Math.min(10,Math.round(Number(count)||5)));
-  const added=Math.min(requested,MAX_GAS_ATOMS-st.atoms.length);
-  for(let i=0;i<added;i++){
+ function addGas(count=Number($('integratedBatch').value)||10,quiet=false){
+  const requested=Math.max(1,Math.min(10,Math.round(Number(count)||10)));
+  for(let i=0;i<requested;i++){
    const idx=st.spawnSerial++;
    st.atoms.push({
-    x:750+(idx%5)*8,y:100+(idx*37)%190,
-    targetX:515+(idx%4)*56,targetY:109+(Math.floor(idx/4)%4)*58,
+    x:738+(idx%6)*8,y:91+(idx*47)%207,
+    targetX:506+(idx%7)*43,targetY:100+(Math.floor(idx/7)%5)*42,
     r:12,age:0,used:false
    });
   }
   updateMetrics();refreshAddButton();
-  if(!quiet)notice(added?'✅ වායු අංශු '+added+'ක් එකතු කළා. '+(st.run?'අයනීකරණය දැනටමත් ක්‍රියාත්මකයි.':'▶ Resume ඔබලා නිරීක්ෂණය කරන්න.'):'නළයේ දැනට අංශු '+MAX_GAS_ATOMS+'ක් තියෙනවා. ඉඩ ලැබුණු පසු නැවත එකතු කරන්න.');
-  return added;
+  if(!quiet)notice('✅ තවත් වායු අංශු '+requested+'ක් එකතු කළා. '+(st.run?'අයනීකරණය ක්‍රියාත්මකයි.':'Pause කළ නිසා අංශු නිශ්චලයි.'));
+  return requested;
  }
  $('integratedPropertySelect').onchange=e=>{st.mode=e.target.value;st.object=['shadow','wheel'].includes(st.mode);st.wheelVelocity=0;sync();notice(({straight:'වම් පැත්තට එන ධන අයන සෘජුව ගමන් කරන බව බලන්න.',shadow:'✅ බාධකය දැනටමත් නළයට දමා ඇත. තිරයේ අඳුරු මැද ප්‍රදේශය බලන්න; බාධකය ඉවත් කර සසඳන්න.',wheel:'✅ හබල් සකය වම් පැත්තේ තබා ඇත. ධන අයන ගැටෙන විට සකය කැරකෙනවා.',electric:'ඍණ තහඩුව දෙසට ධන අයන හැරෙන බව බලන්න.',gas:'වායුව තෝරලා |q|/m අනුපාතය සසඳන්න.'})[st.mode])};
  $('integratedGas').onchange=e=>{
  st.gas=e.target.value;
  st.atoms=[];st.electrons=[];st.ions=[];st.secondary=[];st.flashes=[];
  st.wheelVelocity=0;st.spawnSerial=0;st.screenPulse=0;st.screenHits=0;
- addGas(6,true);sync();
- notice('✅ '+gasData[st.gas].label+' වායුවට මාරු වුණා. අංශු 6ක් ඇතුළත්. '+gasData[st.gas].ion+' සඳහා |q|/m = '+gasData[st.gas].ratio+' C kg⁻¹.');
+ addGas(10,true);sync();
+ notice('✅ '+gasData[st.gas].label+' වායුවට මාරු වුණා. අංශු 10ක් ඇතුළත්. '+gasData[st.gas].ion+' සඳහා |q|/m = '+gasData[st.gas].ratio+' C kg⁻¹.');
 };
  $('integratedBatch').onchange=refreshAddButton;
  $('integratedAdd').onclick=()=>addGas();
@@ -585,7 +583,7 @@ function renderIntegratedPositiveLab(){
  st.run=true;st.atoms=[];st.electrons=[];st.ions=[];st.secondary=[];st.flashes=[];
  st.hits=0;st.through=0;st.wheel=0;st.wheelVelocity=0;st.wheelHits=0;
  st.object=false;st.frames=0;st.emit=0;st.last=0;st.spawnSerial=0;st.screenPulse=0;st.screenHits=0;
- addGas(6,true);sync();notice('↻ Reset: වායු අංශු 6ක් සමඟ simulation එක ස්වයංක්‍රීයව නැවත ආරම්භ වුණා.');
+ addGas(10,true);sync();notice('↻ Reset: වායු අංශු 10ක් සමඟ simulation එක ස්වයංක්‍රීයව නැවත ආරම්භ වුණා.');
 };
  function coords(e){let r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*900/r.width,y:(e.clientY-r.top)*400/r.height}}
  canvas.addEventListener('pointerdown',e=>{let q=coords(e);let a=st.atoms.find(a=>Math.hypot(a.x-q.x,a.y-q.y)<19);if(a){st.drag=a;canvas.setPointerCapture(e.pointerId)}});
@@ -647,7 +645,7 @@ function renderIntegratedPositiveLab(){
  if(st.mode==='wheel'&&st.object){st.wheel+=st.wheelVelocity*dt;st.wheelVelocity*=Math.pow(.968,dt);if(Math.abs(st.wheelVelocity)<.0005)st.wheelVelocity=0;}
  else st.wheelVelocity=0;
  st.screenPulse=Math.max(0,st.screenPulse-.02*dt);
- draw();requestAnimationFrame(tick)}addGas(6,true);sync();notice('▶ Auto-start: වායු අංශු 6ක් එකතු කළා. තව අංශු අවශ්‍ය නම් ප්‍රමාණය තෝරා ＋ ඔබන්න.');requestAnimationFrame(tick);
+ draw();requestAnimationFrame(tick)}addGas(10,true);sync();notice('▶ Auto-start: වායු අංශු 10ක් එකතු කළා. තව අංශු අවශ්‍ය නම් ප්‍රමාණය තෝරා ＋ ඔබන්න.');requestAnimationFrame(tick);
 }
 const renderBeforeIntegrated=renderLab;
 renderLab=function(){if(current===2){renderIntegratedPositiveLab()}else{if(integratedActive)integratedActive.dead=true;renderBeforeIntegrated()}};
