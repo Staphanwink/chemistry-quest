@@ -515,7 +515,7 @@ function renderIntegratedPositiveLab(){
  const visual=document.getElementById('visual');if(!visual)return;
  const controls=document.getElementById('controls');if(controls)controls.innerHTML='';
  visual.innerHTML=`<section class="int-lab"><h3>🧪 ධන කිරණ — එකම නළයක අයනීකරණය හා ගුණ පරීක්ෂණ</h3>
- <p class="int-note">දකුණේ කැතෝඩ ඉලෙක්ට්‍රෝන වායු අංශු සමඟ ගැටෙයි. ධන අයන සිදුරු සහිත කැතෝඩය හරහා වමට එයි. වම් පැත්තේම පරීක්ෂණය මාරු කර බලන්න.</p>
+ <p class="int-note">කැතෝඩයෙන් පිටවන ඉලෙක්ට්‍රෝන අඩු පීඩන වායු අණු සමඟ ගැටී ධන අයන සාදයි. ඒවා සිදුරු සහිත කැතෝඩය හරහා වමට යයි. වෙනම ප්‍රතිදීප්ත තිරයක් නැතිව නළයේ දීප්තිය පෙන්වයි.</p>
  <div class="ray-property-picker" style="margin:15px 0 13px;padding:14px;background:#163951;border:1px solid #63b8d1;border-radius:13px">
  <label for="integratedPropertySelect" style="display:block;font-weight:800;font-size:15px;margin-bottom:8px">🔎 ධන කිරණවල ගුණයක් තෝරන්න</label>
  <select id="integratedPropertySelect" aria-label="ධන කිරණවල ගුණය තෝරන්න" style="display:block;width:100%;font-size:15px;min-height:45px;background:#0b253a;color:white;border:1px solid #77d9eb;border-radius:9px;padding:9px">
@@ -594,32 +594,32 @@ function renderIntegratedPositiveLab(){
  function draw(){let g=ctx.createLinearGradient(0,0,0,490);g.addColorStop(0,'#0d253b');g.addColorStop(1,'#071625');ctx.fillStyle=g;ctx.fillRect(0,0,900,490);
  ctx.beginPath();ctx.roundRect(22,52,856,304,47);ctx.fillStyle='#133048';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#5b93b4';ctx.stroke();
  ctx.fillStyle='#b1c9d8';ctx.fillRect(374,72,14,106);ctx.fillRect(374,195,14,136);ctx.fillStyle='#f4c875';ctx.fillRect(807,92,12,237);
- txt('කැතෝඩයට පිටුපසින් ප්‍රතිදීප්ත තිරය',45,27,'#a7ffce',14);txt('සිදුරු සහිත කැතෝඩය (−)',308,46,'#d4eafa',13);txt('අයනීකරණ කලාපය',616,27,'#8ae9fc',16);
- txt('ඇනෝඩය (+)',756,375,'#ffd89b',13);txt('e⁻ : කැතෝඩයෙන් ඇනෝඩය දෙසට →',533,76,'#74ebff',12);txt('ධන අයන : ඇනෝඩය පැත්තෙන් ← කැතෝඩයේ සිදුර හරහා ← තිරය',107,375,'#ffbd7c',13);
+ txt('කැතෝඩය පිටුපස නළයේ දිලිසීම',45,27,'#a7ffce',14);txt('සිදුරු සහිත කැතෝඩය (−)',308,46,'#d4eafa',13);txt('අයනීකරණ කලාපය',616,27,'#8ae9fc',16);
+ txt('ඇනෝඩය (+)',756,375,'#ffd89b',13);txt('e⁻ : කැතෝඩයෙන් ඇනෝඩය දෙසට →',533,76,'#74ebff',12);txt('ධන අයන : අයනීකරණ කලාපය ← කැතෝඩයේ සිදුර හරහා ← වමට',107,375,'#ffbd7c',13);
  // The cyan electron path heads right, from perforated cathode into the low-pressure gas.
  if(st.run){ctx.save();ctx.strokeStyle='#64ddff';ctx.shadowColor='#30c8ff';ctx.shadowBlur=10;ctx.globalAlpha=.47;line(393,188,798,188,'#64ddff',2);ctx.restore();txt('e⁻ →',570,180,'#85e9ff',13)}
  line(388,188,800,188,'#35617a',1); ctx.setLineDash([5,8]);line(69,188,372,188,'#406c82',1);ctx.setLineDash([]);
- // Fluorescent detector is on the LEFT, behind the perforated cathode.
- ctx.save();ctx.fillStyle=st.screenPulse>.03?'#65e9a6':'#245b5c';ctx.shadowColor='#63ffc2';ctx.shadowBlur=st.screenPulse>.03?20:2;ctx.fillRect(53,105,14,170);ctx.restore();
- txt('ප්‍රතිදීප්ත තිරය',73,94,'#a9ffd1',13);
- // Left apparatus: fluorescent screen, obstruction, wheel, E-field plates.
+ // Glass-wall emission only; no independently installed fluorescent plate.
+ if(st.screenPulse>.02){ctx.save();ctx.fillStyle='rgba(94,246,158,'+Math.min(.36,st.screenPulse*.36)+')';ctx.shadowColor='#65ffc2';ctx.shadowBlur=24;ctx.fillRect(53,105,12,170);ctx.restore();}
+ txt('නළ බිත්තියේ දීප්තිය',73,94,'#a9ffd1',13);
+ // Left apparatus: glass-wall glow, obstacle, paddle wheel, and electric plates.
  if(st.mode==='electric'){ctx.fillStyle=st.pol===1?'#ff8588':'#79aaff';ctx.fillRect(105,97,180,8);ctx.fillStyle=st.pol===1?'#79aaff':'#ff8588';ctx.fillRect(105,293,180,8);txt(st.pol===1?'+':'−',289,108,'#fff',19);txt(st.pol===1?'−':'+',289,304,'#fff',19)}
  if(st.mode==='shadow'){
  // Wide beam representation makes the dark silhouette visually unambiguous.
  // Fluorescent screen is already drawn behind the cathode for every property mode.
- if(st.object){ctx.fillStyle='#edbe83';ctx.fillRect(223,159,13,58);ctx.fillStyle='#0b2435';ctx.fillRect(53,159,14,58);ctx.strokeStyle='#ffdda3';ctx.lineWidth=2;ctx.strokeRect(53,159,14,58);}
+ if(st.object){ctx.fillStyle='#edbe83';ctx.fillRect(223,159,13,58);ctx.fillStyle='#0b2435';ctx.fillRect(53,159,12,58);ctx.strokeStyle='#ffdda3';ctx.lineWidth=2;ctx.strokeRect(223,159,13,58);}
  ctx.save();ctx.lineWidth=2;ctx.strokeStyle='#ffb66e';ctx.setLineDash([7,6]);for(let y=113;y<=266;y+=17){let blocked=st.object&&y>=159&&y<=217;ctx.beginPath();ctx.moveTo(369,y);ctx.lineTo(blocked?237:69,y);ctx.stroke()}ctx.restore();
- txt(st.object?'අඳුරු සෙවණැල්ල':'සම්පූර්ණ තිරය දිලිසේ',78,326,'#fbd69e',14);
+ txt(st.object?'අඳුරු සෙවණැල්ල':'නළයේ දීප්තිය පෙනේ',78,326,'#fbd69e',14);
  }
  if(st.mode==='wheel'&&st.object){ctx.save();ctx.translate(213,188);ctx.rotate(st.wheel);for(let i=0;i<8;i++){ctx.rotate(Math.PI/4);ctx.fillStyle=i%2?'#9ddcff':'#ffc282';ctx.fillRect(0,-7,48,14)}circle(0,0,10,'#fff0c7');ctx.restore();txt(Math.abs(st.wheelVelocity)>.003?'↻ ධන අයන ගැටී සකය කැරකේ':'සකය නිශ්චලයි — අයන ගැටෙන තෙක්',85,319,'#ffd59d',13)}
- // The detector position stays fixed even when experiment properties change.
+ // The illuminated observation region is part of the left glass envelope.
  for(const a of st.atoms){circle(a.x,a.y,a.r,st.gas==='Ne'?'#b5a8f7':st.gas==='Ar'?'#8be2b8':'#90d8fc');txt(gasData[st.gas].label,a.x,a.y+4,'#08283c',11,'center')}
  for(const e of st.electrons){circle(e.x,e.y,4,'#59eaff')}
  for(const e of st.secondary){circle(e.x,e.y,4,'#6de6ff')}
  for(const a of st.ions){let yy=ionY(a);if(a.passed){ctx.save();ctx.strokeStyle='#ffc070';ctx.globalAlpha=.3;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(Math.min(370,a.x+56),yy);ctx.lineTo(a.x,yy);ctx.stroke();ctx.restore()}circle(a.x,yy,9,'#ffb064');txt('+',a.x,yy+4,'#452007',13,'center')}
  for(const f of st.flashes){ctx.globalAlpha=Math.max(0,1-f.age/25);ctx.lineWidth=2;ctx.strokeStyle='#ffe283';ctx.beginPath();ctx.arc(f.x,f.y,11+f.age,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
  if(st.mode==='gas'){txt(gasData[st.gas].ion+'   |q|/m = '+gasData[st.gas].ratio+' C kg⁻¹',92,338,'#b3efc8',14)}
- // Screen label and location are common to every property mode.
+ // No separate phosphor screen is installed in the apparatus.
  if(st.mode==='wheel'&&st.object)txt('හබල් සකය',177,115,'#ffdda8',13);
  // DC supply: negative to perforated cathode, positive to the anode.
  line(381,72,381,15,'#aed6ea',2.5);line(381,15,16,15,'#aed6ea',2.5);line(16,15,16,447,'#aed6ea',2.5);line(16,447,352,447,'#aed6ea',2.5);
@@ -627,7 +627,7 @@ function renderIntegratedPositiveLab(){
  ctx.fillStyle='#754a2e';ctx.fillRect(352,419,196,59);ctx.fillStyle='#ac7544';ctx.fillRect(352,419,196,9);
  ctx.fillStyle='#e8f6ff';ctx.fillRect(352,439,16,16);ctx.fillStyle='#ff4567';ctx.fillRect(532,439,16,16);
  txt('−',358,414,'#eff9ff',19,'center');txt('+',540,414,'#ff9bac',19,'center');txt('DC Battery',450,466,'#fff',17,'center');
- txt('අධ්‍යාපනික නිරූපණය — පරිමාණයට අනුව නොවේ',450,393,'#acc9dd',11,'center');
+ txt('වෙනම තිරයක් නොමැත • වායු සහ වීදුරු දිලිසීම සංකල්පීයව පෙන්වයි',450,393,'#acc9dd',11,'center');
  }
  function tick(t){if(st.dead||!canvas.isConnected)return;let dt=Math.min(2,(t-st.last)/16.67||1);st.last=t;if(st.run){let v=st.speed*.55*dt;st.frames+=v;
  for(const a of st.atoms){a.age+=v;if(a!==st.drag){a.x+=(a.targetX-a.x)*Math.min(1,.065*v);a.y+=(a.targetY-a.y)*Math.min(1,.065*v)}}
