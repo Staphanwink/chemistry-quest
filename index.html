@@ -434,7 +434,7 @@ function renderPropLab(){
  const v=document.getElementById('visual');if(!v)return;
  if(propActive)propActive.dead=true;
  if(!['shadow','wheel','electric'].includes(propMode))propMode='shadow';
- const modes={shadow:['සෘජු ගමන හා සෙවණැල්ල','බාධකය ඉදිරියෙන් තැබූ විට තිරයේ අඳුරු සෙවණැල්ලක් දක්නට ලැබේ.'],wheel:['ගම්‍යතාව හා හබල් සකය','කිරණ සකයේ පෙතිවලට ගැටීමෙන් සකය චලනය වන සංකල්පීය ආදර්ශනයකි.'],electric:['විද්‍යුත් ක්ෂේත්‍රයේ අපගමනය','ඉලෙක්ට්‍රෝන ඍණ ආරෝපිත බැවින් ධන තහඩුව දෙසට අපගමනය වේ.']};
+ const modes={shadow:['සෘජු ගමන හා සෙවණැල්ල','බාධකය ඉදිරියෙන් තැබූ විට වීදුරු බිත්තියේ දීප්තිය අතර සෙවණැල්ලක් නිරීක්ෂණය කළ හැක.'],wheel:['ගම්‍යතාව හා හබල් සකය','කිරණ සකයේ පෙතිවලට ගැටීමෙන් සකය චලනය වන සංකල්පීය ආදර්ශනයකි.'],electric:['විද්‍යුත් ක්ෂේත්‍රයේ අපගමනය','ඉලෙක්ට්‍රෝන ඍණ ආරෝපිත බැවින් ධන තහඩුව දෙසට අපගමනය වේ.']};
  v.innerHTML=`<div class="prop-lab"><h3>🔬 කැතෝඩ කිරණ — Neon Virtual Laboratory</h3><p class="prop-desc">වීදුරු නළයේ කැතෝඩයෙන් ඉලෙක්ට්‍රෝන ඇනෝඩය දෙසට ගමන් කරයි. පරීක්ෂණය තෝරා උපකරණ පාලනය කරන්න.</p>
  <div class="ray-property-picker"><label for="propModeSelect">පරීක්ෂා කරන ගුණය</label><select id="propModeSelect">${Object.entries(modes).map(([id,m])=>`<option value="${id}" ${id===propMode?'selected':''}>${m[0]}</option>`).join('')}</select></div>
  <div class="prop-view"><canvas id="propCanvas" width="920" height="476" aria-label="කැතෝඩ කිරණ පරීක්ෂණයේ විද්‍යාත්මක සජීවී ආදර්ශනය"></canvas></div>
@@ -455,41 +455,42 @@ function renderPropLab(){
  // Conceptual cathode-ray property apparatus: no perforated cathode or anode.
  g.fillStyle='#f6faff';g.fillRect(162,130,16,161);
  text('කැතෝඩය (−)',169,56,'#eaf7ff',20);
- text('ප්‍රතිදීප්ත තිරය',823,110,'#abffc4',17);
- const cx=180,mid=197,screenX=823,objectX=514;
+ text('ඇනෝඩය (+)',820,111,'#ffb6c5',17);
+ g.fillStyle='#ff637d';g.fillRect(822,126,15,164);
+ const cx=180,mid=197,anodeX=822,wallX=780,objectX=514;
+ if(propRun){g.save();const halo=g.createRadialGradient(wallX,197,4,wallX,197,110);halo.addColorStop(0,'rgba(125,255,147,.2)');halo.addColorStop(1,'rgba(71,220,142,0)');g.fillStyle=halo;g.fillRect(650,92,166,210);g.restore();}
  if(propMode==='electric'){
   const upperPlus=propPol===1;g.fillStyle=upperPlus?'#ff6280':'#70b9ff';g.fillRect(363,117,249,12);g.fillStyle=upperPlus?'#70b9ff':'#ff6280';g.fillRect(363,271,249,12);text(upperPlus?'+':'−',629,131,'#fff',23);text(upperPlus?'−':'+',629,284,'#fff',23);
  }
  if(propMode==='shadow'){
-  g.fillStyle=propRun?'#76ff95':'#1d5c58';g.fillRect(screenX,126,13,164);
+  // Glass/glowing gas is the observation surface; no separate phosphor screen.
   if(propObstacle){g.fillStyle='#fbd89d';g.fillRect(objectX,180,13,34);g.fillRect(objectX-10,190,33,12);text('බාධකය',objectX+5,312,'#f7d39a',15)}
-  if(propRun&&propObstacle){g.fillStyle='#072735';g.fillRect(screenX,180,13,34);g.fillRect(screenX,190,13,12);}
+  if(propRun&&propObstacle){g.fillStyle='rgba(6,28,36,.88)';g.fillRect(wallX-8,180,13,34);g.fillRect(wallX-18,191,32,11);}
  }
  if(propMode==='wheel'&&propObstacle){
   if(propRun)state.angle+=dt*propSpeed*.036;g.save();g.translate(objectX,mid);g.rotate(state.angle);for(let k=0;k<8;k++){g.save();g.rotate(k*Math.PI/4);g.fillStyle=k%2?'#ffc781':'#c6dafa';g.fillRect(0,-6,57,12);g.restore()}g.fillStyle='#eeffff';g.beginPath();g.arc(0,0,11,0,Math.PI*2);g.fill();g.restore();text('හබල් සකය',objectX,313,'#f7d39a',15);
  }
- if(propMode!=='shadow'){g.fillStyle=propRun?'#72f4a7':'#27586a';g.fillRect(screenX,126,13,164)}
- // Schematic electron beam; the solid anode is above the beam path, not perforated.
- if(propRun){const glow=g.createLinearGradient(cx,0,screenX,0);glow.addColorStop(0,'#49d660');glow.addColorStop(.6,'#7fff19');glow.addColorStop(1,'#68ffe0');const ys=propMode==='shadow'?[156,176,196,216,236]:[mid];
+ // The former green screen bar is removed.
+ // Cathode-ray beam travels toward the solid positive anode at the right.
+ if(propRun){const glow=g.createLinearGradient(cx,0,wallX,0);glow.addColorStop(0,'#49d660');glow.addColorStop(.6,'#7fff19');glow.addColorStop(1,'#68ffe0');const ys=propMode==='shadow'?[156,176,196,216,236]:[mid];
  ys.forEach((y,i)=>{
   const blocked=propMode==='shadow'&&propObstacle&&y>=180&&y<=214;
   const stopped=propMode==='wheel'&&propObstacle;
-  const till=blocked||stopped?objectX:screenX;
+  const till=blocked||stopped?objectX:wallX;
   if(propMode==='electric'){
-   const deflection=propField*.70*(propPol===1?-1:1);g.save();g.strokeStyle=glow;g.lineWidth=3;g.shadowColor='#70ff18';g.shadowBlur=14;g.beginPath();g.moveTo(cx,mid);g.lineTo(362,mid);g.quadraticCurveTo(624,mid,732,mid+deflection);g.lineTo(screenX,mid+deflection*1.36);g.stroke();g.restore();
-   for(let n=0;n<7;n++){let f=((state.t*.009+n/7)%1),x=cx+(screenX-cx)*f,yy=mid;if(x>362){const k=Math.min(1,(x-362)/(screenX-362));yy+=deflection*(k*k)*(x<=732?1:1.36)}particle(x,yy,3.4)}
-  }else{seg(cx,y,till,y,glow,3.3,13);for(let n=0;n<6;n++){const f=((state.t*.013+n/6+i*.09)%1),x=cx+(screenX-cx)*f;if(x<till)particle(x,y,3.6)}}
+   const deflection=propField*.70*(propPol===1?-1:1);g.save();g.strokeStyle=glow;g.lineWidth=3;g.shadowColor='#70ff18';g.shadowBlur=14;g.beginPath();g.moveTo(cx,mid);g.lineTo(362,mid);g.quadraticCurveTo(624,mid,732,mid+deflection);g.lineTo(wallX,mid+deflection*1.36);g.stroke();g.restore();
+   for(let n=0;n<7;n++){let f=((state.t*.009+n/7)%1),x=cx+(wallX-cx)*f,yy=mid;if(x>362){const k=Math.min(1,(x-362)/(screenX-362));yy+=deflection*(k*k)*(x<=732?1:1.36)}particle(x,yy,3.4)}
+  }else{seg(cx,y,till,y,glow,3.3,13);for(let n=0;n<6;n++){const f=((state.t*.013+n/6+i*.09)%1),x=cx+(wallX-cx)*f;if(x<till)particle(x,y,3.6)}}
  });
  }
- // DC supply: negative to cathode, positive to a solid off-axis anode (not a perforated electrode).
- g.fillStyle='#ff536c';g.fillRect(328,126,40,9);text('ඇනෝඩය (+)',349,115,'#ffb7c3',16);
+ // DC supply: negative to left cathode, positive to right-end anode.
  seg(162,211,26,211,'#a9cfe6',3);seg(26,211,26,428,'#a9cfe6',3);seg(26,428,355,428,'#a9cfe6',3);
- seg(348,126,348,65,'#ff6179',3);seg(348,65,898,65,'#ff6179',3);seg(898,65,898,428,'#ff6179',3);seg(898,428,565,428,'#ff6179',3);
+ seg(830,126,830,65,'#ff6179',3);seg(830,65,898,65,'#ff6179',3);seg(898,65,898,428,'#ff6179',3);seg(898,428,565,428,'#ff6179',3);
  g.fillStyle='#70482e';g.fillRect(355,406,210,56);g.fillStyle='#b77c42';g.fillRect(355,406,210,8);
  g.fillStyle='#dff4ff';g.fillRect(355,419,19,18);g.fillStyle='#ff4165';g.fillRect(546,419,19,18);
  text('−',364,400,'#eaf8ff',22);text('+',556,400,'#ff9aab',22);text('DC Battery',460,447,'#ffffff',18);
- text('වීදුරු නළය තුළ අඩු පීඩන වායුව • සංකල්පීය රූපය',460,475,'#a9c5d9',14);
- const result=!propRun?'කිරණ නවතා ඇත.':propMode==='shadow'?(propObstacle?'බාධකය නිසා fluorescent තිරයේ අඳුරු සෙවණැල්ලක් පෙනේ.':'බාධකය ඉවත් කළ විට fluorescent තිරය ආලෝකමත් වේ.'):propMode==='wheel'?(propObstacle?'කිරණ සකයට ගැටෙන විට ගම්‍යතා හුවමාරුව නිරූපණය වේ.':'සකය ඉවත් කළ විට කිරණ බාධාවකින් තොරව ඉදිරියට යයි.'):propField===0?'ක්ෂේත්‍රය ශූන්‍යයි: කිරණ සෘජුව ගමන් කරයි.':(propPol===1?'ධන ඉහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.':'ධන පහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.');if($('propResult').textContent!==result)$('propResult').textContent=result;
+ text('අඩු පීඩන වායුව / වීදුරු බිත්තියේ fluorescence • වෙනම තිරයක් නැත',460,475,'#a9c5d9',13);
+ const result=!propRun?'කිරණ නවතා ඇත.':propMode==='shadow'?(propObstacle?'බාධකය නිසා නළ බිත්තියේ දීප්තිය අතර අඳුරු සෙවණැල්ලක් පෙනේ.':'බාධකය ඉවත් කළ විට නළ බිත්තියේ දිලිසීම පැහැදිලිව පෙනේ.'):propMode==='wheel'?(propObstacle?'කිරණ සකයට ගැටෙන විට ගම්‍යතා හුවමාරුව නිරූපණය වේ.':'සකය ඉවත් කළ විට කිරණ බාධාවකින් තොරව ඉදිරියට යයි.'):propField===0?'ක්ෂේත්‍රය ශූන්‍යයි: කිරණ සෘජුව ගමන් කරයි.':(propPol===1?'ධන ඉහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.':'ධන පහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.');if($('propResult').textContent!==result)$('propResult').textContent=result;
  requestAnimationFrame(draw)}requestAnimationFrame(draw);sync();
 }
 const beforeNewProperties=renderLab;
