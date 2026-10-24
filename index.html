@@ -1139,8 +1139,14 @@ function create(host,positive){
  }
  if(m==='wheel'){
  wheel=new THREE.Group();wheel.position.x=positive?-2.3:1.8;
- for(let i=0;i<8;i++){const blade=new THREE.Mesh(new THREE.BoxGeometry(.09,.53,.19),mat(i%2?0xffc680:0x7acfff));blade.position.y=.30;blade.rotation.x=i*Math.PI/4;const pivot=new THREE.Group();pivot.rotation.x=i*Math.PI/4;pivot.add(blade);wheel.add(pivot)}
- const hub=new THREE.Mesh(new THREE.CylinderGeometry(.11,.11,.20,24),mat(0xe2f8ff));hub.rotation.z=Math.PI/2;wheel.add(hub);rig.add(wheel);wheelMomentum=0;lastImpactCycle=-1;
+ // Paddle wheel axis faces the viewer (Z), so paddles intercept rays travelling along X.
+ for(let i=0;i<8;i++){
+  const spoke=new THREE.Group();spoke.rotation.z=i*Math.PI/4;
+  const blade=new THREE.Mesh(new THREE.BoxGeometry(.22,.48,.14),mat(i%2?0xffc680:0x7acfff));
+  blade.position.y=.35;spoke.add(blade);wheel.add(spoke);
+ }
+ const hub=new THREE.Mesh(new THREE.CylinderGeometry(.11,.11,.22,24),mat(0xe2f8ff));hub.rotation.x=Math.PI/2;wheel.add(hub);
+ rig.add(wheel);wheelMomentum=0;lastImpactCycle=-1;
  }
  if(m==='electric'){plates=new THREE.Group();for(const yy of [-.62,.62]){const pl=new THREE.Mesh(new THREE.BoxGeometry(2.8,.06,.7),mat(yy>0?0xff5778:0x5daaff));pl.position.y=yy;plates.add(pl)}plates.position.x=positive?-2.35:1.1;rig.add(plates)}
  setDynamicLabel(m);currentMode=m
@@ -1180,7 +1186,7 @@ function create(host,positive){
   if(positive){wheelMomentum=Math.max(wheelMomentum,Math.abs(integratedActive?.wheelVelocity||0))}
   else if(frame>0){const cycle=Math.floor((frame+.07)*1.05);if(cycle!==lastImpactCycle){lastImpactCycle=cycle;wheelMomentum=Math.min(.10,wheelMomentum+.018)}}
  }
- wheel.rotation.x+=wheelMomentum;wheelMomentum*=.986;
+ wheel.rotation.z+=wheelMomentum;wheelMomentum*=.986;
  if(!showObject||!running)wheelMomentum*=.91;
  if(wheelMomentum<.0002)wheelMomentum=0;
  }
