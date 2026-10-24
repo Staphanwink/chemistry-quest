@@ -557,27 +557,30 @@ function renderIntegratedPositiveLab(){
  function draw(){let g=ctx.createLinearGradient(0,0,0,490);g.addColorStop(0,'#0d253b');g.addColorStop(1,'#071625');ctx.fillStyle=g;ctx.fillRect(0,0,900,490);
  ctx.beginPath();ctx.roundRect(22,52,856,304,47);ctx.fillStyle='#133048';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#5b93b4';ctx.stroke();
  ctx.fillStyle='#b1c9d8';ctx.fillRect(374,72,14,106);ctx.fillRect(374,195,14,136);ctx.fillStyle='#f4c875';ctx.fillRect(807,92,12,237);
- txt('වම: ධන කිරණ ගුණ පරීක්ෂණ',45,27,'#ffca89',16);txt('සිදුරු කැතෝඩය −',329,46,'#d4eafa',13);txt('දකුණ: ගැටීම / අයනීකරණය',562,27,'#8ae9fc',16);
- txt('ඇනෝඩය +',770,375,'#ffd89b',12);txt('කැතෝඩයෙන් e⁻ →',485,76,'#74ebff',13);txt('← ධන අයන',188,375,'#ffbd7c',13);
- line(388,188,800,188,'#35617a',1); ctx.setLineDash([5,8]);line(46,188,372,188,'#406c82',1);ctx.setLineDash([]);
+ txt('කැතෝඩයට පිටුපසින් ප්‍රතිදීප්ත තිරය',45,27,'#a7ffce',14);txt('සිදුරු සහිත කැතෝඩය (−)',308,46,'#d4eafa',13);txt('අයනීකරණ කලාපය',616,27,'#8ae9fc',16);
+ txt('ඇනෝඩය (+)',756,375,'#ffd89b',13);txt('e⁻ : කැතෝඩයෙන් ඇනෝඩය දෙසට →',533,76,'#74ebff',12);txt('ධන අයන : ඇනෝඩය පැත්තෙන් ← කැතෝඩයේ සිදුර හරහා ← තිරය',107,375,'#ffbd7c',13);
+ line(388,188,800,188,'#35617a',1); ctx.setLineDash([5,8]);line(69,188,372,188,'#406c82',1);ctx.setLineDash([]);
+ // Fluorescent detector is on the LEFT, behind the perforated cathode.
+ ctx.save();ctx.fillStyle=st.run?'#65e9a6':'#377a70';ctx.shadowColor='#63ffc2';ctx.shadowBlur=st.run?18:3;ctx.fillRect(53,105,14,170);ctx.restore();
+ txt('ප්‍රතිදීප්ත තිරය',73,94,'#a9ffd1',13);
  // Left apparatus: fluorescent screen, obstruction, wheel, E-field plates.
  if(st.mode==='electric'){ctx.fillStyle=st.pol===1?'#ff8588':'#79aaff';ctx.fillRect(105,97,180,8);ctx.fillStyle=st.pol===1?'#79aaff':'#ff8588';ctx.fillRect(105,293,180,8);txt(st.pol===1?'+':'−',289,108,'#fff',19);txt(st.pol===1?'−':'+',289,304,'#fff',19)}
  if(st.mode==='shadow'){
  // Wide beam representation makes the dark silhouette visually unambiguous.
- ctx.fillStyle=st.run?'#76fa9e':'#396b64';ctx.shadowColor='#69ffa4';ctx.shadowBlur=st.run?12:0;ctx.fillRect(55,105,14,170);ctx.shadowBlur=0;
- if(st.object){ctx.fillStyle='#edbe83';ctx.fillRect(223,159,13,58);ctx.fillStyle='#0b2435';ctx.fillRect(54,159,16,58);ctx.strokeStyle='#ffdda3';ctx.lineWidth=2;ctx.strokeRect(54,159,16,58);}
+ // Fluorescent screen is already drawn behind the cathode for every property mode.
+ if(st.object){ctx.fillStyle='#edbe83';ctx.fillRect(223,159,13,58);ctx.fillStyle='#0b2435';ctx.fillRect(53,159,14,58);ctx.strokeStyle='#ffdda3';ctx.lineWidth=2;ctx.strokeRect(53,159,14,58);}
  ctx.save();ctx.lineWidth=2;ctx.strokeStyle='#ffb66e';ctx.setLineDash([7,6]);for(let y=113;y<=266;y+=17){let blocked=st.object&&y>=159&&y<=217;ctx.beginPath();ctx.moveTo(369,y);ctx.lineTo(blocked?237:69,y);ctx.stroke()}ctx.restore();
  txt(st.object?'අඳුරු සෙවණැල්ල':'සම්පූර්ණ තිරය දිලිසේ',78,326,'#fbd69e',14);
  }
  if(st.mode==='wheel'&&st.object){ctx.save();ctx.translate(213,188);ctx.rotate(st.wheel);for(let i=0;i<8;i++){ctx.rotate(Math.PI/4);ctx.fillStyle=i%2?'#9ddcff':'#ffc282';ctx.fillRect(0,-7,48,14)}circle(0,0,10,'#fff0c7');ctx.restore();txt(Math.abs(st.wheelVelocity)>.003?'↻ ධන අයන ගැටී සකය කැරකේ':'සකය නිශ්චලයි — අයන ගැටෙන තෙක්',85,319,'#ffd59d',13)}
- if(st.mode==='straight'||st.mode==='gas'){ctx.fillStyle='#82eab7';ctx.fillRect(55,110,9,160)}
+ // The detector position stays fixed even when experiment properties change.
  for(const a of st.atoms){circle(a.x,a.y,a.r,st.gas==='Ne'?'#b5a8f7':st.gas==='Ar'?'#8be2b8':'#90d8fc');txt(gasData[st.gas].label,a.x,a.y+4,'#08283c',11,'center')}
  for(const e of st.electrons){circle(e.x,e.y,4,'#59eaff')}
  for(const e of st.secondary){circle(e.x,e.y,4,'#6de6ff')}
- for(const a of st.ions){let yy=ionY(a);circle(a.x,yy,9,'#ffb064');txt('+',a.x,yy+4,'#452007',13,'center')}
+ for(const a of st.ions){let yy=ionY(a);if(a.passed){ctx.save();ctx.strokeStyle='#ffc070';ctx.globalAlpha=.3;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(Math.min(370,a.x+56),yy);ctx.lineTo(a.x,yy);ctx.stroke();ctx.restore()}circle(a.x,yy,9,'#ffb064');txt('+',a.x,yy+4,'#452007',13,'center')}
  for(const f of st.flashes){ctx.globalAlpha=Math.max(0,1-f.age/25);ctx.lineWidth=2;ctx.strokeStyle='#ffe283';ctx.beginPath();ctx.arc(f.x,f.y,11+f.age,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
  if(st.mode==='gas'){txt(gasData[st.gas].ion+'   |q|/m = '+gasData[st.gas].ratio+' C kg⁻¹',92,338,'#b3efc8',14)}
- if(st.mode==='shadow')txt('ප්‍රතිදීප්ත තිරය',43,95,'#adfbc0',11);
+ // Screen label and location are common to every property mode.
  if(st.mode==='wheel'&&st.object)txt('හබල් සකය',177,115,'#ffdda8',13);
  // DC supply: negative to perforated cathode, positive to the anode.
  line(381,72,381,15,'#aed6ea',2.5);line(381,15,16,15,'#aed6ea',2.5);line(16,15,16,447,'#aed6ea',2.5);line(16,447,352,447,'#aed6ea',2.5);
@@ -592,9 +595,9 @@ function renderIntegratedPositiveLab(){
  st.emit+=v;if(st.emit>8){st.emit=0;let target=st.atoms.find(a=>a.age>8);st.electrons.push({x:392,y:target?target.y:120+Math.random()*150,target});}
  for(const e of st.electrons){e.x+=6*v;if(e.target&&st.atoms.includes(e.target)&&Math.hypot(e.x-e.target.x,e.y-e.target.y)<e.target.r+8){let a=e.target;st.atoms.splice(st.atoms.indexOf(a),1);st.ions.push({x:a.x,y:a.y,passed:false,phase:Math.random()*7});st.secondary.push({x:a.x+5,y:a.y,vx:3,vy:-2.5});st.flashes.push({x:a.x,y:a.y,age:0});st.hits++;updateMetrics();notice('⚡ Cathode electron එකක් '+gasData[st.gas].label+' අංශුවක් අයනීකරණය කළා → '+gasData[st.gas].ion+' + e⁻. ධන අයනය වමට ඇදෙනවා.');e.x=950;}}
  st.electrons=st.electrons.filter(e=>e.x<840);
- for(const a of st.ions){const oldX=a.x;a.x-=3.8*v;if(a.x<375&&!a.passed){a.passed=true;st.through++;a.y=188;notice('✅ ධන අයනය සිදුරු සහිත කැතෝඩය හරහා වමට ගියා. දැන් වම් පැත්තේ එහි ගුණ පරීක්ෂා කරන්න.')}
+ for(const a of st.ions){const oldX=a.x;a.x-=3.8*v;if(a.x<375&&!a.passed){a.passed=true;st.through++;a.y=188;notice('✅ ධන අයනය කැතෝඩයේ සිදුර හරහා වම් පැත්තේ ප්‍රතිදීප්ත තිරය දෙසට ගමන් කරයි.')}
  if(a.passed){if(st.mode==='wheel'&&st.object&&oldX>=255&&a.x<255&&Math.abs(ionY(a)-188)<53){a.x=0;st.wheelVelocity=Math.min(.18,st.wheelVelocity+.075);st.wheelHits++;updateMetrics();notice('⚙️ ධන අයනය හබල් සකයේ තලයකට ගැටුණා. ගම්‍යතාව හුවමාරු වීම නිසා සකය කැරකෙනවා!')}if(st.mode==='shadow'&&st.object&&a.x<229&&ionY(a)>161&&ionY(a)<215)a.x=0;}}
- st.ions=st.ions.filter(a=>a.x>50);
+ st.ions=st.ions.filter(a=>a.x>65);
  for(const e of st.secondary){e.x+=e.vx*v;e.y+=e.vy*v}st.secondary=st.secondary.filter(e=>e.y>55&&e.x<840);
  for(const f of st.flashes)f.age+=v;st.flashes=st.flashes.filter(f=>f.age<25);
  }
