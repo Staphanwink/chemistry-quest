@@ -479,7 +479,7 @@ function renderPropLab(){
   const till=blocked||stopped?objectX:wallX;
   if(propMode==='electric'){
    const deflection=propField*.70*(propPol===1?-1:1);g.save();g.strokeStyle=glow;g.lineWidth=3;g.shadowColor='#70ff18';g.shadowBlur=14;g.beginPath();g.moveTo(cx,mid);g.lineTo(362,mid);g.quadraticCurveTo(624,mid,732,mid+deflection);g.lineTo(wallX,mid+deflection*1.36);g.stroke();g.restore();
-   for(let n=0;n<7;n++){let f=((state.t*.009+n/7)%1),x=cx+(wallX-cx)*f,yy=mid;if(x>362){const k=Math.min(1,(x-362)/(screenX-362));yy+=deflection*(k*k)*(x<=732?1:1.36)}particle(x,yy,3.4)}
+   for(let n=0;n<7;n++){let f=((state.t*.009+n/7)%1),x=cx+(wallX-cx)*f,yy=mid;if(x>362){const k=Math.min(1,(x-362)/(wallX-362));yy+=deflection*(k*k)*(x<=732?1:1.36)}particle(x,yy,3.4)}
   }else{seg(cx,y,till,y,glow,3.3,13);for(let n=0;n<6;n++){const f=((state.t*.013+n/6+i*.09)%1),x=cx+(wallX-cx)*f;if(x<till)particle(x,y,3.6)}}
  });
  }
@@ -1138,7 +1138,7 @@ function create(host,positive){
  const bar=document.createElement('div');bar.className='cq3d-toolbar';
  bar.innerHTML='<strong>🔬 3D Lab · Controls</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-label-toggle aria-pressed="true">🏷 නම්: ON</button><button type="button" class="cq3d-2d-toggle cq3d-fast-particles" data-add-10>＋ අංශු 10</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
  const caption=document.createElement('p');caption.className='cq3d-caption';
- caption.textContent=positive?'ධන අයන: ඇනෝඩය පැත්ත → සිදුරු කැතෝඩය → පිටුපස ප්‍රතිදීප්ත තිරය. Zoom ＋ / － buttons භාවිතා කර දර්ශනය විශාල හෝ කුඩා කරන්න.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) → ඇනෝඩය (+) දෙසට. Zoom ＋ / － buttons භාවිතා කරන්න.';
+ caption.textContent=positive?'ධන අයන: වායුව අයනීකරණය වීමෙන් ඇතිවී සිදුරු කැතෝඩය හරහා වම් වීදුරු බිත්තිය වෙත ගමන් කරයි. වෙනම ප්‍රතිදීප්ත තිරයක් නැහැ.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) සිට දකුණු ඇනෝඩය (+) දෙසට. අඩු පීඩන වායුවේ දීප්තිය පෙන්වයි; වෙනම තිරයක් නැහැ.';
  // Labels stay in a dedicated RIGHT column instead of overlapping the glass tube.
  const workspace=document.createElement('div');workspace.className='cq3d-workspace';
  const leftParts=document.createElement('aside'),rightParts=document.createElement('aside');
@@ -1149,7 +1149,7 @@ function create(host,positive){
  }
  // The label side matches the actual end of the tube. The central power source stays in a footer.
  const partList=positive?[
-  ['screen','ප්‍රතිදීප්ත තිරය',[-3.70,0,0],'left'],
+  ['glassGlow','වම් වීදුරු බිත්තියේ දීප්තිය',[-4.21,.55,0],'left'],
   ['cathode','සිදුරු කැතෝඩය (−)',[-.6,0,0],'left'],
   ['positiveIon','ධන අයන ←',[-2.3,.05,.10],'left'],
   ['gas','වායු අණු',[1.6,.45,.10],'right'],
@@ -1160,7 +1160,7 @@ function create(host,positive){
   ['cathode','කැතෝඩය (−)',[-3.46,0,0],'left'],
   ['tube','වීදුරු නළය',[-1.8,.85,0],'left'],
   ['electron','කැතෝඩ කිරණ →',[-1.10,.10,.12],'left'],
-  ['anode','ඇනෝඩය (+)',[1.12,0,0],'right'],
+  ['glassGlow','වායුවේ දීප්තිය',[3.15,.75,0],'right'],
   ['anode','ඇනෝඩය (+)',[3.95,0,0],'right']
  ];
  const annotations=new Map();
@@ -1310,7 +1310,7 @@ function create(host,positive){
  const om=mat(0xffd48d);const upright=new THREE.Mesh(new THREE.BoxGeometry(.10,.65,.12),om),across=new THREE.Mesh(new THREE.BoxGeometry(.10,.12,.65),om);
  obstacle.add(upright,across);rig.add(obstacle);
  // Opaque dark cross floating immediately in front of the glowing screen face.
- shadowMark=new THREE.Group();shadowMark.position.x=positive?-3.81:3.83;
+ shadowMark=new THREE.Group();shadowMark.position.x=positive?-4.14:3.42;
  const dark=mat(0x091b24,{roughness:1,metalness:0});
  const v=new THREE.Mesh(new THREE.BoxGeometry(.025,.80,.19),dark),h=new THREE.Mesh(new THREE.BoxGeometry(.025,.19,.80),dark);
  shadowMark.add(v,h);rig.add(shadowMark);
