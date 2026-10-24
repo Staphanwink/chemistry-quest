@@ -1442,4 +1442,237 @@ const view=document.getElementById('visual');if(view)obs.observe(view,{childList
 let attempts=0;const poll=setInterval(()=>{attempts++;if(window.THREE){clearInterval(poll);lastHost=null;obs.takeRecords();const v=document.getElementById('visual'),h=v&&(v.querySelector('.prop-lab')||v.querySelector('.int-lab'));if(h){try{create(h,h.classList.contains('int-lab'));lastHost=h}catch(e){console.error(e);const w=h.querySelector('.cq3d-wrap');if(w)w.remove();const old=h.querySelector(h.classList.contains('int-lab')?'#integratedCanvas':'.prop-view');if(old)old.classList.remove('cq3d-hidden-2d')}}}else if(attempts>35)clearInterval(poll)},300);
 })();
 </script>
+
+<!-- Quantum Duality Classroom v1: self-contained Unit 1.2.1 interactive learning lab -->
+<style>
+.qd-lab{color:#e7f5ff;font-family:inherit;display:grid;gap:15px}
+.qd-intro{background:linear-gradient(124deg,#183b62,#0b283a 74%);border:1px solid #4987ae;border-radius:18px;padding:18px}
+.qd-intro h3{margin:0 0 7px;font-size:clamp(18px,2.4vw,25px);color:#e4faff}
+.qd-intro p{margin:0;color:#bed9ed;font-size:13px;line-height:1.65}
+.qd-compare{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.qd-compare article{background:#112d45;border:1px solid #35617b;border-radius:12px;padding:11px;line-height:1.55}
+.qd-compare strong{display:block;color:#81edee;margin-bottom:4px;font-size:14px}
+.qd-compare small{color:#d2e6f6;font-size:12px}
+.qd-tabs{display:flex;flex-wrap:wrap;gap:8px}
+.qd-tabs button{font:inherit;flex:1 1 155px;padding:10px 9px;color:#dcefff;border:1px solid #4b789a;border-radius:11px;background:#15354f;font-weight:700;cursor:pointer}
+.qd-tabs button[aria-selected="true"]{border-color:#55e0e7;background:#106a80;color:white;box-shadow:inset 0 0 0 1px #4bd3ee}
+.qd-stage{background:radial-gradient(ellipse at 50% 52%,#113552,#071628 82%);border:1px solid #326480;border-radius:15px;overflow:hidden}
+.qd-stage canvas{display:block;width:100%;height:auto;aspect-ratio:840/315}
+.qd-stage-note{font-size:12px;padding:9px 12px;background:#0b263b;color:#c5e2f6;border-top:1px solid #244a64}
+.qd-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:#102a42;border:1px solid #2c5f7a;border-radius:14px;padding:12px}
+.qd-controls label{flex:1 1 170px;display:flex;flex-direction:column;gap:7px;color:#d5edfa;font-size:12px}
+.qd-controls input[type="range"]{width:100%;accent-color:#51d6e8;cursor:pointer}
+.qd-controls button{background:#193e5c;border:1px solid #5d9ab5;border-radius:10px;color:white;padding:10px 13px;cursor:pointer;font-weight:700;font-family:inherit}
+.qd-controls button[aria-pressed="true"]{background:#78541a;border-color:#f0ba56}
+.qd-controls button:disabled{opacity:.5;cursor:default}
+.qd-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.qd-stats div{padding:10px 12px;background:#102a42;border-radius:10px;border:1px solid #315878;min-width:0}
+.qd-stats small{display:block;color:#a9c9dd;font-size:11px}
+.qd-stats b{font-size:clamp(13px,2vw,18px);color:#9cf4f1;word-break:break-word}
+.qd-explain{padding:15px 17px;background:#102f42;border-left:4px solid #54d2e5;border-radius:10px;line-height:1.75;font-size:13px;color:#e1effb}
+.qd-explain strong{color:#a5f6ef}
+.qd-check{border:1px solid #355a78;border-radius:12px;padding:15px;background:#0e2339}
+.qd-check h4{margin:0 0 10px;color:#d9f5fb;font-size:15px}
+.qd-choices{display:flex;flex-wrap:wrap;gap:8px}
+.qd-choices button{border:1px solid #527c98;background:#183a55;border-radius:9px;padding:10px;color:white;font-family:inherit;cursor:pointer;flex:1 1 180px;text-align:left}
+.qd-choices button.correct{border-color:#5bd8aa;background:#164e48}
+.qd-choices button.incorrect{border-color:#f48c9c;background:#5a283c}
+.qd-result{min-height:18px;font-size:12px;color:#dbebf9;margin-top:9px}
+.qd-ref{font-size:11px;color:#a6c1d5}.qd-ref a{color:#8dddf6}
+@media(max-width:700px){.qd-compare{grid-template-columns:1fr}.qd-stats{grid-template-columns:1fr 1fr}.qd-intro{padding:13px}.qd-tabs button{flex-basis:42%;font-size:12px}.qd-stage canvas{aspect-ratio:840/340}}
+</style>
+<script>
+(function(){
+ 'use strict';
+ const upstream=renderLab,PH=6.62607015e-34,C=299792458,Q=1.602176634e-19;
+ function renderQuantumDualityLab(){
+  const box=document.getElementById('visual');if(!box)return;
+  const si=language!=='en',tr=(a,b)=>si?a:b;
+  box.classList.add('lab');
+  box.innerHTML='<section class="qd-lab">'+
+   '<div class="qd-intro"><h3>🌊 ⚛️ '+tr('Planck නියමය සහ තරංග–අංශු ද්වෛතය','Planck’s Law & Wave–Particle Duality')+'</h3>'+
+   '<p>'+tr('ආලෝකය ගැන එකම සම්භාව්‍ය ආකෘතියකින් සියල්ල විස්තර කළ නොහැක. තරංග හැසිරීම් සහ ෆෝටෝන ලෙස හුවමාරු වන ශක්තිය එකම පරීක්ෂණ මාලාවෙන් බලමු.','Light shows wave-like interference and discrete photon detection. Explore why neither classical picture alone is sufficient.')+'</p></div>'+
+   '<div class="qd-compare">'+
+    '<article><strong>🌊 '+tr('තරංගය (Wave)','Wave')+'</strong><small>'+tr('ශක්තිය ගෙන යන වෙනස්වීමක්/කම්පනයක්. ආලෝකය විද්‍යුත්–චුම්බක තරංගයක්; රික්තය තුළත් ගමන් කරයි. Interference හා diffraction පෙන්වයි.','An oscillation carrying energy. Light is an electromagnetic wave that travels in vacuum and shows interference and diffraction.')+'</small></article>'+
+    '<article><strong>✨ '+tr('අංශුව / Photon','Particle / Photon')+'</strong><small>'+tr('Photon එකක් යනු ආලෝක ශක්තියේ ක්වොන්ටම් එකකි. එක් වරකට තනි localized detection එකක් සිදුවිය හැක.','A photon is a quantum of light energy; a detector registers individual localized events.')+'</small></article>'+
+    '<article><strong>⚛️ '+tr('ද්වෛතය (Duality)','Wave–Particle Duality')+'</strong><small>'+tr('එකින් එක photon detect වුණත්, බොහෝ hits එකතු වුණාම තරංග අතුරුඵල රටාවක් දිස් වේ. Quantum object එක සාමාන්‍ය බෝලයක් හෝ සාමාන්‍ය තරංගයක් පමණක් නොවේ.','Individual photons arrive as discrete hits, but many hits build a wave-like interference pattern. A quantum object is not simply a classical ball or classical wave.')+'</small></article>'+
+   '</div>'+
+   '<div class="qd-tabs" role="tablist" aria-label="Quantum physics demonstrations">'+
+    '<button type="button" data-qd-mode="wave" role="tab">'+tr('1. තරංගය','1. Wave')+'</button>'+
+    '<button type="button" data-qd-mode="planck" role="tab">'+tr('2. Photon / Planck','2. Photon / Planck')+'</button>'+
+    '<button type="button" data-qd-mode="duality" role="tab">'+tr('3. ද්විත්ව සිදුරු','3. Double Slit')+'</button>'+
+    '<button type="button" data-qd-mode="photo" role="tab">'+tr('4. Photoelectric','4. Photoelectric')+'</button>'+
+   '</div>'+
+   '<div class="qd-stage"><canvas width="840" height="315" aria-label="Interactive quantum physics illustration"></canvas>'+
+    '<div class="qd-stage-note" id="qd-visual-note" aria-live="polite"></div></div>'+
+   '<div class="qd-controls">'+
+    '<label>'+tr('තරංග ආයාමය λ','Wavelength λ')+' <b id="qd-lambda-value">500 nm</b><input id="qd-lambda" type="range" min="200" max="800" step="10" value="500"></label>'+
+    '<label>'+tr('තීව්‍රතාව / සිදුවීම් වේගය','Intensity / event rate')+' <b id="qd-rate-value">3</b><input id="qd-rate" type="range" min="1" max="6" step="1" value="3"></label>'+
+    '<button type="button" id="qd-which" aria-pressed="false">'+tr('Which-path: OFF','Which-path: OFF')+'</button>'+
+    '<button type="button" id="qd-pause">'+tr('⏸ නවත්වන්න','⏸ Pause')+'</button>'+
+    '<button type="button" id="qd-reset">'+tr('↻ නැවත පටන් ගන්න','↻ Reset')+'</button>'+
+   '</div>'+
+   '<div class="qd-stats"><div><small>'+tr('සංඛ්‍යාතය (ν)','Frequency (ν)')+'</small><b id="qd-frequency">—</b></div>'+
+    '<div><small>'+tr('Photon ශක්තිය','Photon energy')+'</small><b id="qd-energy">—</b></div>'+
+    '<div><small id="qd-third-caption">'+tr('විමෝචනය/නිරීක්ෂණ','Observations')+'</small><b id="qd-third">—</b></div></div>'+
+   '<div class="qd-explain" id="qd-explain"></div>'+
+   '<div class="qd-check"><h4>'+tr('⚡ ඉක්මන් පරීක්ෂණය: කුමන ප්‍රකාශය නිවැරදිද?','⚡ Quick check: Which statement is correct?')+'</h4>'+
+    '<div class="qd-choices"><button type="button" data-qd-answer="0">'+tr('ආලෝකයේ තීව්‍රතාව වැඩි කළ විට සෑම photon එකකම ශක්තිය වැඩි වේ.','Increasing intensity always increases each photon’s energy.')+'</button>'+
+    '<button type="button" data-qd-answer="1">'+tr('එක් photon එකක ශක්තිය එහි සංඛ්‍යාතය මත රඳා පවතී.','Energy per photon depends on its frequency.')+'</button>'+
+    '<button type="button" data-qd-answer="2">'+tr('ද්විත්ව සිදුරු පරීක්ෂණයේ photon එකින් එක detect වුණොත් interference නොපෙනේ.','Single-photon detection can never build an interference pattern.')+'</button></div><div class="qd-result" id="qd-quiz-result" aria-live="polite"></div></div>'+
+   '<div class="qd-ref">'+tr('තව කියවන්න: ','Further reading: ')+
+   '<a href="https://openstax.org/books/chemistry-2e/pages/6-3-development-of-quantum-theory" target="_blank" rel="noopener noreferrer">OpenStax · Quantum Theory</a> · '+
+   '<a href="https://openstax.org/books/university-physics-volume-3/pages/6-2-photoelectric-effect" target="_blank" rel="noopener noreferrer">Photoelectric Effect</a></div>'+
+  '</section>';
+  const root=box.querySelector('.qd-lab'),canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d');
+  if(!ctx)return;
+  const byId=id=>root.querySelector('#'+id),lambdaInput=byId('qd-lambda'),rateInput=byId('qd-rate');
+  let mode='planck',lambda=500,rate=3,which=false,paused=false,elapsed=0,photonCount=0,hits=[],tickCount=0,lastTick=0;
+  const Eev=()=>PH*C/(lambda*1e-9)/Q;
+  function line(x1,y1,x2,y2,color='#70c8e9',width=2){
+   ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke();
+  }
+  function disc(x,y,r,color,glow=0){
+   ctx.save();ctx.fillStyle=color;ctx.shadowColor=color;ctx.shadowBlur=glow;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.restore();
+  }
+  function txt(label,x,y,size=15,color='#d9efff',align='left'){
+   ctx.fillStyle=color;ctx.textAlign=align;ctx.font='600 '+size+'px system-ui,Arial';ctx.fillText(label,x,y);ctx.textAlign='left';
+  }
+  function updateControls(){
+   root.querySelectorAll('[data-qd-mode]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.qdMode===mode)));
+   byId('qd-lambda-value').textContent=lambda+' nm';byId('qd-rate-value').textContent=String(rate);
+   byId('qd-frequency').textContent=(C/(lambda*1e-9)).toExponential(2)+' Hz';
+   byId('qd-energy').textContent=Eev().toFixed(2)+' eV';
+   byId('qd-third-caption').textContent=mode==='duality'?tr('Photon hits','Photon hits'):mode==='photo'?tr('උපරිම චාලක ශක්තිය','Max kinetic energy'):tr('Planck නියතය (h)','Planck constant (h)');
+   byId('qd-third').textContent=mode==='duality'?String(photonCount):mode==='photo'?Math.max(0,Eev()-2.3).toFixed(2)+' eV':'6.626 × 10⁻³⁴ J·s';
+   byId('qd-which').hidden=mode!=='duality';byId('qd-which').setAttribute('aria-pressed',String(which));
+   byId('qd-which').textContent=tr('Which-path: ','Which-path: ')+(which?'ON':'OFF');
+   byId('qd-pause').textContent=paused?tr('▶ ඉදිරියට','▶ Resume'):tr('⏸ නවත්වන්න','⏸ Pause');
+   const notes={
+    wave:[tr('Electromagnetic wave එකක λ × ν = c වේ. λ වැඩි කළොත් ν අඩුවේ.','For an electromagnetic wave in vacuum, λν = c. Larger wavelength means lower frequency.'),
+          tr('තරංග ආයාමය λ යනු එක ළඟ crest දෙකක් අතර දුරයි. ආලෝකයට ද්‍රව්‍යමය මාධ්‍යයක් අවශ්‍ය නැහැ.','Wavelength λ is the distance between crests. Light needs no material medium.')],
+    planck:[tr('Planck: E = hν = hc/λ. ශක්තිය හුවමාරු වන්නේ ක්වොන්ටම් වශයෙනි.','Planck: E = hν = hc/λ. Energy transfer is quantized.'),
+            tr('එක් photon එකක ශක්තිය සංඛ්‍යාතය අනුව වෙනස් වේ. ආලෝක තීව්‍රතාව වැඩිවීමෙන් සාමාන්‍යයෙන් photon ප්‍රවාහය වැඩි වේ; එක් photon එකක E නොවෙනස්. Planck oscillator සඳහා Eₙ = nhν (n=0,1,2,…).','Each photon carries E=hν. At fixed wavelength, higher intensity means more photons per second, not greater energy per photon. In Planck’s original quantization, Eₙ=nhν.')],
+    duality:[tr('ද්විත්ව සිදුරු: එක් එක් photon එක තනි තැනක detect වෙනවා; බොහෝ photon hits එකතු කළාම interference fringes ගොඩනැගේ.','Double slit: each photon creates one localized hit, but many hits form interference fringes.'),
+             which?tr('Which-path තොරතුරු තිබෙන විට එම interference රටාව නැතිවී පුළුල් බෙදාහැරීමක් ලැබෙනවා.','Knowing which path removes the interference fringes.'):tr('Which-path නොමැති විට, සිදුරු දෙකෙන් ලැබෙන probability amplitudes අතර අතුරුඵලයක් පවතී.','Without which-path information, the probability amplitudes interfere.')],
+    photo:[tr('Photoelectric Effect: photon ශක්තිය ලෝහයේ work function φ ට වැඩි නම් electron විමෝචනය වෙයි.','Photoelectric effect: light ejects electrons when photon energy exceeds work function φ.'),
+           Eev()<2.3?tr('මෙහි උදාහරණ ලෝහයට φ = 2.30 eV. මෙම λ සඳහා E < φ. තීව්‍රතාව වැඩි කළත් electron නිකුත් නොවේ.','Illustrative surface: φ=2.30 eV. E<φ here; increasing intensity cannot cause emission.'):tr('මෙහි උදාහරණ ලෝහයට φ = 2.30 eV. E ≥ φ නිසා electron නිකුත් කළ හැක. Kmax = E − φ.','Illustrative surface: φ=2.30 eV. E≥φ, so electron emission is possible; Kmax=E−φ.')]
+   };
+   byId('qd-visual-note').textContent=notes[mode][0];
+   byId('qd-explain').innerHTML='<strong>'+notes[mode][0]+'</strong><div>'+notes[mode][1]+'</div>'+
+    (mode==='duality'?'<div style="margin-top:7px">'+tr('De Broglie: electron ඇතුළු ද්‍රව්‍ය අංශුද λ = h/p තරංග ගුණ පෙන්වයි. මෙය සැබෑ electron trajectory එකක් නෙවෙයි.','De Broglie: matter particles, including electrons, have wavelength λ=h/p. This diagram does not show literal particle trajectories.')+'</div>':'');
+  }
+  function resetDistribution(){hits=[];photonCount=0;tickCount=0;updateControls()}
+  function probability(y){
+   const dy=y-158;
+   const envelope=Math.exp(-.5*(dy/74)**2);
+   if(which)return .8*(Math.exp(-.5*((dy-28)/46)**2)+Math.exp(-.5*((dy+28)/46)**2))/2;
+   return envelope*(.025+.975*Math.pow(Math.cos(dy*Math.PI/23),2));
+  }
+  function addPhoton(){
+   let y;
+   for(let i=0;i<80;i++){const trial=47+Math.random()*222;if(Math.random()<probability(trial)){y=trial;break}}
+   if(y===undefined)y=158;
+   photonCount++;hits.push({y,x:750+Math.random()*50});
+   if(hits.length>1600)hits.shift();
+  }
+  function backdrop(){
+   const grad=ctx.createLinearGradient(0,0,0,315);grad.addColorStop(0,'#0a1f36');grad.addColorStop(1,'#051321');
+   ctx.fillStyle=grad;ctx.fillRect(0,0,840,315);
+   ctx.strokeStyle='#19415e';ctx.lineWidth=.7;
+   for(let i=20;i<840;i+=45){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,315);ctx.stroke()}
+  }
+  function drawWave(){
+   txt(tr('විද්‍යුත් චුම්බක තරංගය','Electromagnetic wave'),32,35,18,'#cbf9ff');
+   const periodic=58+(lambda-200)/600*74;
+   const x0=45,x1=788,mid=163;
+   line(x0,mid,x1,mid,'#507087',1.5);
+   ctx.beginPath();
+   for(let x=x0;x<x1;x+=2){const y=mid-62*Math.sin((x-x0)/periodic*2*Math.PI-elapsed*.025);if(x===x0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}
+   ctx.strokeStyle='#63f1df';ctx.lineWidth=3;ctx.shadowColor='#25d4e4';ctx.shadowBlur=14;ctx.stroke();ctx.shadowBlur=0;
+   line(125,255,125+periodic,255,'#ffd58d',2);disc(125,255,4,'#ffd58d');disc(125+periodic,255,4,'#ffd58d');
+   txt('λ',125+periodic/2,247,19,'#ffd58d','center');
+   txt('c = λν',580,72,24,'#b0effd');
+   txt(tr('මෙය තරංග ස්වභාවය පිළිබඳ සංකල්පීය රූපයකි','Schematic wave illustration'),33,295,12,'#98b4cc');
+  }
+  function drawPlanck(){
+   txt(tr('ෆෝටෝන (Photons) · එක් එක් ශක්ති ක්වොන්ටම්','Photons · individual energy quanta'),28,35,17,'#d9f6ff');
+   const n=rate+1;
+   for(let i=0;i<n;i++){
+    const x=100+((elapsed*.10+i*730/n)%720),y=99+Math.sin(i*8.2)*34;
+    disc(x,y,8,'#79f3f6',20);line(x-21,y,x-10,y,'#32b5e0',2);
+   }
+   ctx.fillStyle='#193853';ctx.fillRect(30,186,780,100);
+   txt('E = hν = hc / λ',64,228,27,'#9cefff');
+   txt(Eev().toFixed(2)+' eV / photon',65,262,19,'#fbd894');
+   txt(tr('තීව්‍රතාව ↑ = photons ගණන/තත්පර ↑','Higher intensity = more photons per second'),480,220,14,'#dceafc');
+   txt('Eₙ = n hν',480,260,18,'#b9d8e9');
+  }
+  function drawDuality(){
+   txt(tr('තනි photon hits → interference pattern','Single photon hits → interference pattern'),25,27,17,'#baf7f2');
+   const xSlit=287,ys=[131,184];line(xSlit,37,xSlit,119,'#d5eaff',10);line(xSlit,143,xSlit,174,'#d5eaff',10);line(xSlit,197,xSlit,280,'#d5eaff',10);
+   txt(tr('ආලෝක ප්‍රභවය','Source'),35,59,14,'#c7dcf0');disc(88,157,14,'#81e2ff',18);
+   line(104,157,279,157,'#59b5da',1.5);
+   for(const y of ys){ctx.save();ctx.strokeStyle='#47cce999';ctx.setLineDash([4,7]);ctx.beginPath();ctx.moveTo(xSlit+6,y);ctx.lineTo(726,157);ctx.stroke();ctx.restore()}
+   ctx.fillStyle='#1c3e56';ctx.fillRect(726,41,100,240);txt(tr('තිරය','Screen'),747,298,13,'#d8e9f5');
+   // Probability density shaded independently of each discrete photon hit.
+   for(let y=45;y<279;y+=3){ctx.fillStyle=which?'#45a8d323':'#5ceac032';ctx.fillRect(728,y,35*probability(y),3)}
+   for(const hit of hits){ctx.fillStyle=which?'#ffba77':'#75fbca';ctx.globalAlpha=.78;ctx.fillRect(hit.x,hit.y,2.5,2.5)}ctx.globalAlpha=1;
+   txt(tr('සිදුරු දෙක','2 slits'),247,298,12,'#bfdde9');
+   txt(tr('සිදුවීම්: ','Events: ')+photonCount,470,296,16,'#fbd98f');
+  }
+  function drawPhoto(){
+   txt(tr('ආලෝකය → ලෝහ මතුපිට → electron විමෝචනය','Light → metal surface → electron emission'),26,35,17,'#dbf4fa');
+   const allowed=Eev()>2.3+1e-8;
+   ctx.fillStyle='#4a718b';ctx.fillRect(585,60,58,205);ctx.fillStyle='#83afc8';ctx.fillRect(585,60,7,205);
+   txt(tr('ලෝහය','Metal'),584,286,13,'#b7d8e9');
+   const count=rate+2;
+   for(let i=0;i<count;i++){const x=84+((elapsed*.12+i*485/count)%480);const y=103+i%3*53;
+    disc(x,y,7,'#68e4ff',10);line(x-17,y,x-9,y,'#5ecae9',2);
+   }
+   if(allowed){for(let k=0;k<5;k++){const x=642+((elapsed*.14+k*42)%168);const y=120+(k%3)*38-(x-642)*.13;disc(x,y,5,'#ffe39a',9);}}
+   ctx.fillStyle='#1b354c';ctx.fillRect(38,234,430,55);
+   txt('Eγ = '+Eev().toFixed(2)+' eV',54,261,17,'#9feaff');
+   txt('φ = 2.30 eV',278,261,17,'#ffc49a');
+   txt(allowed?tr('✓ විමෝචනය','✓ Emission'):tr('✕ විමෝචනය නැත','✕ No emission'),649,48,14,allowed?'#95f7be':'#ffb7bc');
+  }
+  function draw(){
+   backdrop();
+   if(mode==='wave')drawWave();else if(mode==='planck')drawPlanck();else if(mode==='duality')drawDuality();else drawPhoto();
+  }
+  function animate(timestamp){
+   if(!canvas.isConnected)return;
+   const dt=Math.min(45,Math.max(0,timestamp-(lastTick||timestamp)));lastTick=timestamp;
+   if(!paused){
+    elapsed+=dt;
+    if(mode==='duality'){
+     tickCount+=dt*.012*rate;
+     let count=Math.min(80,Math.floor(tickCount));tickCount-=count;
+     while(count-->0)addPhoton();
+     byId('qd-third').textContent=String(photonCount);
+    }
+   }
+   draw();requestAnimationFrame(animate);
+  }
+  root.querySelectorAll('[data-qd-mode]').forEach(b=>b.onclick=()=>{
+   mode=b.dataset.qdMode;which=false;resetDistribution();updateControls();
+  });
+  lambdaInput.oninput=e=>{lambda=Number(e.target.value);resetDistribution();updateControls()};
+  rateInput.oninput=e=>{rate=Number(e.target.value);updateControls()};
+  byId('qd-which').onclick=()=>{which=!which;resetDistribution();updateControls()};
+  byId('qd-pause').onclick=()=>{paused=!paused;updateControls()};
+  byId('qd-reset').onclick=()=>{paused=false;elapsed=0;resetDistribution();updateControls()};
+  root.querySelectorAll('[data-qd-answer]').forEach(b=>b.onclick=()=>{
+   const correct=Number(b.dataset.qdAnswer)===1;
+   root.querySelectorAll('[data-qd-answer]').forEach(btn=>{btn.classList.remove('correct','incorrect');if(btn===b)btn.classList.add(correct?'correct':'incorrect')});
+   byId('qd-quiz-result').textContent=correct?tr('✓ නිවැරදියි! Photon ශක්තිය E = hν.','✓ Correct! Photon energy is E=hν.'):tr('නැවත සොයන්න: λ නොවෙනස් නම් photon ශක්තියත් නොවෙනස්.','Try again: at fixed wavelength, each photon has the same energy.');
+  });
+  updateControls();requestAnimationFrame(animate);
+ }
+ renderLab=function(){
+  if(topics[current]&&topics[current][0]==='1.2.1')renderQuantumDualityLab();
+  else upstream();
+ };
+})();
+</script>
 </body></html>
