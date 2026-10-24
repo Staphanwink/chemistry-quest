@@ -1090,6 +1090,12 @@ function renderFinalQuiz(){
 .cq3d-switch{display:flex;flex-wrap:wrap;gap:6px}.cq3d-switch .active{background:#147d9b;border-color:#74e7ff;font-weight:800}.cq3d-stage{min-height:240px}
 .cq3d-workspace{position:relative;display:grid;grid-template-columns:minmax(145px,180px) minmax(0,1fr) minmax(145px,180px);min-height:370px;isolation:isolate;align-items:stretch}
 .cq3d-workspace[hidden]{display:none!important}
+.cq3d-workspace.cq3d-labels-off{grid-template-columns:0 minmax(0,1fr) 0}
+.cq3d-parts[hidden]{display:none!important}
+.cq3d-experiment-tools{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:10px;padding:12px 13px;background:#0a263b;border-bottom:1px solid #335e7a}
+.cq3d-experiment-tools button,.cq3d-experiment-tools select{min-height:38px}
+.cq3d-wrap [data-label-toggle][aria-pressed="false"]{opacity:.76;border-color:#5c7188}
+
 .cq3d-workspace .cq3d-stage{grid-column:2;grid-row:1;height:370px;min-width:0;min-height:0;cursor:default}
 .cq3d-parts{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:space-evenly;gap:7px;padding:16px 9px;background:linear-gradient(160deg,#0b283f,#081c30)}
 .cq3d-parts-left{grid-column:1;grid-row:1;border-right:1px solid #35637f}
@@ -1124,7 +1130,7 @@ function create(host,positive){
  const stage=document.createElement('div');stage.className='cq3d-stage';stage.setAttribute('aria-label',positive?'3D positive ray tube':'3D cathode ray tube');
  const wrap=document.createElement('section');wrap.className='cq3d-wrap';
  const bar=document.createElement('div');bar.className='cq3d-toolbar';
- bar.innerHTML='<strong>🔬 3D Lab · Left & Right Labels</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
+ bar.innerHTML='<strong>🔬 3D Lab · Controls</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-label-toggle aria-pressed="true">🏷 නම්: ON</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
  const caption=document.createElement('p');caption.className='cq3d-caption';
  caption.textContent=positive?'ධන අයන: ඇනෝඩය පැත්ත → සිදුරු කැතෝඩය → පිටුපස ප්‍රතිදීප්ත තිරය. Zoom ＋ / － buttons භාවිතා කර දර්ශනය විශාල හෝ කුඩා කරන්න.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) → ඇනෝඩය (+) දෙසට. Zoom ＋ / － buttons භාවිතා කරන්න.';
  // Labels stay in a dedicated RIGHT column instead of overlapping the glass tube.
@@ -1177,7 +1183,21 @@ function create(host,positive){
   const pill=document.createElement('span');pill.textContent=caption;footnote.appendChild(pill);
  }
  workspace.append(leftParts,stage,rightParts,connector);
- wrap.append(bar,workspace,footnote,caption);
+ let labelsVisible=true;
+ const labelToggle=bar.querySelector('[data-label-toggle]');
+ labelToggle.onclick=()=>{
+  labelsVisible=!labelsVisible;
+  leftParts.hidden=!labelsVisible;rightParts.hidden=!labelsVisible;
+  workspace.classList.toggle('cq3d-labels-off',!labelsVisible);
+  connector.style.display=labelsVisible?'':'none';
+  labelToggle.textContent=labelsVisible?'🏷 නම්: ON':'🏷 නම්: OFF';
+  labelToggle.setAttribute('aria-pressed',String(labelsVisible));
+ };
+ wrap.append(bar);
+ // Put the existing working Positive Rays controls at the TOP of the 3D/2D workspace.
+ // Move the elements, not clones, so their original listeners and state stay intact.
+ if(positive){const tools=host.querySelector('.int-tools');if(tools){tools.classList.add('cq3d-experiment-tools');wrap.appendChild(tools);}}
+ wrap.append(workspace,footnote,caption);
  let old=positive?host.querySelector('#integratedCanvas'):host.querySelector('.prop-view');
  if(!old)return;
  const parent=positive?host:old.parentNode;
@@ -1353,7 +1373,7 @@ function create(host,positive){
  }
  renderer.render(scene,camera);
  // Leader lines begin at the nearest edge of their label column and terminate at the physical part.
- if(currentView==='3d'&&workspace.clientWidth&&stage.clientWidth&&window.innerWidth>820){
+ if(currentView==='3d'&&labelsVisible&&workspace.clientWidth&&stage.clientWidth&&workspace.clientWidth>820){
   rig.updateWorldMatrix(true,true);camera.updateWorldMatrix(true,false);
   const whole=workspace.getBoundingClientRect(),stageRect=stage.getBoundingClientRect();
   const ww=workspace.clientWidth,wh=workspace.clientHeight;
