@@ -1,0 +1,932 @@
+<!doctype html><html lang="si"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chemistry Quest • Unit 01</title><style>
+:root{--bg:#091326;--panel:#121f36;--panel2:#192941;--line:#2a3c57;--text:#ecf4ff;--muted:#9eb1ce;--cyan:#55dfeb;--purple:#ac91ff;--good:#60dea7;--bad:#ff8291}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#213968,#091326 55%);color:var(--text);font:15px/1.55 system-ui,'Noto Sans Sinhala',Arial,sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}.layout{display:grid;grid-template-columns:276px minmax(0,1fr);min-height:100vh}.side{background:#0d192c;border-right:1px solid var(--line);padding:24px 15px;position:sticky;top:0;height:100vh;overflow:auto}.logo{font-size:24px;font-weight:900;letter-spacing:-.8px;margin:0 8px 4px}.logo span{color:var(--cyan)}.small{color:var(--muted);font-size:12px}.side .small{margin:0 8px 22px}.nav-head{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:var(--cyan);margin:20px 11px 8px}.nav{display:flex;gap:10px;align-items:center;width:100%;border:1px solid transparent;padding:11px 12px;border-radius:11px;color:#b3c5df;background:transparent;text-align:left;margin:2px 0}.nav:hover{background:#1b2b44}.nav.active{background:#22365a;border-color:#38577b;color:white}.nav i{font-style:normal;color:var(--cyan);font-size:11px;min-width:35px}.main{padding:25px clamp(16px,4vw,55px);max-width:1390px;width:100%;margin:auto}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.pill{border:1px solid #3f5476;border-radius:100px;padding:8px 14px;color:#c1d6f0;background:#162741;font-size:12px}.hero{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:26px 0 18px}.eyebrow{font-size:12px;font-weight:750;letter-spacing:2px;color:var(--cyan)}h1{font-size:clamp(29px,3.2vw,43px);line-height:1.1;margin:9px 0 14px;letter-spacing:-1.2px}p{margin:6px 0 13px;color:var(--muted)}.main-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(270px,.8fr);gap:19px}.card{border:1px solid var(--line);background:linear-gradient(145deg,#13223b,#111c30);border-radius:20px;padding:23px;min-width:0;box-shadow:0 14px 40px #0002}.card h2{margin:0 0 9px;font-size:20px}.lab{min-height:310px;background:radial-gradient(ellipse at 50% 40%,#233b60,#0b1529 75%);border:1px solid #344764;border-radius:15px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin:20px 0}.lab svg{width:100%;height:auto;max-height:310px}.controls{display:flex;gap:11px;align-items:center;flex-wrap:wrap;margin:12px 0}.controls label{font-size:13px;color:#c5d5e9}.controls input[type=range]{accent-color:var(--cyan);min-width:120px}.btn{border:1px solid #41607d;border-radius:11px;background:#253c59;color:white;padding:9px 13px}.btn.primary{background:linear-gradient(120deg,#24b3d3,#6973dc);border:0;font-weight:800}.btn:hover{filter:brightness(1.17)}.btn:disabled{opacity:.4;cursor:not-allowed}.topic-label{color:#89a8d0;font-size:12px}.theory{border-left:3px solid var(--cyan);padding:3px 0 3px 15px;color:#d9e4f5;margin:17px 0}.question{font-weight:800;color:white;font-size:16px;margin:18px 0 12px}.options{display:grid;gap:9px}.option{background:#1d304b;border:1px solid #38516f;border-radius:11px;text-align:left;color:white;padding:11px 13px}.option.right{border-color:var(--good);background:#17463e}.option.wrong{border-color:var(--bad);background:#502c41}.feedback{color:var(--muted);padding-top:13px;min-height:52px}.score{font-weight:800;color:var(--good)}.unit-map{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:20px}.tile{background:#192b46;border:1px solid #385071;border-radius:9px;padding:10px;text-align:center;font-size:12px}.tile b{display:block;color:var(--cyan);font-size:17px}.switch{display:none}.mini-info{margin:8px 0;color:#b8cbea;font-size:13px}.atoms{display:flex;gap:10px;justify-content:center;align-items:center}.atom{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:#5cc5e4;color:#08162d}.atom.red{background:#ef777d}.orbital{display:inline-flex;gap:3px;align-items:center;justify-content:center;border:2px solid #55779c;width:48px;height:52px;border-radius:9px;vertical-align:middle;font-size:24px;color:#73e5f2;background:#203b5a}.orbital.fail{border-color:var(--bad)}.orbrow{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:14px}.pt{display:grid;grid-template-columns:repeat(18,minmax(24px,1fr));gap:3px;width:100%}.element{font-size:11px;border:1px solid #3c6178;border-radius:6px;background:#213e59;color:#fff;aspect-ratio:1/1;min-width:0;padding:2px}.element.on{background:#168ba4;color:#fff}.element:hover{border-color:#7feaff}.element.empty{visibility:hidden}.wide{grid-column:1/-1}.progress{height:8px;background:#273a59;border-radius:20px;overflow:hidden}.progress div{background:linear-gradient(90deg,#50d4e1,#ac91ff);height:100%;width:0}.menu-button{display:none}@media(max-width:980px){.main-grid{grid-template-columns:1fr}}@media(max-width:720px){.layout{display:block}.side{position:static;height:auto;max-height:330px}.menu-button{display:block}.side.collapsed .nav,.side.collapsed .nav-head,.side.collapsed .small{display:none}.main{padding:20px 13px}.hero{padding:18px 0}.card{padding:17px}.unit-map{grid-template-columns:repeat(2,1fr)}.pt{gap:1px}.element{font-size:9px;padding:0;border-radius:3px}}
+
+.ct-readout{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:11px 0}.ct-stat{padding:11px;border:1px solid #365273;border-radius:12px;background:#1b304b}.ct-stat b{display:block;color:#73e5f2;font-size:18px}.ct-stat span{color:#b4c8df;font-size:12px}.ct-actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.ct-actions button.active{border-color:#5de2ed;background:#164f64}.discovery{border:1px solid #415b7b;background:#132b44;border-radius:15px;padding:17px;margin-top:18px}.discovery h3{margin:0 0 8px}.discovery button{margin:4px 5px 4px 0}.discovery .option{display:block;width:100%;max-width:610px}.discovery .option:disabled{opacity:1}.obs{border-left:3px solid #62dca7;padding:11px 14px;margin:12px 0;background:#143b3a;border-radius:6px;color:#e4fdf5}.lab.ct-lab{min-height:335px}.lab.ct-lab svg{max-height:345px}.ct-control-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ct-control-grid label{background:#182c45;border:1px solid #354f70;padding:12px;border-radius:12px;display:block}.ct-control-grid input{display:block;width:100%;margin-top:7px}.ct-note{color:#bed1e7;font-size:13px}@media(max-width:600px){.ct-readout{grid-template-columns:1fr}.ct-control-grid{grid-template-columns:1fr}}
+.ray-panel{background:#13263b;border:1px solid #3a5472;border-radius:16px;padding:18px;margin-top:16px;color:#eff7ff}.ray-panel h3{margin:0 0 12px}.ray-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}.ray-topic{text-align:left;white-space:normal}.ray-scene{background:#091727;border-radius:12px;margin:12px 0;overflow:hidden}.ray-scene svg{display:block;width:100%;height:auto}.ray-panel .option{display:block;width:100%;margin:8px 0;text-align:left}.ray-panel .ct-actions{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}@media(max-width:550px){.ray-grid{grid-template-columns:1fr}} 
+.ray-live{margin:15px 0;background:radial-gradient(ellipse at center,#1a4360,#071626);border:1px solid #37536c;border-radius:18px;padding:8px;overflow:hidden}.ray-live svg{width:100%;max-height:330px}.rayrotor{transform-origin:center;transform-box:fill-box}.rayrotor.spinning{animation:rayRotate var(--spin,1.4s) linear infinite}@keyframes rayRotate{to{transform:rotate(360deg)}}.rayflow{animation:rayMarch 1s linear infinite}@keyframes rayMarch{to{stroke-dashoffset:-38}}.ray-game-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:12px 0}.ray-game-controls label{display:flex;flex-direction:column;gap:6px;min-width:190px;color:#d9eafb}.ray-game-controls select{background:#192941;color:white;border:1px solid #4a6e84;padding:8px;border-radius:8px}.ray-game-controls input{accent-color:#55dfeb} 
+
+/* Rutherford Gold Foil: topic 1.1.4 */
+.ruth-lab{background:#10263c;border:1px solid #365879;border-radius:18px;padding:16px;color:#eaf5ff}.ruth-lab h3{margin:0 0 5px}.ruth-lab .ruth-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}.ruth-tabs button{min-height:42px;border:1px solid #3d607d;background:#182f47;border-radius:10px;padding:8px;color:#d8eafa;cursor:pointer}.ruth-tabs button.active{background:#19516a;border-color:#71e4e9;color:white}.ruth-lab canvas{display:block;width:100%;height:auto;background:#081a29;border-radius:12px;touch-action:pan-y}.ruth-buttons{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}.ruth-buttons button{background:#264761;color:#eff9ff;border:1px solid #476c8b;border-radius:10px;padding:8px 14px;cursor:pointer}.ruth-buttons button:hover{background:#346284}.ruth-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}.ruth-controls label{font-size:13px}.ruth-controls input{width:100%;accent-color:#55dfeb}.ruth-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.ruth-stats div{background:#1a344b;border:1px solid #31546e;padding:8px;border-radius:10px;text-align:center;font-size:12px}.ruth-stats b{display:block;font-size:23px;color:#8de7e5}.ruth-text{background:#152f47;border-radius:10px;padding:10px 13px;margin-top:11px;font-size:13px;line-height:1.8}.ruth-small{color:#a6bfd1;font-size:12px;margin:8px 0}@media(max-width:520px){.ruth-lab{padding:10px}.ruth-tabs button{font-size:12px}.ruth-controls{grid-template-columns:1fr}}
+
+/* Hydrogen spectrum advanced prism lab */
+.sp-lab{margin:18px 0;padding:18px;border:1px solid #3c6888;border-radius:18px;background:linear-gradient(145deg,#112943,#0b1a30);color:#eef7ff}
+.sp-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.sp-head h3{margin:0;font-size:22px}.sp-sub{color:#a9c5dc;font-size:13px}
+.sp-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:15px 0}.sp-controls label{font-size:12px;color:#a8cde2;display:grid;gap:6px}.sp-controls select{color:#fff;background:#1d3552;border:1px solid #527894;border-radius:9px;padding:10px;width:100%}
+.sp-modes{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0}.sp-mode{padding:10px 15px;border-radius:11px;border:1px solid #476581;background:#1b334e;color:#deecf9;cursor:pointer}.sp-mode.sel{background:#176b84;border-color:#5de5ed;color:white}
+.sp-stage{border-radius:14px;background:radial-gradient(ellipse at 50% 38%,#173754,#060f1e);border:1px solid #2b4c65;overflow:hidden}.sp-stage svg{display:block;width:100%;height:auto}
+.sp-data{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0}.sp-data div{background:#1a3550;border:1px solid #365a76;border-radius:12px;padding:11px}.sp-data strong{display:block;color:#83eeed;font-size:21px}.sp-data small{color:#afc6db}
+.sp-spectrum{border-radius:13px;background:#060d1c;border:1px solid #27425e;padding:11px;margin:12px 0}.sp-spectrum svg{width:100%;display:block}.sp-explain{border-left:3px solid #65d9e8;padding:12px 14px;background:#15324a;border-radius:8px;line-height:1.8;font-size:14px}.sp-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.sp-actions button{border:1px solid #59738c;background:#213e5b;color:white;padding:8px 12px;border-radius:9px;cursor:pointer}.sp-legend{color:#a2bad1;font-size:12px;margin:7px 0}.sp-photon{animation:spPulse 1.9s ease-in-out infinite}@keyframes spPulse{0%,100%{opacity:.4}50%{opacity:1}}@media(max-width:620px){.sp-lab{padding:12px}.sp-controls{grid-template-columns:1fr 1fr}.sp-data{grid-template-columns:1fr 1fr}.sp-data strong{font-size:18px}}
+
+/* Motivator A+ Telegram invitation */
+.tg-invite{display:flex;align-items:center;gap:17px;margin:17px 0 21px;padding:15px 19px;border:1px solid #4b86b2;border-radius:19px;background:linear-gradient(105deg,#153958,#182b54 57%,#242451);box-shadow:0 10px 32px #0002}
+.tg-avatar{width:68px;height:68px;border-radius:19px;flex:0 0 68px;overflow:hidden;display:grid;place-items:center;position:relative;border:1px solid #66c4fa;background:linear-gradient(145deg,#28bfe0,#3153aa 66%,#7a48b8)}
+.tg-avatar img{position:absolute;width:100%;height:100%;object-fit:cover;inset:0;z-index:2}
+.tg-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;color:white}
+.tg-fallback strong{font-size:27px;font-weight:950;letter-spacing:-1.3px}.tg-fallback span{font-size:10px;letter-spacing:1.6px;margin-top:4px}
+.tg-copy{min-width:0;flex:1}.tg-copy strong{font-size:17px;color:#f3faff}.tg-copy p{font-size:12px;color:#bad5f0;margin:4px 0 0}
+.tg-join{display:inline-flex;gap:8px;align-items:center;justify-content:center;padding:12px 18px;border-radius:12px;background:linear-gradient(125deg,#31b7df,#5069ea);font-weight:800;color:white;text-decoration:none;white-space:nowrap;transition:transform .16s,filter .16s}
+.tg-join:hover,.tg-side-link:hover{filter:brightness(1.13);transform:translateY(-1px)}.tg-join:focus-visible,.tg-side-link:focus-visible{outline:3px solid #7adffc;outline-offset:3px}
+.tg-side-link{display:flex;align-items:center;gap:9px;color:#cceeff;background:#163850;border:1px solid #3d799f;border-radius:11px;padding:10px 12px;text-decoration:none;margin:12px 0 4px;font-weight:750;font-size:12px}
+.tg-side-logo{background:linear-gradient(135deg,#32bbdf,#626fe7);width:28px;height:28px;display:grid;place-items:center;border-radius:8px;color:white;font-size:13px;font-weight:900}
+@media(max-width:670px){.tg-invite{flex-wrap:wrap;padding:13px;gap:11px}.tg-avatar{width:54px;height:54px;flex-basis:54px;border-radius:14px}.tg-join{width:100%}.tg-copy strong{font-size:15px}}
+</style><style id="auf-styles">.auf-lab{margin-top:18px;padding:18px;border:1px solid #42688c;background:#122a43;border-radius:15px;color:#eaf4ff}.auf-lab h3{margin:0 0 10px;font-size:19px}.auf-lab p{line-height:1.8}.auf-sequence{background:#1b3652;padding:12px;border-radius:10px;margin:12px 0;color:#c9efff}.auf-sequence div{margin-top:5px;font-weight:800;color:#7de4e9;overflow-wrap:anywhere}.auf-select{display:flex;gap:10px;align-items:center;margin:14px 0}.auf-select select{background:#213e5c;color:white;padding:8px;border-radius:8px;border:1px solid #668ab3}.auf-count{margin:10px 0;color:#ddeafb}.auf-orb-row{display:flex;gap:12px;overflow-x:auto;padding:12px 2px 17px}.auf-sub{flex:0 0 auto;text-align:center;display:grid;justify-items:center;gap:4px}.auf-orbs{display:flex;gap:3px}.auf-box{border:1px solid #81a3c8;background:#203957;border-radius:5px;min-width:33px;height:37px;display:grid;place-items:center;color:#6ce8ef;font-size:20px}.auf-sub small{color:#9cbdd3}.auf-btns{display:flex;gap:8px;flex-wrap:wrap}.auf-btns button{background:#27516a;border:1px solid #5c89a5;border-radius:9px;color:white;padding:9px 12px;cursor:pointer}.auf-btns button:disabled{opacity:.4}.auf-expl{background:#1b3750;border-left:3px solid #71d7db;margin:12px 0;padding:11px;border-radius:7px;line-height:1.7}
+/* Dedicated final Unit 1 quiz + ray property dropdown */
+.ray-property-picker{display:grid;gap:8px;margin:14px 0;padding:15px;background:#193551;border:1px solid #52718c;border-radius:13px}
+.ray-property-picker label{font-weight:750;color:#edfbff}
+.ray-property-picker select{width:100%;background:#0c2136;color:#fff;padding:12px;border-radius:10px;border:1px solid #80a4bd;font:inherit}
+.ray-property-picker small{color:#c3d8eb}
+#unit-main-grid{grid-template-columns:minmax(0,1fr)}
+#unit-main-grid>.unit-inline-quiz{display:none}
+#final-quiz-page{display:none;max-width:890px;margin:0 auto}
+body.quiz-active #unit-main-grid,body.quiz-active .unit-hero-lesson{display:none!important}
+body.quiz-active #final-quiz-page{display:block}
+.quiz-hero{background:linear-gradient(130deg,#174566,#20275c);border:1px solid #51749b;border-radius:20px;padding:24px;margin:12px 0 20px}
+.quiz-stat-row{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.quiz-stat-row span{background:#19334d;border:1px solid #3b6384;padding:8px 12px;border-radius:9px}
+.quiz-option{display:block;width:100%;text-align:left;margin:9px 0;border:1px solid #45627e;background:#192f49;color:#eef7ff;border-radius:12px;padding:14px;cursor:pointer;font:inherit}
+.quiz-option.selected{border-color:#76dcec;background:#23546a}
+.quiz-option.correct{border-color:#5ce0a3;background:#19533e}
+.quiz-option.incorrect{border-color:#f58894;background:#53323e}
+.quiz-option:disabled{cursor:default}
+.quiz-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:19px}
+.quiz-nav{border:1px solid #5a80a3;background:#214766;color:white;border-radius:10px;padding:10px 15px;cursor:pointer;font:inherit}
+.quiz-nav.primary{background:#167d9b}
+.quiz-nav:disabled{opacity:.45;cursor:not-allowed}
+#quiz-result{padding:14px;margin:14px 0;border-left:3px solid #73e4d6;background:#19364a;border-radius:9px}
+</style></head><body><div class="layout"><aside class="side collapsed" id="sidebar"><div class="logo">⚗ Chemistry<span>Quest</span></div><div class="small">උසස් පෙළ රසායන විද්‍යාව • 01 ඒකකය</div><button class="btn menu-button" id="menu">☰ පාඩම් තෝරන්න / වහන්න</button><a class="tg-side-link" href="https://t.me/motivatorAplus" target="_blank" rel="noopener noreferrer" aria-label="Motivator A+ Discussion Telegram group විවෘත කරන්න"><span class="tg-side-logo">A+</span><span>Telegram Group එකට යන්න ↗</span></a><div id="nav"></div></aside><main class="main"><div class="topbar"><div class="pill">🇱🇰 <button id="langSi" class="btn primary" style="padding:5px 12px">සිංහල</button> <button id="langEn" class="btn" style="padding:5px 12px">English</button></div><div class="pill" id="total">⭐ Mastered 0 / 22</div></div><aside class="tg-invite" aria-label="Motivator A+ Telegram Group invitation"><div class="tg-avatar" role="img" aria-label="Motivator A+ logo badge"><div class="tg-fallback"><strong>A+</strong><span>MOTIVATOR</span></div><img src="https://t.me/i/userpic/320/motivatorAplus.jpg" alt="Motivator A+ Discussion group photo" loading="lazy" onerror="this.remove()"></div><div class="tg-copy"><strong>📚 Motivator A+ Discussion</strong><p>රසායන විද්‍යාව ප්‍රශ්න අහන්න, අධ්‍යයන සහය ලබාගන්න, එකට ඉගෙන ගන්න. 💙</p></div><a class="tg-join" href="https://t.me/motivatorAplus" target="_blank" rel="noopener noreferrer" aria-label="Join Motivator A+ Discussion on Telegram">✈ Telegram Group එකට Join වෙන්න ↗</a></aside><section class="hero"><div><div class="eyebrow">01 ඒකකය · පරමාණුක ව්‍යුහය</div><h1 id="title">Cathode Ray Laboratory</h1><p id="subtitle">Virtual experiments සහ topic-based games එකම academy එකේ.</p></div><div class="pill" id="num">01 / 22</div></section><div class="main-grid"><section class="card"><div class="topic-label" id="code">1.1.1</div><h2>🔬 අන්තර්ක්‍රියාකාරී පරීක්ෂණාගාරය</h2><div id="visual" class="lab"></div><div id="controls"></div><div class="theory" id="theory"></div></section><section class="card"><h2>🎯 දැනුම පරීක්ෂාව</h2><p>පරීක්ෂණය කර ප්‍රශ්නයට පිළිතුරු දෙන්න. ඉන්පසු නිවැරදි පැහැදිලි කිරීම බලන්න.</p><div id="quiz"></div><div style="margin-top:18px" class="controls"><button class="btn" id="prev">← පෙර පාඩම</button><button class="btn primary" id="next">ඊළඟ පාඩම →</button></div><div class="progress"><div id="bar"></div></div><p class="small" id="progresstext"></p></section><section class="card wide"><h2>🗺 01 ඒකකයේ පාඩම් සිතියම</h2><p>01 ඒකකයේ පාඩම් 22 අතර මාරු වීමට වම් පැත්තේ මෙනුව හෝ පහළ පාඩම් සිතියම භාවිතා කරන්න.</p><div id="map" class="unit-map"></div></section></div></main></div><script>
+'use strict';
+const topics=[
+['1.1.1','Cathode Rays','Cathode Ray Tube Lab','Vacuum tube එකේ cathode සිට electron beam එක යන ආකාරය නිරීක්ෂණය කරන්න. Cathode rays ඍණ ආරෝපිත අංශු වේ.','Electric field එකක් යටතේ cathode rays වංගුවන්නේ කුමන තහඩුව දෙසටද?',['ධන තහඩුව දෙසට','ඍණ තහඩුව දෙසට','වංගු නොවේ'],0,'Electrons ඍණ ආරෝපිත බැවින් ධන තහඩුවට ආකර්ෂණය වේ.','cathode'],
+['1.1.2','Atomic Nucleus','Find the Nucleus','පරමාණුවේ වැඩිම ස්කන්ධය සාන්ද්‍රණය වී ඇත්තේ ඉතා කුඩා ධන ආරෝපිත න්‍යෂ්ටිය තුළයි.','පරමාණුවේ ස්කන්ධයෙන් වැඩි කොටස තිබෙන්නේ?',['ඉලෙක්ට්‍රෝනවල','න්‍යෂ්ටියේ','හිස් අවකාශයේ'],1,'ප්‍රෝටෝන සහ නියුට්‍රෝන න්‍යෂ්ටිය තුළ ඇත.','atom'],
+['1.1.3','Positive Rays','Canal Ray Lab','Positive / canal rays ධන ආරෝපිත අයනවලින් සමන්විත වේ; එම අංශු වායුව අනුව වෙනස් විය හැක.','Positive rays වල ආරෝපණය කුමක්ද?',['ඍණ','ශූන්‍ය','ධන'],2,'Positive rays යනු ධන අයන ධාරාවකි.','cathode'],
+['1.1.4','Rutherford Experiment','Gold Foil Challenge','අල්ෆා අංශු බොහොමයක් රන් පත්‍රය හරහා යයි. අල්ප ප්‍රමාණයක් විශාල කෝණවලින් විසිරේ.','අල්ෆා අංශු බොහොමයක් රන් පත්‍රය හරහා යාමෙන් අදහස් වන්නේ?',['පරමාණුවෙන් බහුතරය හිස් අවකාශයක්','න්‍යෂ්ටිය ඉතා විශාලයි','ඉලෙක්ට්‍රෝන ධනයි'],0,'විසිරීමේ ප්‍රතිඵල නිසා කුඩා, ඝන, ධන ආරෝපිත න්‍යෂ්ටියක් නිගමනය කෙරිණි.','gold'],
+['1.1.5','Isotopes & Atomic Number','Isotope Builder','Z = ප්‍රෝටෝන ගණන; A = ප්‍රෝටෝන + නියුට්‍රෝන ගණන. Isotopes වල Z සමානයි, නියුට්‍රෝන ගණන වෙනස්.','එකම මූලද්‍රව්‍යයේ සමස්ථානිකවල සමාන වන්නේ?',['ප්‍රෝටෝන ගණන','නියුට්‍රෝන ගණන','ස්කන්ධ ක්‍රමාංකය'],0,'එකම මූලද්‍රව්‍යයට නියත ප්‍රෝටෝන සංඛ්‍යාවක් ඇත.','atom'],
+['1.1.6','Atomic Mass Scale','Mass Scale','Atomic mass scale එක සහ ¹²C පාදක එකකය ගැන සොයන්න.','1 u යනු කාබන්-12 පරමාණුවක ස්කන්ධයෙන් කොපමණද?',['1/6','1/12','1/2'],1,'1 u = ¹²C පරමාණුවක ස්කන්ධයෙන් දොළහෙන් එකකි.','number'],
+['1.1.7','Relative Atomic Mass','Isotope Mass Mixer','සමස්ථානිකවල සාපේක්ෂ ස්කන්ධ හා ප්‍රතිශත ප්‍රචුරතාවයෙන් සාමාන්‍ය සාපේක්ෂ පරමාණුක ස්කන්ධය ගණනය කරයි.','Cl-35 75% සහ Cl-37 25% නම් සාමාන්‍ය ස්කන්ධය?',['35.0','35.5','36.5'],1,'35×0.75 + 37×0.25 = 35.5.','mass'],
+['1.1.8','Ions','Ion Charge Builder','ඉලෙක්ට්‍රෝන ඉවත් කළ විට ධන අයන; ඉලෙක්ට්‍රෝන ලබාගත් විට ඍණ අයන සෑදේ.','Na පරමාණුව electron එකක් අහිමි කරගත් විට?',['Na⁻','Na⁺','Na²⁻'],1,'ඍණ ඉලෙක්ට්‍රෝනයක් අහිමි වූ විට net charge +1 වේ.','atom'],
+['1.2','Electromagnetic Radiation','Wave Explorer','Electromagnetic radiation සඳහා c = λν. සංඛ්‍යාතය වැඩි නම් තරංග ආයාමය අඩුයි.','ස්ථාවර c සඳහා λ දෙගුණ කළ විට ν?',['දෙගුණ වේ','අඩක් වේ','වෙනස් නොවේ'],1,'c = λν නිසා දෙක ප්‍රතිලෝමව සම්බන්ධ වේ.','wave'],
+['1.2.1','Energy Quantization','Photon Energy Lab','ෆෝටෝනයක ශක්තිය E = hν. ශක්තිය අඛණ්ඩ නොව discrete ප්‍රමාණවලින් හුවමාරු වේ.','Photon සංඛ්‍යාතය දෙගුණ වුණොත් ශක්තිය?',['අඩක් වේ','දෙගුණ වේ','වෙනස් නොවේ'],1,'E = hν අනුව සෘජු සමානුපාතික වේ.','wave'],
+['1.3.1','Hydrogen Spectrum','Hydrogen Energy Lab','ඉලෙක්ට්‍රෝනය ඉහළ energy level එකකින් පහළට පැමිණෙන විට ෆෝටෝනයක් නිකුත් වේ.','Electron n=3 සිට n=2 යද්දී?',['ආලෝකය අවශෝෂණය','Photon විමෝචනය','ප්‍රෝටෝන විමෝචනය'],1,'ඉහළ සිට පහළ මට්ටමට ගමන් කිරීමේදී ශක්ති වෙනස photon එකක් ලෙස නිදහස් වේ.','levels'],
+['1.3.2','Orbital Shapes','3D Orbital Preview','s orbital ගෝලාකාරය. p orbitals දෙපස lobes සහිතය. මේ සරල දර්ශනය සැබෑ electron orbit නොවේ.','සාමාන්‍යයෙන් s orbital හැඩය?',['ගෝලාකාර','dumbbell','ත්‍රිකෝණාකාර'],0,'s orbital එක spherical වේ.','orbital'],
+['1.3.3','Quantum Numbers','Quantum Number Puzzle','n, l, mₗ සහ mₛ යන quantum numbers හතර orbital සහ electron state එක විස්තර කරයි.','p subshell සඳහා l අගය කීයද?',['0','1','2'],1,'s සඳහා l=0, p සඳහා l=1, d සඳහා l=2.','orbital'],
+['1.4.1','Aufbau Principle','Orbital Filling Challenge','අඩු ශක්ති orbitals පළමුව පුරවන්න. මෙය සාමාන්‍ය filling order එක විස්තර කරයි.','Aufbau අනුව සාමාන්‍යයෙන් පළමුව පිරෙන්නේ?',['2p','1s','3s'],1,'අවම ශක්තිය ඇති 1s orbital එක පළමුව පිරේ.','fill'],
+['1.4.2','Pauli Exclusion Principle','Spin Pair Puzzle','එක orbital එකක උපරිම electrons දෙදෙනෙක් සිටිය හැකි අතර ඔවුන්ගේ spin ප්‍රතිවිරුද්ධ විය යුතුය.','එක orbital එකේ electrons දෙදෙනාගේ spins?',['සමාන','ප්‍රතිවිරුද්ධ','සියල්ලම ↑'],1,'එකම orbital එකේ electrons දෙදෙනා ↑↓ ලෙස යෙදේ.','fill'],
+['1.4.3',"Hund's Rule",'Hund Orbital Challenge','සමාන ශක්ති orbitals වල electrons pairing වීමට පෙර එකිනෙක තනි තනිව එකම spin දිශාවකින් යොදයි.','p orbitals තුනට electrons 3ක් යොදන නිවැරදි ක්‍රමය?',['↑↓ | ↑ | හිස්','↑ | ↑ | ↑','↑↓ | හිස් | ↑'],1,'Hund ගේ නීතිය අනුව පළමුව parallel spins සමඟ singly occupy කරයි.','fill'],
+['1.4.4','Electron Configurations','Configuration Builder','Aufbau, Pauli සහ Hund භාවිතයෙන් electron configuration ලියන්න.','O (Z=8) සඳහා electron configuration?',['1s² 2s² 2p⁴','1s² 2s⁴ 2p²','1s² 2p⁶'],0,'O හි electrons 8ක්: 1s² 2s² 2p⁴.','fill'],
+['1.5','Periodic Table','Interactive Periodic Table','පරමාණුක ක්‍රමාංකය අනුව periodic table එක සකස් වී ඇත. Element එකක් click කර Z, group, period බලන්න.','එකම group එකේ s/p block elements වල පොදු ප්‍රධාන ලක්ෂණයක්?',['සමාන valence electron patterns','සමාන නියුට්‍රෝන ගණන','සමාන පරමාණුක ස්කන්ධය'],0,'එකම group එකේ valence configurations සාමාන්‍යයෙන් සමාන රටාවක් දක්වයි.','periodic'],
+['1.6.1','Atomic & Ionic Radius','Atomic Size Lab','ආවර්තයක් ඔස්සේ වමෙන් දකුණට සාමාන්‍යයෙන් පරමාණුක අරය අඩුවේ. කාණ්ඩයක පහළට වැඩිවේ.','Group එකක පහළට යද්දී atomic radius සාමාන්‍යයෙන්?',['වැඩි වේ','අඩු වේ','සමාන වේ'],0,'Electron shells එකතු වීමෙන් සාමාන්‍යයෙන් radius වැඩිවේ.','trend'],
+['1.6.2','Ionization Energy','Electron Removal Lab','වායු අවස්ථාවේ පරමාණුවකින් electron එකක් ඉවත් කිරීමට අවශ්‍ය ශක්තිය ionization energy වේ.','Group එකක පහළට යද්දී IE₁ සාමාන්‍යයෙන්?',['වැඩි වේ','අඩු වේ','සමාන වේ'],1,'Shielding සහ radius වැඩිවීම සාමාන්‍යයෙන් electron ඉවත් කිරීම පහසු කරයි.','trend'],
+['1.6.3','Electron Gain Energy','Electron Gain Lab','Electron එකක් ලබාගැනීමේ energy change එක element එක අනුව වෙනස් වන අතර exceptions ඇත.','Electron gain පිළිබඳ නිවැරදි ප්‍රකාශය?',['සෑම element එකකටම සමානයි','Element අනුව වෙනස්වේ','සියල්ල ශුන්‍යයි'],1,'Electronic structure අනුව energy change වෙනස් වේ.','trend'],
+['1.6.4','Electronegativity','Bond Attraction Challenge','Bond එකක shared electrons තමන් වෙත ඇදගැනීමේ සාපේක්ෂ හැකියාව electronegativity වේ.','සාමාන්‍යයෙන් වැඩිම electronegativity ඇති element එක?',['F','Na','K'],0,'Fluorine ඉහළ electronegativity එකක් දක්වයි.','trend']
+];
+
+const originalTopics=topics.map(t=>[...t]);
+const sinhalaTopics=[
+['කැතෝඩ කිරණ','කැතෝඩ කිරණ නළ පරීක්ෂණය','අඩු පීඩන වායුවක් ඇති විසර්ජන නළයක කැතෝඩයෙන් විහිදෙන කිරණ නිරීක්ෂණය කරන්න. කැතෝඩ කිරණ ඍණ ආරෝපිත ඉලෙක්ට්‍රෝනවලින් සමන්විතයි. විද්‍යුත් ක්ෂේත්‍රයක් යෙදූ විට ධන තහඩුව දෙසට හැරේ.'],
+['පරමාණුක න්‍යෂ්ටිය','න්‍යෂ්ටිය සොයාගනිමු','පරමාණුවේ ස්කන්ධයෙන් අතිවිශාල කොටසක් ඉතා කුඩා, ධන ආරෝපිත න්‍යෂ්ටියේ සංකේන්ද්‍රණය වී ඇත. ඉලෙක්ට්‍රෝන න්‍යෂ්ටිය වටා ඇති ප්‍රදේශවල පවතී.'],
+['ධන කිරණ','ධන කිරණ පරීක්ෂණය','ධන කිරණ (canal rays) වායු අයනවලින් සමන්විත වේ. කැතෝඩ කිරණ මෙන් නොව, ධන කිරණවල අංශු ස්වභාවය නළයේ ඇති වායුව අනුව වෙනස් විය හැක.'],
+['රදර්ෆර්ඩ්ගේ රන්පත් පරීක්ෂණය','රන්පත් අංශු විසිරීම','රන් පත්‍රයකට ඇල්ෆා අංශු එවූ විට බොහෝ අංශු සෘජුව ගමන් කරයි. ඉතා ස්වල්පයක් දැඩිව අපගමනය වීමෙන් පරමාණුවේ කුඩා, ඝන න්‍යෂ්ටියක් ඇති බව පැහැදිලි වේ.'],
+['පරමාණුක ක්‍රමාංකය හා සමස්ථානික','සමස්ථානික සාදමු','පරමාණුක ක්‍රමාංකය Z යනු ප්‍රෝටෝන ගණනයි. ස්කන්ධ ක්‍රමාංකය A යනු ප්‍රෝටෝන හා නියුට්‍රෝන එකතුවයි. සමස්ථානිකවල ප්‍රෝටෝන ගණන සමාන නමුත් නියුට්‍රෝන ගණන වෙනස් වේ.'],
+['පරමාණුක ස්කන්ධ පරිමාණය','ස්කන්ධ ඒකක පරීක්ෂාව','එක් පරමාණුක ස්කන්ධ ඒකකයක් (1 u) යනු කාබන්-12 පරමාණුවක ස්කන්ධයෙන් දොළහෙන් එකකි.'],
+['සාපේක්ෂ පරමාණුක ස්කන්ධය','සමස්ථානික ස්කන්ධ මිශ්‍රකය','මූලද්‍රව්‍යයක සාපේක්ෂ පරමාණුක ස්කන්ධය ගණනය කිරීමට එහි සමස්ථානිකවල සාපේක්ෂ ස්කන්ධ හා ස්වභාවික ප්‍රතිශත බහුලතාව භාවිතා කරන්න.'],
+['අයන','අයන ආරෝපණ නිර්මාණකය','පරමාණුවකින් ඉලෙක්ට්‍රෝන ඉවත් වූ විට ධන අයනයක්ද, ඉලෙක්ට්‍රෝන ලබාගත් විට ඍණ අයනයක්ද සෑදේ. න්‍යෂ්ටියේ ප්‍රෝටෝන ගණන නොවෙනස් වේ.'],
+['විද්‍යුත් චුම්බක විකිරණ','තරංග ගවේෂකය','විද්‍යුත් චුම්බක විකිරණවල තරංග ආයාමය λ, සංඛ්‍යාතය ν සහ ආලෝක වේගය c අතර සම්බන්ධය c = λν වේ. සංඛ්‍යාතය වැඩි වන විට තරංග ආයාමය අඩු වේ.'],
+['ශක්තිය ක්වොන්ටීකරණය','ෆෝටෝන ශක්ති පරීක්ෂාව','ෆෝටෝනයක ශක්තිය E = hν වේ. ශක්තිය විමෝචනය හෝ අවශෝෂණය සිදුවන්නේ නිශ්චිත ශක්ති ප්‍රමාණවලිනි.'],
+['හයිඩ්‍රජන් වර්ණාවලිය','හයිඩ්‍රජන් ශක්ති මට්ටම්','හයිඩ්‍රජන් පරමාණුවක ඉලෙක්ට්‍රෝනයක් ඉහළ ශක්ති මට්ටමකින් පහළ මට්ටමකට මාරුවන විට ශක්ති වෙනසට අදාළ ෆෝටෝනයක් නිකුත් කරයි.'],
+['කාක්ෂිකවල හැඩ','කාක්ෂික හැඩ ගවේෂකය','s කාක්ෂික ගෝලාකාරය. p කාක්ෂිකවල ප්‍රදේශ දෙකකින් යුත් හැඩයක් පෙන්වයි. කාක්ෂිකයක් යනු ඉලෙක්ට්‍රෝනයක් ගමන් කරන ස්ථිර වෘත්තාකාර මාර්ගයක් නොවේ.'],
+['ක්වොන්ටම් අංක','ක්වොන්ටම් අංක ප්‍රහේලිකාව','ප්‍රධාන n, උපදිශා l, චුම්බක mₗ සහ භ්‍රමණ mₛ යන ක්වොන්ටම් අංක ඉලෙක්ට්‍රෝනයක ක්වොන්ටම් තත්ත්වය විස්තර කරයි.'],
+['ගොඩනැගීමේ මූලධර්මය (Aufbau)','කාක්ෂික පිරවීමේ ක්‍රීඩාව','ගොඩනැගීමේ මූලධර්මය (Aufbau) අනුව පරමාණුවක භූමි අවස්ථාවේ ඉලෙක්ට්‍රෝන පිරෙන්නේ සාමාන්‍යයෙන් අඩු ශක්තිය ඇති උපකක්ෂිකවල සිට වැඩි ශක්තිය ඇති උපකක්ෂික දක්වාය. සාමාන්‍ය පිරවීමේ අනුපිළිවෙළ: 1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p. එක් s උපකක්ෂිකයක උපරිම ඉලෙක්ට්‍රෝන 2කි; p හි 6කි; d හි 10කි. සමාන ශක්ති කාක්ෂික පිරවීමේදී Hund නීතියත්, එක් කාක්ෂිකයක ඉලෙක්ට්‍රෝන දෙකක් තිබේ නම් Pauli නීතියත් අදාළ වේ. Cr, Cu වැනි විශේෂ අවස්ථා තිබේ.'],
+['පවුලි බහිෂ්කාර මූලධර්මය','ඉලෙක්ට්‍රෝන භ්‍රමණ ප්‍රහේලිකාව','එකම පරමාණුවේ ඉලෙක්ට්‍රෝන දෙකකට ක්වොන්ටම් අංක හතරම සමාන විය නොහැක. ඒ නිසා එක් කාක්ෂිකයක උපරිම ඉලෙක්ට්‍රෝන දෙකක් ප්‍රතිවිරුද්ධ භ්‍රමණ සහිතව සිටී.'],
+['හුන්ඩ්ගේ නීතිය','හුන්ඩ් කාක්ෂික අභියෝගය','සමාන ශක්ති කාක්ෂික කිහිපයක් ඇති විට ඉලෙක්ට්‍රෝන යුගල වීමට පෙර ඒවාට තනි තනිව, සමාන භ්‍රමණ දිශාවකින් ඇතුළත් වේ.'],
+['ඉලෙක්ට්‍රෝන වින්‍යාස','ඉලෙක්ට්‍රෝන වින්‍යාස නිර්මාණකය','ඉලෙක්ට්‍රෝන වින්‍යාසය සකසන විට Aufbau මූලධර්මය, පවුලි බහිෂ්කාර මූලධර්මය සහ හුන්ඩ්ගේ නීතිය එකට භාවිතා කරන්න.'],
+['ආවර්තිතා වගුව','ආවර්තිතා වගු ගවේෂණය','ආවර්තිතා වගුව වැඩි වන පරමාණුක ක්‍රමාංකය අනුව සංවිධානය වී ඇත. කාණ්ඩ, ආවර්ත සහ s, p, d, f ගොනු හඳුනාගන්න.'],
+['පරමාණුක හා අයනික අරය','පරමාණුක ප්‍රමාණ සංසන්දනය','ආවර්තයක් දිගේ වමේ සිට දකුණට පරමාණුක අරය සාමාන්‍යයෙන් අඩු වන අතර කාණ්ඩයක පහළට යන විට සාමාන්‍යයෙන් වැඩි වේ.'],
+['අයනීකරණ ශක්තිය','ඉලෙක්ට්‍රෝන ඉවත් කිරීම','වායුමය පරමාණුවකින් ඉලෙක්ට්‍රෝනයක් ඉවත් කිරීමට අවශ්‍ය ශක්තිය අයනීකරණ ශක්තියයි. එය න්‍යෂ්ටික ආකර්ෂණය, ආවරණය හා පරමාණුක ප්‍රමාණය අනුව වෙනස් වේ.'],
+['ඉලෙක්ට්‍රෝන ලබාගැනීමේ ශක්තිය','ඉලෙක්ට්‍රෝන ලබාගැනීමේ අභියෝගය','වායුමය පරමාණුවක් ඉලෙක්ට්‍රෝනයක් ලබාගැනීමේදී සිදුවන ශක්ති වෙනස මූලද්‍රව්‍යය අනුව වෙනස් වේ. ආවර්තිතා ප්‍රවණතාවල විශේෂ අවස්ථාද ඇත.'],
+['විද්‍යුත් ඍණතාව','බන්ධන ආකර්ෂණ අභියෝගය','සහසංයුජ බන්ධනයක හවුල් ඉලෙක්ට්‍රෝන යුගලය තමන් වෙත ආකර්ෂණය කරගැනීමේ සාපේක්ෂ හැකියාව විද්‍යුත් ඍණතාවයි.']
+];
+let language='si';
+function applyLanguage(){topics.forEach((t,i)=>{t[1]=language==='si'?sinhalaTopics[i][0]:originalTopics[i][1];t[2]=language==='si'?sinhalaTopics[i][1]:originalTopics[i][2];t[3]=language==='si'?sinhalaTopics[i][2]:originalTopics[i][3]});document.documentElement.lang=language;document.getElementById('langSi').classList.toggle('primary',language==='si');document.getElementById('langEn').classList.toggle('primary',language==='en');render();}
+
+let current=0,answered={},state={v:55,field:0,alpha:20,z:6,n:6,e:6,lambda:500,level:3,orb:'s',spin:0,step:0,selected:'H',abundance:75};try{answered=JSON.parse(localStorage.getItem('cq_progress')||'{}')}catch(e){}
+const $=id=>document.getElementById(id), svg=(content,view='0 0 600 270')=>`<svg viewBox="${view}" role="img" aria-label="interactive chemistry concept model">${content}</svg>`;
+const safe=(s)=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+function setTopic(i){current=(i+topics.length)%topics.length;state={v:55,field:0,alpha:20,z:6,n:6,e:6,lambda:500,level:3,orb:'s',spin:0,step:0,selected:'H',abundance:75};render();if(window.innerWidth<721)$('sidebar').classList.add('collapsed')}
+function render(){let t=topics[current];$('title').textContent=t[2];$('subtitle').textContent=t[1]+' • '+t[0];$('code').textContent='NIE 01 ඒකකය · කොටස '+t[0];$('num').textContent=`${String(current+1).padStart(2,'0')} / ${topics.length}`;$('theory').textContent=t[3];renderNav();renderLab();renderQuiz();renderProgress();$('prev').disabled=current===0;$('next').disabled=current===topics.length-1}
+function renderNav(){let groups={'1.1':'පරමාණුව සොයාගැනීම','1.2':'තරංග හා ෆෝටෝන','1.3':'ශක්ති මට්ටම් හා කාක්ෂික','1.4':'ඉලෙක්ට්‍රෝන වින්‍යාස','1.5':'ආවර්තිතා වගුව','1.6':'ආවර්තිතා ප්‍රවණතා'},last='';$('nav').innerHTML=topics.map((t,i)=>{let group=t[0].split('.').slice(0,2).join('.');let head=group!==last?`<div class="nav-head">${groups[group]}</div>`:'';last=group;return `${head}<button class="nav ${current===i?'active':''}" data-nav="${i}"><i>${t[0]}</i><span>${safe(t[1])} ${answered[i]===true?'✓':''}</span></button>`}).join('');document.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>setTopic(+b.dataset.nav))}
+function renderQuiz(){const t=topics[current];let found=answered[current];$('quiz').innerHTML=`<div class="question">${safe(t[4])}</div><div class="options">${t[5].map((o,i)=>`<button class="option ${found!==undefined?(i===t[6]?'right':found===i?'wrong':''):''}" data-answer="${i}" ${found!==undefined?'disabled':''}>${String.fromCharCode(65+i)}. ${safe(o)}</button>`).join('')}</div><div class="feedback">${found===undefined?'පිළිතුරක් තෝරන්න.':(found===t[6]?'<span class="score">✓ නිවැරදියි! +1 Mastery</span>':'❌ තව උත්සාහ කරන්න:')+' '+safe(t[7])}</div>${found!==undefined?'<button class="btn" id="retry">↻ නැවත උත්සාහ කරන්න</button>':''}`;document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{answered[current]=+b.dataset.answer;save();renderQuiz();renderNav();renderProgress()});if($('retry'))$('retry').onclick=()=>{delete answered[current];save();renderQuiz();renderNav();renderProgress()}}
+function save(){try{localStorage.setItem('cq_progress',JSON.stringify(answered))}catch(e){}}
+function renderProgress(){const mastered=Object.keys(answered).filter(i=>answered[i]===topics[+i][6]).length;$('total').textContent=`⭐ සම්පූර්ණ කළ ${mastered} / ${topics.length}`;$('bar').style.width=`${100*mastered/topics.length}%`;$('progresstext').textContent=`${mastered} / ${topics.length} පාඩම් අභියෝග සම්පූර්ණයි`;$('map').innerHTML=topics.map((t,i)=>`<button class="tile" data-map="${i}"><b>${answered[i]===t[6]?'✓':t[0]}</b>${safe(t[1])}</button>`).join('');document.querySelectorAll('[data-map]').forEach(b=>b.onclick=()=>setTopic(+b.dataset.map))}
+const range=(key,min,max,step,label,unit='')=>`<label>${label}: <b id="${key}Value">${state[key]}${unit}</b> <input data-range="${key}" type="range" min="${min}" max="${max}" step="${step}" value="${state[key]}"></label>`;
+function renderLab(){let k=topics[current][8],html='',ctl='';const dot=(x,y,r,color,label='')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${color}" stroke="#ffffff55" stroke-width="2"/>${label?`<text x="${x}" y="${y+5}" text-anchor="middle" font-size="14" fill="white" font-weight="bold">${label}</text>`:''}`;
+if(k==='cathode'){const d=state.field*30;html=svg(`<rect x="70" y="45" width="465" height="180" rx="78" stroke="#79a5ce" fill="#102238" stroke-width="4"/><rect x="90" y="97" width="24" height="78" rx="4" fill="#6c8fbc"/><rect x="490" y="85" width="10" height="105" fill="#ffd084"/><rect x="255" y="65" width="110" height="9" fill="#ed7777"/><rect x="255" y="196" width="110" height="9" fill="#60b4ff"/><path d="M115 136 Q300 ${136+d*2} 490 ${136+d}" fill="none" stroke="#4ae2eb" stroke-width="5" stroke-dasharray="12 5"/><circle cx="490" cy="${136+d}" r="9" fill="#66e5fa"/><text x="85" y="247" fill="#c8dcf6">Cathode (−)</text><text x="438" y="247" fill="#c8dcf6">Anode (+)</text><text x="252" y="56" fill="#ffaaa9">Electric plate (+)</text>`);ctl=range('v',10,100,5,'Voltage',' V')+`<div class="controls"><button class="btn" data-field="-1">Field −</button><button class="btn" data-field="0">No field</button><button class="btn" data-field="1">Field +</button></div><p class="mini-info">Beam deflection: ${state.field===0?'straight path':state.field===1?'downward':'upward'} · Visual demonstration (not to scale).</p>`}
+else if(k==='gold'){let count=11,lines='';for(let i=0;i<count;i++){const y=45+i*17;let hit=Math.abs(i-5)<=1;let ey=hit?y+(i===5?74:(i<5?-42:42)):y;lines+=`<path d="M70 ${y} L270 ${y} ${hit?`Q330 ${y} 395 ${ey}`:`L490 ${ey}`}" fill="none" stroke="${hit?'#ffb56e':'#65e1e9'}" stroke-width="2.6" opacity=".84"/>`};html=svg(`<rect x="285" y="23" width="6" height="225" fill="#f0b95a"/>${lines}<circle cx="285" cy="133" r="15" fill="#f3a86f" opacity=".75"/><text x="30" y="22" fill="white">α-particle source →</text><text x="302" y="20" fill="#efc073">Gold foil</text>`);ctl=`${range('alpha',10,70,5,'Source intensity','%')}<p class="mini-info">α trajectories are schematic: most pass through; a few scatter strongly.</p>`}
+else if(k==='atom'){let z=state.z,n=state.n,e=state.e,rings='';for(let s=0;s<Math.ceil(e/2);s++){let a=s*Math.PI*2/Math.max(1,Math.ceil(e/2));rings+=dot(300+120*Math.cos(a),135+83*Math.sin(a),8,'#5cddf6','−')};html=svg(`<ellipse cx="300" cy="135" rx="125" ry="84" fill="none" stroke="#3d7092" stroke-width="2"/>${dot(300,135,43,'#ec747e')}<text x="300" y="133" fill="white" text-anchor="middle" font-size="16">${z} p⁺</text><text x="300" y="153" fill="white" text-anchor="middle" font-size="16">${n} n⁰</text>${rings}`);ctl=range('z',1,12,1,'Protons')+range('n',0,15,1,'Neutrons')+range('e',0,12,1,'Electrons')+`<p class="mini-info">Z = ${z} · A = ${z+n} · Net charge = ${z-e>0?'+':''}${z-e}. Schematic, not orbital geometry.</p>`}
+else if(k==='wave'){let lambda=state.lambda,period=Math.max(35,lambda/4),wave='';for(let x=0;x<560;x+=3)wave+=(x?' L':'M')+(x+20)+' '+(134-55*Math.sin(2*Math.PI*x/period)).toFixed(1);const f=(299792458/(lambda*1e-9)).toExponential(2);html=svg(`<line x1="20" y1="134" x2="585" y2="134" stroke="#395575" stroke-dasharray="4 5"/><path d="${wave}" fill="none" stroke="#4ed9e9" stroke-width="4"/><text x="30" y="30" fill="#fff">λ = ${lambda} nm</text><text x="30" y="240" fill="#ddd">ν ≈ ${f} Hz</text>`);ctl=range('lambda',380,750,10,'Wavelength',' nm')+`<p class="mini-info">Frequency ν = c / λ. Illustration spans visible wavelengths.</p>`}
+else if(k==='levels'){let lines='';for(let i=1;i<=5;i++){let y=245-i*40;lines+=`<line x1="110" y1="${y}" x2="500" y2="${y}" stroke="#6886af" stroke-width="3"/><text x="75" y="${y+5}" fill="white">n=${i}</text>`}let y=245-state.level*40;html=svg(lines+`<circle cx="305" cy="${y}" r="12" fill="#67edff"/><line x1="340" y1="${y}" x2="340" y2="165" stroke="#ffd279" stroke-width="3" stroke-dasharray="6 4"/><text x="365" y="135" fill="#ffd279">↓ Photon emission</text>`);ctl=range('level',3,5,1,'Starting level n')+`<p class="mini-info">Electron transition from n=${state.level} to n=2 (schematic).</p>`}
+else if(k==='orbital'){html=svg(state.orb==='s'?`${dot(300,137,88,'#4586c4')}<text x="300" y="142" text-anchor="middle" fill="white" font-size="24">s orbital</text>`:`<ellipse cx="225" cy="135" rx="89" ry="63" fill="#4e86d1" opacity=".8"/><ellipse cx="375" cy="135" rx="89" ry="63" fill="#ac75c8" opacity=".8"/><circle cx="300" cy="135" r="9" fill="#f4d6a6"/><text x="300" y="244" text-anchor="middle" fill="white" font-size="22">p orbital (schematic)</text>`);ctl=`<div class="controls"><button class="btn" data-orb="s">s orbital</button><button class="btn" data-orb="p">p orbital</button></div><p class="mini-info">Orbital probability-cloud shapes are conceptual visualizations.</p>`}
+else if(k==='fill'){const isHund=current===15, isPauli=current===14;let slots=isHund?3:isPauli?1:5;let arrows=Array.from({length:slots},(_,i)=>{let e=state.step;if(isHund)return i<e?'↑':' ';if(isPauli)return e>=2?'↑↓':e>=1?'↑':' ';return e>=(i+1)*2?'↑↓':e>i*2?'↑':' '});html=`<div><div class="orbrow">${arrows.map((a,i)=>`<span class="orbital" title="orbital ${i+1}">${a||'·'}</span>`).join('')}</div><p class="mini-info" style="text-align:center">${isHund?'Three equal-energy p orbitals':isPauli?'One orbital, maximum 2 electrons':'Simplified orbital-filling sequence'}</p></div>`;ctl=`<div class="controls"><button class="btn" id="removee">− Electron</button><button class="btn primary" id="adde">+ Electron</button><button class="btn" id="resete">Reset</button></div><p class="mini-info">Placed electrons: ${state.step}/${isHund?3:isPauli?2:10}. ${isHund?'Add one electron to each box before pairing.':isPauli?'Second electron has opposite spin.':'Low-energy boxes fill before higher ones.'}</p>`}
+else if(k==='periodic'){const els=[['H',1,1,1],['He',2,1,18],['Li',3,2,1],['Be',4,2,2],['B',5,2,13],['C',6,2,14],['N',7,2,15],['O',8,2,16],['F',9,2,17],['Ne',10,2,18],['Na',11,3,1],['Mg',12,3,2],['Al',13,3,13],['Si',14,3,14],['P',15,3,15],['S',16,3,16],['Cl',17,3,17],['Ar',18,3,18],['K',19,4,1],['Ca',20,4,2]];const cells=Array.from({length:72},(_,i)=>{const r=Math.floor(i/18)+1,c=i%18+1,el=els.find(x=>x[2]===r&&x[3]===c);return el?`<button class="element ${el[0]===state.selected?'on':''}" title="${el[0]}" data-element="${el[0]}">${el[0]}</button>`:'<span class="element empty"></span>'}).join('');let el=els.find(x=>x[0]===state.selected)||els[0];html=`<div style="width:100%;padding:12px"><div class="pt">${cells}</div><p class="mini-info" style="margin-top:16px;text-align:center">${el[0]} • Z=${el[1]} • Period ${el[2]} • Group ${el[3]}</p></div>`;ctl='<p class="mini-info">Interactive preview: first 20 elements. Click a tile for details; full 118-element explorer is a planned expansion.</p>'}
+else if(k==='trend'){let r=state.z;html=svg(`<circle cx="180" cy="140" r="${28+r*2}" fill="#52b9db" opacity=".7"/><circle cx="425" cy="140" r="${95-r*2}" fill="#ac8ae4" opacity=".75"/><text x="180" y="245" text-anchor="middle" fill="white">Model A</text><text x="425" y="245" text-anchor="middle" fill="white">Model B</text>`);ctl=range('z',1,12,1,'Comparison setting')+`<p class="mini-info">Conceptual size comparison, not measured atomic radii. Trend exceptions and element-specific data are discussed in the lesson.</p>`}
+else if(k==='mass'){let a=state.abundance,m=(35*a+37*(100-a))/100;html=`<div style="padding:15px;text-align:center"><div style="font-size:23px;font-weight:800">Cl-35 <span style="color:#56d9e7">${a}%</span> + Cl-37 <span style="color:#b59cf4">${100-a}%</span></div><div style="font-size:57px;color:#6be0de;font-weight:900;margin:15px">${m.toFixed(2)}</div><p>Weighted mean mass (illustrative isotope values)</p></div>`;ctl=range('abundance',0,100,5,'Cl-35 abundance','%')}
+else {let val=state.z;html=svg(`<rect x="90" y="55" width="420" height="160" rx="18" fill="#142b46" stroke="#3f718c" stroke-width="3"/><circle cx="300" cy="130" r="65" fill="#436eaf" opacity=".55"/><text x="300" y="135" text-anchor="middle" fill="white" font-size="29">${topics[current][1].slice(0,18)}</text><text x="300" y="188" text-anchor="middle" fill="#8dedf5" font-size="17">Interactive concept explorer</text>`);ctl=range('z',1,12,1,'Explore value')+`<p class="mini-info">Theory-based concept preview; use the challenge to test your understanding.</p>`}
+if(language==='si'){const dict={"Cathode (−)": "කැතෝඩය (−)", "Anode (+)": "ඇනෝඩය (+)", "Electric plate (+)": "ධන තහඩුව (+)", "Voltage": "වෝල්ටීයතාව", "No field": "ක්ෂේත්\u200dරයක් නැත", "Field −": "ක්ෂේත්\u200dර −", "Field +": "ක්ෂේත්\u200dර +", "Protons": "ප්\u200dරෝටෝන", "Neutrons": "නියුට්\u200dරෝන", "Electrons": "ඉලෙක්ට්\u200dරෝන", "Source intensity": "ප්\u200dරභව තීව්\u200dරතාව", "Gold foil": "රන් පත්\u200dරය", "Comparison setting": "සංසන්දනාත්මක අගය", "Explore value": "අගය වෙනස් කරන්න", "Interactive concept explorer": "සංකල්ප ගවේෂකය", "Theory-based concept preview; use the challenge to test your understanding.": "මෙය මූලික සංකල්ප නිරූපණයකි. ප්\u200dරශ්නයට පිළිතුරු දී අවබෝධය පරීක්ෂා කරන්න.", "Cl-35 abundance": "Cl-35 බහුලතාව", "Weighted mean mass (illustrative isotope values)": "බරිත සාමාන්\u200dය ස්කන්ධය (උදාහරණ අගයන්)", "Beam deflection:": "කිරණ අපගමනය:", "straight path": "සෘජු මාර්ගය", "downward": "පහළට", "upward": "ඉහළට", "Visual demonstration (not to scale).": "පරිමාණයට අනුව නොවන සරල නිරූපණයකි.", "Atomic Discovery": "පරමාණුව සොයාගැනීම"};for(const [a,b] of Object.entries(dict)){html=html.replaceAll(a,b);ctl=ctl.replaceAll(a,b)}}$('visual').innerHTML=html;$('controls').innerHTML=ctl;document.querySelectorAll('[data-range]').forEach(x=>x.oninput=()=>{state[x.dataset.range]=+x.value;renderLab()});document.querySelectorAll('[data-field]').forEach(x=>x.onclick=()=>{state.field=+x.dataset.field;renderLab()});document.querySelectorAll('[data-orb]').forEach(x=>x.onclick=()=>{state.orb=x.dataset.orb;renderLab()});document.querySelectorAll('[data-element]').forEach(x=>x.onclick=()=>{state.selected=x.dataset.element;renderLab()});if($('adde'))$('adde').onclick=()=>{state.step=Math.min(current===15?3:current===14?2:10,state.step+1);renderLab()};if($('removee'))$('removee').onclick=()=>{state.step=Math.max(0,state.step-1);renderLab()};if($('resete'))$('resete').onclick=()=>{state.step=0;renderLab()}}
+
+// Unit 1 improved interactive Cathode Tube and discoveries question bank.
+const baseRenderLab=renderLab;
+let discoveryIndex=0,discoverySelected={},ctRun=true;
+const discoveries=[
+ {q:'ඩෝල්ටන් ඉදිරිපත් කළ මුල් පරමාණුක ආකෘතිය හැඳින්වූයේ කුමක් ලෙසද?',a:['ගොල්ෆ් බෝල ආකෘතිය','න්‍යෂ්ටික ආකෘතිය','ඉලෙක්ට්‍රෝන වලාකුළ'],ok:0,why:'ඩෝල්ටන්ගේ ආකෘතියේ පරමාණුව අති කුඩා ඝන ගෝලයක් ලෙස නිරූපණය කෙරිණි.'},
+ {q:'කැතෝඩ කිරණ ඍණ ආරෝපිත අංශු ධාරාවක් බව 1897 දී පැහැදිලි කළේ කවුද?',a:['ජේ. ජේ. තොම්සන්','අර්නස්ට් රදර්ෆර්ඩ්','ජෝන් ඩෝල්ටන්'],ok:0,why:'ජේ. ජේ. තොම්සන් කැතෝඩ කිරණවල ආරෝපණය/ස්කන්ධය අනුපාතය අධ්‍යයනය කර ඉලෙක්ට්‍රෝන පිළිබඳ සාක්ෂි ලබා දුන්නේය.'},
+ {q:'ඉලෙක්ට්‍රෝනයේ ආරෝපණය මැනීමට සම්බන්ධ ප්‍රසිද්ධ තෙල් බිංදු පරීක්ෂණය කළේ කවුද?',a:['රොබට් මිලිකන්','ජේ. ජේ. තොම්සන්','නීල්ස් බෝර්'],ok:0,why:'රොබට් මිලිකන්ගේ තෙල් බිංදු පරීක්ෂණය ඉලෙක්ට්‍රෝනයේ මූලික ආරෝපණය නිරණය කිරීමට උපකාරී විය.'},
+ {q:'කැතෝඩ කිරණවල හැරීම විද්‍යුත් ක්ෂේත්‍රයකදී පෙන්වන්නේ කුමන ගුණයද?',a:['ඒවා ඍණ ආරෝපිත බව','ඒවා ආරෝපණ රහිත බව','ඒවා ආලෝකයේම තරංග බව'],ok:0,why:'ඍණ ඉලෙක්ට්‍රෝන ධන තහඩුව දෙසට ආකර්ෂණය වේ.'},
+ {q:'ධන කිරණ (canal rays) පිළිබඳ නිරීක්ෂණ සමඟ සම්බන්ධ විද්‍යාඥයා කවුද?',a:['ඉයුජින් ගෝල්ඩ්ස්ටයින්','හෙන්රි මෝස්ලි','මැක්ස් ප්ලෑන්ක්'],ok:0,why:'ගෝල්ඩ්ස්ටයින් විසර්ජන නළ තුළ ධන කිරණ අධ්‍යයනය කළේය.'},
+ {q:'රදර්ෆර්ඩ්ගේ රන්පත් පරීක්ෂණයෙන් ලැබුණු ප්‍රධාන නිගමනය කුමක්ද?',a:['කුඩා ධන න්‍යෂ්ටියක් හා විශාල හිස් අවකාශයක් ඇත','පරමාණුව සම්පූර්ණ ඝන ගෝලයකි','සියලු අංශු රන්පතෙන් ආපසු හැරේ'],ok:0,why:'බොහෝ α අංශු නොහැරී යාමත් ඉතා ස්වල්පයක් විශාල කෝණවලින් හැරීමත් න්‍යෂ්ටික ආකෘතියට සාක්ෂි විය.'}
+];
+function discoveryView(){let item=discoveries[discoveryIndex],picked=discoverySelected[discoveryIndex];return `<section class="discovery"><h3>📚 සොයාගැනීම් හා විද්‍යාඥයන් – ප්‍රශ්නාවලිය</h3><p class="ct-note">Theory ඉතිහාසය:  ${discoveryIndex+1} / ${discoveries.length} · පිළිතුරු තෝරා පැහැදිලි කිරීම කියවන්න.</p><div class="question">${item.q}</div>${item.a.map((a,i)=>`<button class="option ${picked===undefined?'':i===item.ok?'right':picked===i?'wrong':''}" data-disc="${i}" ${picked===undefined?'':'disabled'}>${['A','B','C'][i]}. ${a}</button>`).join('')}${picked!==undefined?`<div class="obs">${picked===item.ok?'✓ හරි!':'✕ නිවැරදි පිළිතුර: '+item.a[item.ok]} ${item.why}</div>`:''}<div class="ct-actions"><button class="btn" id="discPrev" ${discoveryIndex===0?'disabled':''}>← පෙර ප්‍රශ්නය</button><button class="btn primary" id="discNext" ${discoveryIndex===discoveries.length-1?'disabled':''}>ඊළඟ ප්‍රශ්නය →</button><button class="btn" id="discRetry">↻ නැවත අරඹන්න</button></div><p class="ct-note">නිවැරදි පිළිතුරු: ${discoveries.filter((x,i)=>discoverySelected[i]===x.ok).length} / ${discoveries.length}</p></section>`}
+function wireDiscovery(){document.querySelectorAll('[data-disc]').forEach(b=>b.onclick=()=>{discoverySelected[discoveryIndex]=+b.dataset.disc;renderCathode()});document.getElementById('discPrev').onclick=()=>{discoveryIndex--;renderCathode()};document.getElementById('discNext').onclick=()=>{discoveryIndex++;renderCathode()};document.getElementById('discRetry').onclick=()=>{discoverySelected={};discoveryIndex=0;renderCathode()}}
+function renderCathode(){
+ let voltage=state.v,field=state.field;
+ const active=ctRun&&voltage>0;
+ // Positive deflection sign is toward the positive electric plate.
+ const displacement=field*(voltage/100)*72;
+ const screenY=143-displacement;
+ const beamPath=active?`M108 143 L250 143 Q350 143 484 ${screenY}`:'';
+ const plateTop=field===1?'+':field===-1?'−':'+';
+ const plateBottom=field===1?'−':field===-1?'+':'−';
+ const screenLabel=active?(field===0?'මධ්‍යයේ':field===1?'ඉහළට (+ තහඩුව දෙසට)':'පහළට (+ තහඩුව දෙසට)'):'කිරණ නිකුත් නොවේ';
+ const glow=active?`<path d="${beamPath}" stroke="#4ee5e9" stroke-width="13" opacity=".17" fill="none"/><path d="${beamPath}" stroke="#79efff" stroke-width="3.7" fill="none" stroke-dasharray="10 5"/><circle cx="484" cy="${screenY}" r="16" fill="#77ff9d" opacity=".2"/><circle cx="484" cy="${screenY}" r="6" fill="#c8ffd4"/>`:'';
+ document.getElementById('visual').classList.add('ct-lab');
+ document.getElementById('visual').innerHTML=`<svg viewBox="0 0 610 310" role="img" aria-label="Cathode tube: beam from cathode to fluorescent screen, deflected by field">
+ <defs><linearGradient id="tubeTint" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#2e718c" stop-opacity=".38"/><stop offset="1" stop-color="#143254" stop-opacity=".55"/></linearGradient></defs>
+ <rect x="56" y="73" width="486" height="152" rx="74" fill="url(#tubeTint)" stroke="#7bafc9" stroke-width="3"/>
+ <rect x="66" y="103" width="36" height="84" rx="4" fill="#a3b9c9"/><text x="83" y="95" text-anchor="middle" font-size="13" fill="#f4f8ff">−</text>
+ <rect x="168" y="107" width="9" height="71" rx="2" fill="#bdc9d8"/><circle cx="172" cy="143" r="5" fill="#112337"/>
+ <rect x="251" y="92" width="165" height="8" rx="3" fill="${field===-1?'#73b9ff':'#fc777f'}"/>
+ <rect x="251" y="187" width="165" height="8" rx="3" fill="${field===-1?'#fc777f':'#73b9ff'}"/>
+ <text x="335" y="83" text-anchor="middle" font-size="17" fill="#fff">${plateTop}</text><text x="335" y="216" text-anchor="middle" font-size="17" fill="#fff">${plateBottom}</text>
+ <line x1="486" y1="92" x2="486" y2="194" stroke="#65cd83" stroke-width="10" opacity=".65"/>
+ <path d="M108 143 L484 143" fill="none" stroke="#a8aec8" stroke-width="1.3" stroke-dasharray="4 9" opacity=".6"/>
+ ${glow}
+ <text x="72" y="260" fill="#c4dbf2" font-size="13">කැතෝඩය (−)</text><text x="159" y="278" fill="#c4dbf2" font-size="13">ඇනෝඩ සිදුර (+)</text>
+ <text x="435" y="260" fill="#a5f6c2" font-size="13">ප්‍රතිදීප්ත තිරය</text><text x="300" y="29" fill="white" text-anchor="middle" font-size="17" font-weight="bold">අඩු පීඩන විසර්ජන නළය · Cathode Ray Tube</text>
+ <text x="300" y="50" fill="#acc4da" text-anchor="middle" font-size="12">සරල ගුණාත්මක නිරූපණයකි — පරිමාණයට අනුව නොවේ</text>
+ </svg>`;
+ const observed=!active?'වෝල්ටීයතාව නවතා ඇති නිසා කිරණ නොපෙන්වයි.':field===0?'විද්‍යුත් ක්ෂේත්‍රයක් නොමැති විට කැතෝඩ කිරණ සෘජුව ගමන් කර තිරයේ මධ්‍යයට වැටේ.':'කිරණ ධන ආරෝපිත තහඩුව දෙසට හැරේ. එයින් එම කිරණ ඍණ ආරෝපිත අංශු ධාරාවක් බව තේරුම් ගත හැක.';
+ document.getElementById('controls').innerHTML=`<div class="ct-control-grid"><label>⚡ ත්වරණ වෝල්ටීයතාව: <b>${voltage} V</b><input type="range" id="ctVoltage" min="0" max="100" step="5" value="${voltage}"></label><label>🔬 නළය ක්‍රියාත්මක කිරීම<div class="ct-actions"><button class="btn ${ctRun?'active':''}" id="ctPower">${ctRun?'⏸ නවත්වන්න':'▶ ආරම්භ කරන්න'}</button><button class="btn" id="ctReset">↻ Reset</button></div></label></div><div class="ct-actions"><button class="btn ${field===0?'active':''}" data-ctfield="0">ක්ෂේත්‍රයක් නැත</button><button class="btn ${field===1?'active':''}" data-ctfield="1">ධන තහඩුව ඉහළ</button><button class="btn ${field===-1?'active':''}" data-ctfield="-1">ධන තහඩුව පහළ</button></div><div class="ct-readout"><div class="ct-stat"><span>ත්වරණ වෝල්ටීයතාව</span><b>${voltage} V</b></div><div class="ct-stat"><span>කිරණ ගමන් මාර්ගය</span><b style="font-size:14px">${screenLabel}</b></div><div class="ct-stat"><span>කිරණයේ ආරෝපණය</span><b>ඍණ (−)</b></div></div><div class="obs"><b>👁 නිරීක්ෂණය සහ නිගමනය</b><div>${observed}</div></div><p class="ct-note">සැලකිල්ල: මෙහි beam හැරීම voltage අගයට අනුකූලව සරලව නිරූපණය කර ඇත. නියමිත භෞතික අනුපාතයක් ලෙස සලකන්න එපා. විද්‍යුත් ක්ෂේත්‍රයක් සක්‍රීය කරන විට ධන තහඩුව දෙසට හැරීම පෙන්වයි.</p>${discoveryView()}`;
+ document.getElementById('ctVoltage').oninput=e=>{state.v=+e.target.value;renderCathode()};
+ document.querySelectorAll('[data-ctfield]').forEach(b=>b.onclick=()=>{state.field=+b.dataset.ctfield;renderCathode()});
+ document.getElementById('ctPower').onclick=()=>{ctRun=!ctRun;renderCathode()};
+ document.getElementById('ctReset').onclick=()=>{state.v=55;state.field=0;ctRun=true;renderCathode()};
+ wireDiscovery();
+}
+renderLab=function(){if(current===0){renderCathode();return;}document.getElementById('visual').classList.remove('ct-lab');baseRenderLab();};
+
+
+// NIE Unit 1, 1.1.1 and 1.1.3: observation-based ray properties workshop.
+let rayKind='cathode',rayTest='shadow',rayGas='H₂',rayAnswer={},rayPage=0;
+const rayProps={
+ cathode:[
+ ['shadow','සෘජු ගමන සහ සෙවණැල්ල','කිරණ මාර්ගයට බාධකයක් තැබූ විට තිරයේ සෙවණැල්ලක් ඇති වේ.','කැතෝඩ කිරණ සෘජු රේඛීය මාර්ගවල ගමන් කරයි.'],
+ ['wheel','හබල් සක චලනය','කිරණ මාර්ගයේ තැබූ සැහැල්ලු හබල් සක කරකැවීම නිරීක්ෂණය වේ.','කිරණවලට ගම්‍යතාව ඇති බවට මෙය පෙන්වූ නිරීක්ෂණයක් වුවත් උෂ්ණත්ව බලපෑම් ගැනත් සැලකිලිමත් විය යුතුය.'],
+ ['electric','ආරෝපණය සහ විද්‍යුත් ක්ෂේත්‍රය','කිරණ ධන තහඩුව දෙසට අපගමනය වේ.','කැතෝඩ කිරණ ඍණ ආරෝපිත අංශු (ඉලෙක්ට්‍රෝන) ධාරාවකි; චුම්බක ක්ෂේත්‍රයක් යටතේ ද හැරේ.'],
+ ['gas','වායු සහ කැතෝඩ ද්‍රව්‍යය','නළයේ වායුව හෝ කැතෝඩය සාදා ඇති ද්‍රව්‍යය වෙනස් කළත් කිරණවල මූලික ස්වභාවය එලෙසම පවතී.','කැතෝඩ කිරණ ඉලෙක්ට්‍රෝන ධාරාවක් වන අතර e/m අනුපාතය ස්ථිරය.']
+ ],
+ positive:[
+ ['shadow','සෘජු ගමන සහ සෙවණැල්ල','කිරණ මාර්ගයේ බාධකයක් තැබූ විට සෙවණැල්ලක් ඇති වේ.','ධන කිරණ ද සෘජු රේඛීය මාර්ගවල ගමන් කරයි.'],
+ ['wheel','හබල් සක චලනය','කිරණ මාර්ගයේ සැහැල්ලු හබල් සක චලනය වන බව නිරීක්ෂණය කළ හැකිය.','ධන කිරණ අංශු ධාරාවක් බවට මෙය සාක්ෂියකි.'],
+ ['electric','ධන ආරෝපණය','ධන කිරණ ඍණ තහඩුව දෙසට හැරේ.','ධන කිරණ ධන අයන ධාරාවකි.'],
+ ['gas','වායුව අනුව වෙනස්වීම','වෙනත් වායුවක් යොදාගත් විට ධන අයනවල ස්කන්ධය හා e/m අනුපාතය වෙනස් විය හැකිය.','කැතෝඩ කිරණ මෙන් නොව, ධන කිරණවල ස්වභාවය නළයේ වායුව මත රඳා පවතී.']
+ ]
+};
+const rayQuestions=[
+ ['කැතෝඩ කිරණ සෘජුව ගමන් කරන බවට සාක්ෂිය කුමක්ද?',['බාධකයක සෙවණැල්ල ඇතිවීම','වර්ණය වෙනස් වීම','වායුවේ සුවඳ වෙනස් වීම'],0,'කිරණ මාර්ගයේ තැබූ බාධකය තිරයේ සෙවණැල්ලක් නිර්මාණය කරයි.'],
+ ['කැතෝඩ කිරණ විද්‍යුත් ක්ෂේත්‍රයකදී කුමන තහඩුවට හැරේද?',['ඍණ තහඩුව','ධන තහඩුව','හැරෙන්නේ නැත'],1,'ඉලෙක්ට්‍රෝන ඍණ ආරෝපිත නිසා ධන තහඩුවට ආකර්ෂණය වේ.'],
+ ['කැතෝඩ කිරණවල e/m අනුපාතය ගැන නිවැරදි ප්‍රකාශය කුමක්ද?',['වායුව අනුව සැමවිටම වෙනස්වේ','කැතෝඩ ද්‍රව්‍යය අනුව වෙනස්වේ','වායුව සහ කැතෝඩ ද්‍රව්‍යය වෙනස් කළත් එය ස්ථිරය'],2,'ඉලෙක්ට්‍රෝන සඳහා ආරෝපණ/ස්කන්ධ අනුපාතය එකම අගයකි.'],
+ ['ධන කිරණ විද්‍යුත් ක්ෂේත්‍රයකදී හැරෙන්නේ කුමන දිශාවටද?',['ඍණ තහඩුව දෙසට','ධන තහඩුව දෙසට','කිසිසේත් නොහැරේ'],0,'ධන අයන ඍණ තහඩුවට ආකර්ෂණය වේ.'],
+ ['ධන කිරණවල e/m අනුපාතය ගැන නිවැරදි අදහස කුමක්ද?',['සියලු වායු සඳහා එකම අගයකි','නළයේ වායුව අනුව වෙනස් විය හැකිය','කැතෝඩ කිරණවල අගයට සැමවිටම සමානයි'],1,'වෙනත් වායුවලින් වෙනත් ධන අයන නිර්මාණය විය හැකි නිසා e/m වෙනස් වේ.'],
+ ['හබල් සක පරීක්ෂණයේදී සැලකිලිමත් විය යුතු දෙය කුමක්ද?',['උෂ්ණත්ව බලපෑම් ද සක චලනයට දායක විය හැකිය','ඉලෙක්ට්‍රෝනවලට ආරෝපණයක් නැත','සෙවණැලි ඇති නොවේ'],0,'මෙය අංශු ධාරාවක් බවට ඉතිහාසගත නිරීක්ෂණයක් වන අතර වෙනත් බලපෑම් ද ඇති විය හැකිය.']
+];
+function renderRayWorkshop(){
+ const positive=rayKind==='positive',properties=rayProps[rayKind],selected=properties.find(x=>x[0]===rayTest)||properties[0];
+ const isShadow=rayTest==='shadow',isWheel=rayTest==='wheel',isElectric=rayTest==='electric',isGas=rayTest==='gas';
+ const origin=positive?480:95,finish=positive?105:480;
+ const beamColor=positive?'#ffbc62':'#68e8ff';
+ const destY=isElectric?(positive?190:96):147;
+ const path=`M${origin} 147 Q285 ${isElectric?destY:147} ${finish} ${destY}`;
+ const obstacles=isShadow?`<rect x="286" y="126" width="13" height="43" rx="3" fill="#e8f3ff"/><rect x="${positive?87:494}" y="110" width="9" height="78" fill="#6ef3a2" opacity=".55"/><rect x="${positive?95:499}" y="132" width="5" height="30" fill="#172436"/><text x="304" y="207" text-anchor="middle" fill="#dce8ff" font-size="14">බාධකය → තිරයේ සෙවණැල්ල</text>`:isWheel?`<g transform="translate(290 147)"><circle r="33" fill="none" stroke="#e6edf9" stroke-width="3"/>${Array.from({length:7},(_,i)=>`<path d="M0 0 L29 -8 L29 8 Z" fill="${i%2?'#f3c166':'#9bb4d5'}" transform="rotate(${i*360/7})"/>`).join('')}<circle r="6" fill="#fff"/></g><text x="290" y="207" text-anchor="middle" fill="#dce8ff" font-size="14">කිරණයට හබල් සක චලනය වේ</text>`:isElectric?`<rect x="220" y="65" width="160" height="11" rx="4" fill="#f77f87"/><rect x="220" y="218" width="160" height="11" rx="4" fill="#72aeff"/><text x="400" y="76" fill="#ffc1c4" font-size="14">ධන (+)</text><text x="400" y="229" fill="#bbd9ff" font-size="14">ඍණ (−)</text>`:`<text x="295" y="75" text-anchor="middle" font-size="16" fill="#dce8ff">නළයේ වායුව: ${rayGas}</text><text x="295" y="219" text-anchor="middle" font-size="14" fill="#dce8ff">${positive?'ධන අයන වර්ගය / e/m වෙනස් විය හැක':'ඉලෙක්ට්‍රෝන e/m ස්ථිරයි'}</text>`;
+ const beam=isShadow?`<path d="M${origin} 147 L${positive?302:281} 147" stroke="${beamColor}" stroke-width="5" stroke-dasharray="10 6"/>`: `<path d="${path}" stroke="${beamColor}" stroke-width="5" fill="none" stroke-dasharray="12 6"/>`;
+ const question=rayQuestions[rayPage],answer=rayAnswer[rayPage];
+ const qhtml=`<div class="ray-panel"><h3>🧠 කිරණවල ගුණ – ප්‍රශ්නාවලිය (${rayPage+1}/${rayQuestions.length})</h3><p>${question[0]}</p>${question[1].map((a,i)=>`<button class="option ${answer===undefined?'':i===question[2]?'right':i===answer?'wrong':''}" data-ray-answer="${i}" ${answer===undefined?'':'disabled'}>${['A','B','C'][i]}. ${a}</button>`).join('')}${answer===undefined?'':`<div class="obs">${answer===question[2]?'✅ නිවැරදියි!':'❌ නිවැරදි පිළිතුර: '+question[1][question[2]]} ${question[3]}</div>`}<div class="ct-actions"><button class="btn" id="rayPrevQ" ${rayPage===0?'disabled':''}>← පෙර</button><button class="btn primary" id="rayNextQ" ${rayPage===rayQuestions.length-1?'disabled':''}>ඊළඟ →</button><button class="btn" id="rayRetry">නැවත කරන්න</button></div></div>`;
+ return `<section class="ray-panel"><h3>🔎 ${positive?'ධන කිරණ (Positive / Canal Rays)':'කැතෝඩ කිරණ (Cathode Rays)'} – ගුණ අත්හදා බලමු</h3><p class="ct-note">පොතේ 1.1.${positive?'3':'1'} කොටස පදනම් කරගත් නිරීක්ෂණාත්මක පාඩම. මෙය ආදර්ශ නිරූපණයක් වන අතර සැබෑ උපකරණයක විද්‍යාත්මක මිනුම් නොවේ.</p><div class="ct-actions"><button class="btn ${!positive?'active':''}" id="rayCathode">කැතෝඩ කිරණ</button><button class="btn ${positive?'active':''}" id="rayPositive">ධන කිරණ</button></div><div class="ray-grid">${properties.map((p,i)=>`<button class="btn ray-topic ${p[0]===rayTest?'active':''}" data-ray-test="${p[0]}">${i+1}. ${p[1]}</button>`).join('')}</div><div class="ray-scene"><svg viewBox="0 0 580 280" role="img" aria-label="කිරණ ගුණ පිළිබඳ සරල පරීක්ෂණ නිරූපණය"><rect x="42" y="37" width="496" height="212" rx="70" fill="#102039" stroke="#699bbb" stroke-width="3"/><rect x="77" y="112" width="18" height="72" fill="#7e9ebc"/><rect x="485" y="112" width="13" height="72" fill="#e2b97c"/>${obstacles}${beam}<text x="75" y="270" fill="#c3e4f7" font-size="14">කැතෝඩය (−)</text><text x="445" y="270" fill="#c3e4f7" font-size="14">ඇනෝඩය (+)</text></svg></div>${isGas?`<div class="ct-actions"><span>වායුව තෝරන්න:</span>${['H₂','Ne','Ar'].map(g=>`<button class="btn ${g===rayGas?'active':''}" data-ray-gas="${g}">${g}</button>`).join('')}</div>`:''}<div class="obs"><b>👁 නිරීක්ෂණය:</b> ${selected[2]}<p><b>💡 නිගමනය:</b> ${selected[3]}</p></div></section>${qhtml}`;
+}
+function wireRayWorkshop(){
+ const root=document.getElementById('controls');
+ root.querySelector('#rayCathode').onclick=()=>{setTopic(0);rayKind='cathode';renderLab()};
+ root.querySelector('#rayPositive').onclick=()=>{setTopic(2);rayKind='positive';renderLab()};
+ root.querySelectorAll('[data-ray-test]').forEach(b=>b.onclick=()=>{rayTest=b.dataset.rayTest;renderLab()});
+ root.querySelectorAll('[data-ray-gas]').forEach(b=>b.onclick=()=>{rayGas=b.dataset.rayGas;renderLab()});
+ root.querySelectorAll('[data-ray-answer]').forEach(b=>b.onclick=()=>{rayAnswer[rayPage]=+b.dataset.rayAnswer;renderLab()});
+ root.querySelector('#rayPrevQ').onclick=()=>{rayPage--;renderLab()};
+ root.querySelector('#rayNextQ').onclick=()=>{rayPage++;renderLab()};
+ root.querySelector('#rayRetry').onclick=()=>{rayAnswer={};rayPage=0;renderLab()};
+}
+const priorRayRender=renderLab;
+renderLab=function(){
+ if(current===0||current===2){rayKind=current===0?'cathode':'positive';if(current===0){renderCathode();}else{document.getElementById('visual').classList.add('ct-lab');document.getElementById('visual').innerHTML='<div class="obs"><b>ධන කිරණ ගුණ පරීක්ෂණාගාරය</b><p>පහත ගුණ තෝරා පරීක්ෂණය කරන්න.</p></div>';}const c=document.getElementById('controls');if(current===0){c.insertAdjacentHTML('beforeend',renderRayWorkshop());}else{c.innerHTML=renderRayWorkshop();}wireRayWorkshop();return;}
+ priorRayRender();
+};
+
+
+/* Interactive ray property experiments — actual controllable animated demonstrations */
+let rayPower=true, rayObject=true, raySpeed=65, rayPolarity=1, rayMagnet=0, rayPrediction='', rayCurrentGas='H₂';
+const rayExplain={
+ cathode:{shadow:['බාධකය ඉදිරියට දැමූ විට මැද කිරණ නතර වී තිරයේ අඳුරු සෙවණැල්ලක් ඇති වේ.','කැතෝඩ කිරණ සෘජු රේඛීයව ගමන් කරන බවට සාක්ෂියකි.'],wheel:['කිරණ ක්‍රියාත්මක වූ විට හබල් සකය භ්‍රමණය වන ආකාරය දැකිය හැක.','මෙය කැතෝඩ කිරණවල ගම්‍යතාව පිළිබඳ ඉතිහාසගත නිරීක්ෂණයකි. රෝදය චලනයට තාප බලපෑම්ද දායක විය හැක.'],electric:['ඍණ ආරෝපිත කිරණ ධන තහඩුව දෙසට හැරේ.','කැතෝඩ කිරණ ඉලෙක්ට්‍රෝන ධාරාවකි.'],gas:['වායුව වෙනස් කළත් කැතෝඩ කිරණවල e/m අනුපාතය වෙනස් නොවේ.','කිරණවල අංශු ඉලෙක්ට්‍රෝන වේ.']},
+ positive:{shadow:['බාධකය තැබූ විට සෙවණැල්ලක් ඇති වේ.','ධන කිරණ සෘජුව ගමන් කරයි.'],wheel:['කිරණ හබල් සකයට වැදෙන විට එය චලනය වන නිරූපණයකි.','ධන කිරණ ද අංශු ධාරාවක් බවට නිරීක්ෂණයකි.'],electric:['ධන කිරණ ඍණ තහඩුව දෙසට හැරේ.','ධන කිරණ ධන ආරෝපිත අයන වේ.'],gas:['වායුව වෙනස් කළ විට ධන අයන වර්ගය හා e/m අනුපාතය වෙනස් විය හැක.','ධන කිරණවල ස්වභාවය වායුව මත රඳා පවතී.']}
+};
+function realRayScene(){
+ const pos=rayKind==='positive', from=pos?500:79,to=pos?79:500, color=pos?'#ffc270':'#66e9ff',on=rayPower;
+ if(pos){
+   const shadow=rayTest==='shadow',wheel=rayTest==='wheel',elec=rayTest==='electric',gas=rayTest==='gas';
+   const ion={'H₂':'H⁺','Ne':'Ne⁺','Ar':'Ar⁺'}[rayCurrentGas];
+   const curve=elec?(rayPolarity===1?18:-18)*raySpeed/65:0;
+   const particleLines=rayPower?Array.from({length:5},(_,i)=>{let y=shadow?122+i*14:150+(i-2)*2;const blocked=shadow&&rayObject&&i>=1&&i<=3;const finish=blocked?104:60;return `<path d="M440 ${y} L150 ${y} L${finish} ${y+(elec?curve:0)}" fill="none" stroke="#ffc270" stroke-width="${i===2?4:2}" stroke-dasharray="9 10" opacity="${i===2?1:.42}" class="rayflow"/>`;}).join(''):'';
+   const object=shadow&&rayObject?`<rect x="98" y="128" width="8" height="44" rx="2" fill="#f7e0ae"/>`:wheel&&rayObject?`<g transform="translate(103 150)"><g class="rayrotor ${rayPower?'spinning':''}" style="--spin:${Math.max(.35,2.5-raySpeed/60)}s"><circle r="26" fill="#13253b" stroke="#d9edfa" stroke-width="2"/>${Array.from({length:6},(_,i)=>`<path transform="rotate(${i*60})" d="M0 0 L23 -7 L23 7Z" fill="${i%2?'#efbd72':'#8ed0f2'}"/>`).join('')}</g></g>`:'';
+   const screen=shadow?`<rect x="48" y="106" width="8" height="92" fill="${rayPower?'#8cfbb5':'#335a49'}"/>${rayPower&&rayObject?'<rect x="47" y="128" width="10" height="44" fill="#102239"/>':''}`:'';
+   const plates=elec?`<rect x="205" y="75" width="185" height="10" rx="3" fill="${rayPolarity===1?'#f37b82':'#77a8fc'}"/><rect x="205" y="215" width="185" height="10" rx="3" fill="${rayPolarity===1?'#77a8fc':'#f37b82'}"/><text x="395" y="83" fill="white" font-size="16">${rayPolarity===1?'+':'−'}</text><text x="395" y="225" fill="white" font-size="16">${rayPolarity===1?'−':'+'}</text>`:'';
+   return `<div class="ray-live"><svg viewBox="0 0 580 300" role="img" aria-label="සිදුරු සහිත කැතෝඩය හරහා ධන අයන ගමන් කරන පරීක්ෂණය"><rect x="26" y="37" width="528" height="218" rx="86" fill="#0c1e33" stroke="#77afcb" stroke-width="3"/>
+    <rect x="142" y="99" width="13" height="44" rx="2" fill="#9db5cf"/><rect x="142" y="157" width="13" height="44" rx="2" fill="#9db5cf"/>
+    <path d="M136 150 L162 150" stroke="#ffd17c" stroke-width="1.5" stroke-dasharray="2 3"/>
+    <rect x="472" y="113" width="13" height="74" rx="3" fill="#f2c47f"/>${plates}${screen}${particleLines}${object}
+    ${rayPower?`<g fill="#ffcb71">${[0,1,2].map((n)=>`<circle cx="${310+n*41}" cy="${150+(n-1)*24}" r="6"/>`).join('')}</g>`:''}
+    <text x="300" y="68" text-anchor="middle" fill="#d5e9fb" font-size="15">වායු අයනීකරණය → ${ion} ධන අයන</text>
+    <text x="143" y="220" text-anchor="middle" fill="#bdddf8" font-size="13">සිදුරු සහිත</text><text x="143" y="237" text-anchor="middle" fill="#bdddf8" font-size="13">කැතෝඩය (−)</text>
+    <text x="477" y="208" text-anchor="middle" fill="#ffdd9c" font-size="13">ඇනෝඩය (+)</text>
+    <text x="80" y="88" text-anchor="middle" fill="#9ffad0" font-size="13">Canal rays</text><text x="295" y="279" text-anchor="middle" fill="#d2e5f4" font-size="12">ධන අයන ← සිදුර හරහා ← ඍණ කැතෝඩය වෙත</text>
+    </svg></div>`;
+ }
+
+ const shadow=rayTest==='shadow',wheel=rayTest==='wheel',elec=rayTest==='electric',gas=rayTest==='gas';
+ const activeWheel=on && rayObject && wheel;
+ const isDeflect=elec && on;
+ const signed=rayPolarity*(pos?-1:1);
+ const endY=isDeflect?150-signed*raySpeed*.60:150;
+ const path=`M ${from} 150 Q 290 150 ${to} ${endY}`;
+ const topSign=rayPolarity===1?'+':'−',bottomSign=rayPolarity===1?'−':'+';
+ const screenX=pos?67:515;
+ const beam=on?(shadow?Array.from({length:9},(_,i)=>{const y=106+i*11;const hit=rayObject&&y>=120&&y<=180;const bx=pos?300:280;return `<path d="M${from} ${y} L${hit?bx:screenX} ${y}" fill="none" stroke="${color}" opacity="${hit?.75:.9}" stroke-width="2.8" stroke-dasharray="8 5" class="rayflow"/>`}).join(''):`<path d="${path}" fill="none" stroke="${color}" opacity=".20" stroke-width="18"/><path d="${path}" fill="none" stroke="${color}" stroke-width="3.6" stroke-dasharray="10 9" class="rayflow"/>`):'';
+ const blocker=shadow&&rayObject?`<rect x="280" y="120" width="20" height="60" rx="3" fill="#f5e5c6" stroke="#fff"/><text x="290" y="112" text-anchor="middle" font-size="13" fill="#fff">බාධකය</text>`:'';
+ const shadScreen=shadow&&rayObject&&on?`<rect x="${screenX}" y="120" width="10" height="60" fill="#102238" stroke="#ffcf84" stroke-width="1"/><text x="350" y="238" fill="#ffdd91" font-size="13">මැද කිරණ නවතී → අඳුරු සෙවණැල්ල</text>`:'';
+ const screen=shadow?`<rect x="${screenX}" y="95" width="10" height="110" rx="4" fill="${on?'#85ffa9':'#35644f'}" opacity="${on?'.85':'.32'}"/>${shadScreen}`:'';
+ const rotor=wheel&&rayObject?`<g transform="translate(290 150)"><g class="rayrotor ${activeWheel?'spinning':''}" style="--spin:${Math.max(.35,2.5-raySpeed/60)}s"><circle r="42" fill="#15243b" stroke="#ddefff" stroke-width="3"/>${Array.from({length:8},(_,i)=>`<path transform="rotate(${45*i})" d="M0 -4 L37 -15 L37 9 L0 5Z" fill="${i%2?'#8cccf2':'#f4c071'}" stroke="#0e2237"/>`).join('')}<circle r="8" fill="#fff"/></g></g>`:'';
+ const plates=elec?`<rect x="180" y="67" width="220" height="11" rx="3" fill="${rayPolarity===1?'#f2777b':'#6cafff'}"/><text x="405" y="77" fill="white" font-size="18">${topSign}</text><rect x="180" y="220" width="220" height="11" rx="3" fill="${rayPolarity===1?'#6cafff':'#f2777b'}"/><text x="405" y="232" fill="white" font-size="18">${bottomSign}</text>`:'';
+ const gasInfo=gas?`<text x="290" y="83" text-anchor="middle" fill="#e8f4ff" font-size="17">වායුව: ${rayCurrentGas}</text>`:'';
+ return `<div class="ray-live"><svg viewBox="0 0 580 295" role="img" aria-label="ක්‍රියාකාරී කිරණ පරීක්ෂණය"><rect x="36" y="47" width="508" height="205" rx="82" fill="#0c1e33" stroke="#77afcb" stroke-width="3"/><rect x="${pos?500:68}" y="115" width="16" height="70" rx="3" fill="#a9bdcb"/><rect x="${pos?67:500}" y="113" width="12" height="75" rx="3" fill="#e4ba73"/>${plates}${gasInfo}${screen}${beam}${blocker}${rotor}<text x="90" y="280" fill="#d7e6f7" font-size="14">කැතෝඩය (−)</text><text x="422" y="280" fill="#d7e6f7" font-size="14">ඇනෝඩය (+)</text>${wheel?`<text x="290" y="92" text-anchor="middle" fill="#e6f4ff" font-size="15">${activeWheel?'⟳ සකය භ්‍රමණය වේ': 'සකය නතර වී ඇත'}</text>`:''}</svg></div>`;
+}
+renderRayWorkshop=function(){
+ const names={shadow:'සෘජු ගමන / සෙවණැල්ල',wheel:'හබල් සක භ්‍රමණය',electric:'විද්‍යුත් ක්ෂේත්‍රයෙන් හැරීම',gas:'වායු වෙනස් කිරීම'};
+ const [obs,con]=rayExplain[rayKind][rayTest];
+ const actual=rayPower?(rayTest==='wheel'?(rayObject?'සකය භ්‍රමණය වේ':'සකය ඉවත් කර ඇත'):rayTest==='shadow'?(rayObject?'තිරයේ සෙවණැල්ල පෙනේ':'බාධකය ඉවත් කර ඇත'):rayTest==='electric'?'කිරණ හැරෙන්නේ '+(rayPolarity*(rayKind==='positive'?-1:1)>0?'ඉහළට':'පහළට'):'වායුව: '+rayCurrentGas):'විසර්ජනය අක්‍රියයි';
+ const gasRatios={'H₂':{ion:'H⁺',mass:'1.0078 u',ratio:'9.58 × 10⁷'},'Ne':{ion:'Ne⁺',mass:'20.18 u',ratio:'4.78 × 10⁶'},'Ar':{ion:'Ar⁺',mass:'39.95 u',ratio:'2.42 × 10⁶'}};
+ const gd=gasRatios[rayCurrentGas];
+ const gasDetails=(rayTest==='gas'||rayKind==='positive')?`<div class="obs" style="margin-top:12px"><b>⚖ ආරෝපණය / ස්කන්ධය (|q|/m) — සංඛ්‍යාත්මක සංසන්දනය</b><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:12px 0"><div style="background:#10253c;border:1px solid #3b6582;padding:12px;border-radius:10px"><small>නළයේ වායුව</small><div style="font-size:23px;color:#77edff">${rayCurrentGas}</div></div><div style="background:#10253c;border:1px solid #3b6582;padding:12px;border-radius:10px"><small>${rayKind==='cathode'?'කිරණ අංශුව':'උදාහරණ ධන අයනය'}</small><div style="font-size:23px;color:#77edff">${rayKind==='cathode'?'e⁻':gd.ion}</div></div><div style="background:#10253c;border:1px solid #3b6582;padding:12px;border-radius:10px"><small>|q|/m (C kg⁻¹)</small><div style="font-size:21px;color:#a6ffca">${rayKind==='cathode'?'1.76 × 10¹¹':gd.ratio}</div></div></div><p>${rayKind==='cathode'?'H₂, Ne, Ar මාරු කළත් e⁻ වල ආරෝපණය සහ ස්කන්ධය වෙනස් නොවේ. එබැවින් |e|/m එකම අගයක පවතී.':'මෙය තනි ධන ආරෝපණයක් (+1) ඇති '+gd.ion+' අයනය සඳහා උදාහරණ ගණනයකි. අයන ස්කන්ධය ≈ '+gd.mass+'; වායුවත් අයනීකරණ තත්ත්වයත් වෙනස් වූ විට |q|/m වෙනස් විය හැක.'}</p><p style="font-size:12px">* අගයන් ආසන්න අගයන්ය. මෙය සැබෑ නළයක සියලු අයනවල ස්කන්ධ වර්ණාවලිය නොවේ.</p></div>`:'';
+ const shadowDetails=rayTest==='shadow'?`<div class="obs" style="margin-top:12px"><b>සෙවණැල්ල හැදෙන්නේ කොහොමද?</b><p>තිරයේ කොළ පාටින් පෙනෙන්නේ කිරණ වැදී ආලෝකමත් වූ ප්‍රදේශයයි. බාධකයට වැදෙන <b>මැද කිරණ එතැනින් නතර වෙනවා</b>. ඉහළ සහ පහළ කිරණ බාධකය පසුකර තිරයට ළඟා වෙනවා. ඒ නිසා තිරයේ මැද <b>අඳුරු සෙවණැල්ලක්</b> පෙනෙනවා.</p><p>බාධකය ඉවත් කර බලන්න: දැන් මැද කිරණත් තිරයට ළඟා වෙන නිසා සෙවණැල්ල නැති වෙනවා. (කිරණ මාර්ගය දෘශ්‍යමාන කිරීම සඳහා ඇඳ තිබෙන රේඛා අධ්‍යාපනික නිරූපණයකි.)</p></div>`:'';
+ const q=rayQuestions[rayPage], a=rayAnswer[rayPage];
+ return `<section class="ray-panel"><h3>🧪 ${rayKind==='cathode'?'කැතෝඩ කිරණ':'ධන (Canal) කිරණ'} — ගුණ පරීක්ෂණාගාරය</h3><p class="ct-note">ගුණයක් තෝරා controls ක්‍රියාත්මක කර නිරීක්ෂණය කරන්න. මෙම දර්ශන සරල අධ්‍යාපනික නිරූපණ වේ.</p><div class="ct-actions"><button class="btn ${rayKind==='cathode'?'active':''}" id="rayCathode">කැතෝඩ කිරණ</button><button class="btn ${rayKind==='positive'?'active':''}" id="rayPositive">ධන කිරණ</button></div><div class="ray-property-picker"><label for="rayPropertySelect">🔎 පරීක්ෂා කළ යුතු කිරණ ගුණය තෝරන්න</label><select id="rayPropertySelect" aria-label="කිරණ ගුණය තෝරන්න">${Object.entries(names).map(([k,v])=>`<option value="${k}" ${rayTest===k?'selected':''}>${v}</option>`).join('')}</select><small>ගුණයක් තෝරා පරීක්ෂණය ක්‍රියාත්මක කරන්න. නිරීක්ෂණය සහ නිගමනය පහතින් බලන්න.</small></div>${realRayScene()}${rayKind==='positive'?'<div class="obs"><b>🔬 පරීක්ෂණ ක්‍රමය:</b> වායුව අයනීකරණයෙන් ධන අයන හටගනී. ඒවා ඍණ කැතෝඩය වෙත ගමන් කර එහි සිදුරු හරහා පිටුපසට යයි. සිදුරු අයන සෑදෙන්න හේතුවක් නොවේ.</div>':''}${gasDetails}${shadowDetails}<div class="ray-game-controls"><button class="btn primary" id="rayPower">${rayPower?'⏸ කිරණ නවත්වන්න':'▶ කිරණ ක්‍රියාත්මක කරන්න'}</button>${rayTest==='wheel'||rayTest==='shadow'?`<button class="btn" id="rayObject">${rayObject?'− '+(rayTest==='wheel'?'හබල් සකය':'බාධකය')+' ඉවත් කරන්න':'＋ '+(rayTest==='wheel'?'හබල් සකය':'බාධකය')+' තබන්න'}</button>`:''}${rayTest==='electric'?`<button class="btn" id="rayFlip">⇅ තහඩු වල ධ්‍රැව මාරු කරන්න</button>`:''}${rayTest==='gas'||rayKind==='positive'?`<label>නළයේ වායුව <select id="rayGasSelect">${['H₂','Ne','Ar'].map(g=>`<option ${rayCurrentGas===g?'selected':''}>${g}</option>`).join('')}</select></label>`:''}${rayTest==='wheel'||rayTest==='electric'?`<label> ${rayTest==='wheel'?'භ්‍රමණ නිරූපණ වේගය':'ක්ෂේත්‍ර ප්‍රබලතාව (නිරූපණය)'} <strong id="rayValue">${raySpeed}%</strong><input id="raySpeed" type="range" min="10" max="100" value="${raySpeed}"/></label>`:''}<button class="btn" id="rayReset">↻ මුල් තත්ත්වයට</button></div><div class="obs"><b>🔎 සජීවී නිරීක්ෂණය:</b> ${actual}<p><b>📖 පොතේ අදාළ නිරීක්ෂණය:</b> ${obs}</p><p><b>💡 නිගමනය:</b> ${con}</p></div>${rayTest==='wheel'?'<p class="ct-note">හබල් සක පරීක්ෂණය මෙහි සංකල්ප නිරූපණයකි; වේග slider එක මිනුම්ගත සැබෑ සක වේගයක් නොවේ.</p>':''}</section>`;
+};
+wireRayWorkshop=function(){
+ const root=document.getElementById('visual');
+ root.querySelector('#rayCathode').onclick=()=>{setTopic(0);rayKind='cathode';renderLab()};
+ root.querySelector('#rayPositive').onclick=()=>{setTopic(2);rayKind='positive';renderLab()};
+ const propertySelect=root.querySelector('#rayPropertySelect');if(propertySelect)propertySelect.onchange=()=>{rayTest=propertySelect.value;rayObject=true;rayPower=true;renderLab()};
+ root.querySelector('#rayPower').onclick=()=>{rayPower=!rayPower;renderLab()};
+ const obj=root.querySelector('#rayObject');if(obj)obj.onclick=()=>{rayObject=!rayObject;renderLab()};
+ const flip=root.querySelector('#rayFlip');if(flip)flip.onclick=()=>{rayPolarity*=-1;renderLab()};
+ const gas=root.querySelector('#rayGasSelect');if(gas)gas.onchange=()=>{rayCurrentGas=gas.value;renderLab()};
+ const speed=root.querySelector('#raySpeed');if(speed)speed.oninput=()=>{raySpeed=Number(speed.value);const wheel=root.querySelector('.rayrotor');if(wheel)wheel.style.setProperty('--spin',Math.max(.35,2.5-raySpeed/60)+'s');const val=root.querySelector('#rayValue');if(val)val.textContent=raySpeed+'%';if(rayTest==='electric')renderLab()};
+ root.querySelector('#rayReset').onclick=()=>{rayPower=true;rayObject=true;raySpeed=65;rayPolarity=1;renderLab()};
+ root.querySelectorAll('[data-ray-answer]').forEach(el=>el.onclick=()=>{rayAnswer[rayPage]=Number(el.dataset.rayAnswer);renderLab()});
+ /* ray knowledge questions have moved to the final quiz page */
+};
+
+
+// Make the property laboratory the primary visual for both ray topics.
+const _renderWithVisibleRayTests=renderLab;
+renderLab=function(){
+ if(current===0 || current===2){
+   rayKind=current===0?'cathode':'positive';
+   const v=document.getElementById('visual');
+   v.classList.add('ct-lab');
+   v.innerHTML=renderRayWorkshop();
+   document.getElementById('controls').innerHTML='';
+   wireRayWorkshop();
+   return;
+ }
+ _renderWithVisibleRayTests();
+};
+$('langSi').onclick=()=>{language='si';applyLanguage()};$('langEn').onclick=()=>{language='en';applyLanguage()};$('prev').onclick=()=>setTopic(current-1);$('next').onclick=()=>setTopic(current+1);$('menu').onclick=()=>$('sidebar').classList.toggle('collapsed');applyLanguage();
+
+/* Interactive collision and ionization lab — illustrative particle paths */
+const ionLabStyle=document.createElement('style');ionLabStyle.textContent=`.ion-card{background:#102338;border:1px solid #42809d;border-radius:18px;padding:15px;margin:0 0 18px}.ion-card h3{margin:0 0 8px;color:#e7f9ff}.ion-card{box-shadow:0 18px 40px #0004;background:linear-gradient(150deg,#112840,#0c1b30)}.ion-status{border-left:3px solid #53d9ef;background:#122f49;border-radius:8px;padding:12px;margin:10px 0}.ion-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:9px 0}.ion-steps span{font-size:11px;padding:8px 4px;border-radius:7px;text-align:center;background:#1b334a;color:#bfd8ea}.ion-steps span.active{background:#155b73;color:white}.ion-card .ion-tools button{min-height:41px}.ion-stage{min-height:190px}.ion-tools{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:12px 0}.ion-tools select{background:#233a56;border:1px solid #5583a2;color:white;border-radius:9px;padding:9px}.ion-stage{display:block;width:100%;background:#071525;border-radius:14px;border:1px solid #41627c;touch-action:pan-y}.ion-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.ion-metrics div{background:#192f4b;border-radius:9px;padding:9px;font-size:12px}.ion-metrics b{display:block;color:#73e5f2;font-size:19px}.ion-help{font-size:13px;color:#c4d8ed}.ion-legend{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0;color:#c8def4;font-size:12px}@media(max-width:550px){.ion-metrics{grid-template-columns:1fr 1fr}}`;document.head.appendChild(ionLabStyle);
+let ionAnimation=null;
+function renderIonLab(){
+ const v=document.getElementById('visual');
+ if(!v||current!==2)return;
+ if(ionAnimation)ionAnimation.cancelled=true;
+ const shell=document.createElement('div');shell.className='ion-card';shell.innerHTML=`<h3>⚡ වායු අණු එකතු කර අයනීකරණය බලමු</h3><p class="ion-help">වායුව තෝරා <b>＋ වායු අංශු එකතු කරන්න</b> ඔබන්න. අංශු ඉහළ පිහිටි gas inlet එකෙන් නළයට ඇතුළු වෙන හැටි බලන්න. ඕනෑම වායු අංශුවක් නළය තුළට <b>drag</b> කරලා තැබියත් පුළුවන්. නිල් ඉලෙක්ට්‍රෝනය වායු අංශුවක ගැටුණු විට අමතර ඉලෙක්ට්‍රෝනයක් ඉවත් වී තැඹිලි ධන අයනය කැතෝඩයේ සිදුර හරහා වමට යයි.</p><div class="ion-steps" id="ionSteps"><span class="active">1 · Gas එකතු කරන්න</span><span>2 · e⁻ ගමන</span><span>3 · ගැටීම / අයනීකරණය</span><span>4 · ධන කිරණ</span></div><div class="ion-tools"><label>වායුව <select id="ionGas"><option value="H2">H₂</option><option value="Ne">Ne</option><option value="Ar">Ar</option></select></label><button class="btn primary" id="ionAdd">＋ වායු අංශු එකතු කරන්න</button><button class="btn" id="ionToggle">⏸ නවත්වන්න</button><label style="color:#d2e8f5;font-size:13px">වේගය <input id="ionSpeed" type="range" min="1" max="4" step="1" value="2" aria-label="Simulation වේගය" style="vertical-align:middle;width:85px"></label><button class="btn" id="ionClear">↻ නැවත සකසන්න</button><button class="btn" id="ionStep">⚡ එක් ගැටීමක් පෙන්වන්න</button></div><canvas id="ionCanvas" class="ion-stage" width="740" height="322" aria-label="කැතෝඩයෙන් පිටවන ඉලෙක්ට්‍රෝන, වායු අංශු සමඟ ගැටී ධන අයන සෑදෙන අධ්‍යාපනික animation එක"></canvas><div class="ion-legend"><span>🔵 කැතෝඩ ඉලෙක්ට්‍රෝන e⁻ →</span><span>⚪ වායු අංශු</span><span>🟠 ධන අයන → කැතෝඩය වෙත</span><span>🔹 ගැටීමෙන් පිටවන e⁻</span></div><div class="ion-metrics"><div>එකතු කළ අංශු<b id="ionCount">0</b></div><div>අයනීකරණ සිදුවීම්<b id="ionHits">0</b></div><div>ධන අයන සඳහා |q|/m<b id="ionRatio">9.58 × 10⁷</b><small> C kg⁻¹</small></div></div><div class="ion-status"><b style="color:#8ee9f7">🔬 නිරීක්ෂණය</b><p id="ionEvent" class="ion-help" aria-live="polite">පළමුව වායු අංශු එකතු කරන්න.</p></div><p class="ion-help">⚠ මෙය සංකල්ප පැහැදිලි කරන simulation එකකි. සියලු ගැටීම් අයනීකරණය නොකරයි; මෙහි තෝරාගත් ගැටීම් උදාහරණ ලෙස පෙන්වයි. H₂ සඳහා H⁺ අගය උදාහරණයකි; සැබෑ නළයේ H₂⁺, H⁺ වැනි අයන මිශ්‍රණයක් තිබිය හැක.</p>`;
+ v.prepend(shell);
+ const canvas=shell.querySelector('#ionCanvas'),ctx=canvas.getContext('2d');
+ const gasSel=shell.querySelector('#ionGas'),add=shell.querySelector('#ionAdd'),tog=shell.querySelector('#ionToggle'),clear=shell.querySelector('#ionClear'),step=shell.querySelector('#ionStep'),speed=shell.querySelector('#ionSpeed'),steps=shell.querySelector('#ionSteps');
+ const ratios={H2:'9.58 × 10⁷',Ne:'4.78 × 10⁶',Ar:'2.42 × 10⁶'};
+ const state={cancelled:false,running:true,atoms:[],electrons:[],ions:[],secondary:[],flashes:[],hits:0,added:0,last:0,spawn:0,drag:null,beamOffset:0,phase:0};ionAnimation=state;
+ const say=(t,phase)=>{shell.querySelector('#ionEvent').textContent=t;if(phase!==undefined){state.phase=phase;[...steps.children].forEach((el,i)=>el.classList.toggle('active',i===phase));}};
+ const setNumbers=()=>{shell.querySelector('#ionCount').textContent=state.added;shell.querySelector('#ionHits').textContent=state.hits;shell.querySelector('#ionRatio').textContent=ratios[gasSel.value]};
+ const reset=()=>{state.atoms=[];state.electrons=[];state.ions=[];state.secondary=[];state.flashes=[];state.hits=state.added=state.spawn=0;setNumbers();say('වායු අංශු එකතු කරන්න.',0);};
+ function addGas(n=5){const gas=gasSel.value;for(let i=0;i<n;i++){let tx=205+Math.random()*310,ty=98+Math.random()*120;state.atoms.push({x:515+i*14,y:-12-i*12,targetX:tx,targetY:ty,gas,age:0,r:gas==='H2'?10:gas==='Ne'?13:16});}state.added+=n;setNumbers();say(gas+' වායු අංශු '+n+'ක් ඉහළ gas inlet හරහා ඇතුළු කළා. නිල් e⁻ ඒවා සමඟ ගැටෙන ආකාරය බලන්න.',1);}
+ add.onclick=()=>addGas(5);
+ step.onclick=()=>{if(!state.atoms.length){addGas(1);}state.running=true;tog.textContent='⏸ නවත්වන්න';const a=state.atoms[state.atoms.length-1];a.x=a.targetX;a.y=a.targetY;a.age=25;state.electrons.push({x:133,y:a.y,target:a});say('නිල් e⁻ අංශුව ඉලක්ක වායු අංශුවට යමින් තිබේ…',1);};
+ function position(ev){const r=canvas.getBoundingClientRect();return {x:(ev.clientX-r.left)*740/r.width,y:(ev.clientY-r.top)*322/r.height};}
+ canvas.addEventListener('pointerdown',ev=>{const q=position(ev);let a=state.atoms.findLast(a=>Math.hypot(a.x-q.x,a.y-q.y)<a.r+16);if(!a)return;state.drag=a;canvas.setPointerCapture(ev.pointerId);});
+ canvas.addEventListener('pointermove',ev=>{if(!state.drag)return;const q=position(ev);state.drag.x=state.drag.targetX=Math.max(140,Math.min(610,q.x));state.drag.y=state.drag.targetY=Math.max(69,Math.min(239,q.y));state.drag.age=26;});
+ function release(){state.drag=null;}canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);
+ gasSel.onchange=()=>{reset();setNumbers();say('වායුව වෙනස් කළා. අලුත් වායු අංශු එකතු කරන්න.');};
+ tog.onclick=()=>{state.running=!state.running;tog.textContent=state.running?'⏸ නවත්වන්න':'▶ නැවත ක්‍රියාත්මක කරන්න';};
+ clear.onclick=reset;
+ function circle(x,y,r,color){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill()}
+ function draw(){ctx.clearRect(0,0,740,322);const g=ctx.createLinearGradient(0,0,0,322);g.addColorStop(0,'#0c2033');g.addColorStop(1,'#071321');ctx.fillStyle=g;ctx.fillRect(0,0,740,322);
+ // gas entrance on the right and glass tube
+ ctx.strokeStyle='#78a9c3';ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(55,49,625,215,42);ctx.stroke();ctx.fillStyle='#a9bfd6';ctx.fillRect(115,70,12,80);ctx.fillRect(115,167,12,75);ctx.fillStyle='#ffd184';ctx.fillRect(626,85,10,145);
+ ctx.fillStyle='#e5f3ff';ctx.font='15px sans-serif';ctx.fillText('සිදුරු සහිත කැතෝඩය (−)',55,29);ctx.fillText('ඇනෝඩය (+)',600,29);ctx.fillStyle='#9cbdd5';ctx.fillText('වායුව ඇතුළු කරන නළය ↓',433,20);ctx.strokeStyle='#7cc6df';ctx.beginPath();ctx.moveTo(530,0);ctx.lineTo(530,47);ctx.stroke();ctx.fillText('අංශුවක් drag කරන්න',470,293);ctx.font='12px sans-serif';ctx.fillStyle='#9ed9ee';ctx.fillText('e⁻ කැතෝඩයෙන් ඇනෝඩයට →',175,59);
+ ctx.strokeStyle='#577b94';ctx.setLineDash([5,8]);ctx.beginPath();ctx.moveTo(126,158);ctx.lineTo(620,158);ctx.stroke();ctx.setLineDash([]);
+ for(const a of state.atoms){circle(a.x,a.y,a.r,'#8cb5cf');circle(a.x,a.y,Math.max(3,a.r-4),'#d5e9f6');ctx.font='bold 10px sans-serif';ctx.fillStyle='#112a43';ctx.textAlign='center';ctx.fillText(a.gas==='H2'?'H₂':a.gas,a.x,a.y+3);ctx.textAlign='left'}
+ for(const e of state.electrons){circle(e.x,e.y,5,'#4fe6ff');ctx.fillStyle='#a8f8ff';ctx.font='11px sans-serif';ctx.fillText('e⁻',e.x-6,e.y-10)}
+ for(const e of state.secondary){circle(e.x,e.y,4,'#7ed5ff')}
+ for(const a of state.ions){circle(a.x,a.y,11,'#ff9b55');ctx.fillStyle='#271509';ctx.textAlign='center';ctx.font='bold 16px sans-serif';ctx.fillText('+',a.x,a.y+5);ctx.textAlign='left'}
+ for(const f of state.flashes){ctx.strokeStyle=`rgba(255,216,119,${Math.max(0,1-f.age/35)})`;ctx.lineWidth=3;ctx.beginPath();ctx.arc(f.x,f.y,9+f.age*.8,0,Math.PI*2);ctx.stroke()}
+ ctx.fillStyle='#78dafa';ctx.font='13px sans-serif';ctx.fillText('e⁻ →',153,315);ctx.fillStyle='#ffb777';ctx.fillText('← ධන අයන: කැතෝඩයේ සිදුර හරහා',330,315);
+ }
+ function frame(t){if(state.cancelled||!canvas.isConnected)return;let dt=(state.last?Math.min(2.2,(t-state.last)/16.67):1)*Number(speed.value)/2;state.last=t;if(state.running){state.spawn+=dt;if(state.spawn>13){state.spawn=0;const available=state.atoms.filter(a=>a.age>18&&a!==state.drag);const target=available.length?available[Math.floor(Math.random()*available.length)]:null;state.electrons.push({x:130,y:target?target.y:79+Math.random()*146,vy:0,target});}for(const a of state.atoms){a.x+=(a.targetX-a.x)*Math.min(1,.045*dt);a.y+=(a.targetY-a.y)*Math.min(1,.045*dt);a.age+=dt}for(const e of state.electrons){e.x+=3.1*dt;let chosen=null;for(const a of state.atoms){if(a.age>12&&a!==state.drag&&Math.hypot(e.x-a.x,e.y-a.y)<a.r+7){chosen=a;break}}if(chosen){state.atoms.splice(state.atoms.indexOf(chosen),1);state.ions.push({x:chosen.x,y:chosen.y,gate:false});state.secondary.push({x:chosen.x+3,y:chosen.y,vx:1.7+Math.random(),vy:-1.8-Math.random()});state.flashes.push({x:chosen.x,y:chosen.y,age:0});state.hits++;setNumbers();say('⚡ ගැටීමෙන් '+chosen.gas+' අංශුවක e⁻ ඉවත් වුණා. දැන් එය ධන අයනයක්! ඍණ කැතෝඩය දෙසට ඇදෙනවා.',2);e.x=760;}}
+ state.electrons=state.electrons.filter(e=>e.x<690);for(const a of state.ions){a.x-=2.35*dt; a.y+=(158-a.y)*Math.min(1,.075*dt);if(a.x<114&&!a.gate){a.gate=true;say('✅ ධන අයනය සිදුරු සහිත කැතෝඩය හරහා ගියා. මේවා තමයි ධන කිරණ / Canal Rays.',3);}}state.ions=state.ions.filter(a=>a.x>35);for(const e of state.secondary){e.x+=e.vx*dt;e.y+=e.vy*dt}state.secondary=state.secondary.filter(e=>e.y>45&&e.x<670);for(const f of state.flashes)f.age+=dt;state.flashes=state.flashes.filter(f=>f.age<35)}draw();requestAnimationFrame(frame)}
+ setNumbers();requestAnimationFrame(frame);
+}
+const _renderBeforeIonLab=renderLab;
+renderLab=function(){_renderBeforeIonLab();if(current===2)renderIonLab();else if(ionAnimation)ionAnimation.cancelled=true};
+// applyLanguage() initializes the page above; refresh the current page to attach the new lab.
+renderLab();
+
+/* UNIT 1: Shared animated, interactive physical properties lab */
+const propStyle=document.createElement('style');propStyle.textContent=`
+.prop-lab{border:1px solid #3d7495;border-radius:18px;padding:16px;background:linear-gradient(155deg,#142d48,#0a1b30);color:#e8f4ff;margin-bottom:20px}
+.prop-lab h3{margin:0 0 7px}.prop-desc{color:#afc9dc;font-size:14px;line-height:1.65}.prop-pills{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.prop-pills button,.prop-actions button{background:#193954;color:#e6f6ff;border:1px solid #5086a7;border-radius:10px;padding:10px 13px;cursor:pointer;font-weight:650}.prop-pills button.active{background:#0d8099;border-color:#70ebff;color:white}.prop-view{background:#061526;border:1px solid #315a72;border-radius:13px;overflow:hidden}.prop-view canvas{width:100%;display:block;touch-action:none}.prop-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}.prop-actions select,.prop-actions input{background:#0c253b;color:#f3fbff;border:1px solid #507a94;border-radius:8px;padding:8px}.prop-actions label{font-size:13px}.prop-readout{border-left:3px solid #6be8ff;background:#102c44;border-radius:9px;padding:12px;margin-top:11px;line-height:1.7}.prop-counts{font-size:12px;color:#a4c3d8;margin-top:7px}.prop-lab .orange{color:#ffc37d}.prop-lab .cyan{color:#79edff}`;document.head.appendChild(propStyle);
+let propActive=null,propMode='shadow',propRun=true,propObstacle=true,propPol=1,propField=65,propGas='Ne',propSpeed=1;
+const propDefs={
+ wheel:['හබල් සක භ්‍රමණය','කිරණ සකයට වැදෙන විට හබල් සකය කැරකෙන ආකාරය බලන්න. කිරණ නවත්වලා වෙනස සසඳන්න.','කිරණ වැදී සකයට ගම්‍යතාව ලබාදෙන ආකාරය සංකල්පමය ලෙස නිරූපණය කරයි. භ්‍රමණය ගැන වෙනත් බලපෑම් ද පරීක්ෂණවලදී සලකා බලයි.'],
+ shadow:['සෘජු ගමන හා සෙවණැල්ල','කිරණ මාර්ගයට බාධකයක් දමන්න. තිරයේ ආලෝකමත් ප්‍රදේශය සහ සෙවණැල්ල එකවර බලන්න.','බාධකය නැවැත්වූ කිරණ තිරයට නොවැටෙන නිසා අඳුරු ප්‍රදේශයක් ඇති වේ. මෙය සෘජු ගමනට සාක්ෂියකි.'],
+ electric:['විද්‍යුත් ක්ෂේත්‍රයෙන් හැරීම','තහඩුවල + / − ධ්‍රැව මාරු කරලා ක්ෂේත්‍රයේ ප්‍රබලතාව වෙනස් කරන්න.','ඍණ ආරෝපිත ඉලෙක්ට්‍රෝන ධන තහඩුව දෙසටත්, ධන අයන ඍණ තහඩුව දෙසටත් අපගමනය වේ.'],
+ gas:['වායුව සහ ආරෝපණ/ස්කන්ධ අනුපාතය','H₂ / Ne / Ar වෙනස් කරලා අගයන් සසඳන්න. ධන අයනවල ස්කන්ධය අනුව |q|/m අගය වෙනස් වේ.','කැතෝඩ කිරණයේ ඉලෙක්ට්‍රෝනයේ |e|/m වෙනස් නොවේ. ධන කිරණ සඳහා මෙහි පෙන්වන්නේ එක් ආරෝපණයක් ඇති H⁺, Ne⁺, Ar⁺ අයනවල ආසන්න අගයන්ය.']};
+function renderPropLab(){const positive=current===2;const v=document.getElementById('visual'); if(!v)return;
+ if(propActive)propActive.dead=true;
+ v.innerHTML=`<div class="prop-lab"><h3>🧪 ${positive?'ධන කිරණ':'කැතෝඩ කිරණ'} — ක්‍රියාකාරී ගුණ පරීක්ෂණ</h3><div class="prop-desc">අත්හදා බලන ගුණය තෝරන්න. එක් එක් පරීක්ෂණයේ controls වෙනස් කරන විට නළය ඇතුළේ සිදුවන දේ බලන්න.</div>
+ <div class="ray-property-picker"><label for="propModeSelect">🔎 කැතෝඩ / ධන කිරණවල ගුණය තෝරන්න</label><select id="propModeSelect">${Object.entries(propDefs).map(([key,item])=>`<option value="${key}" ${key===propMode?'selected':''}>${item[0]}</option>`).join('')}</select><small>පහළ animation සහ controls තෝරන ගුණය අනුව වෙනස් වේ.</small></div>
+ <div class="prop-view"><canvas id="propCanvas" width="800" height="360" aria-label="Animated discharge tube physics demonstration"></canvas></div>
+ <div class="prop-actions"><button id="propPower">${propRun?'⏸ කිරණ නවත්වන්න':'▶ කිරණ ON'}</button><button id="propObject" ${!['wheel','shadow'].includes(propMode)?'hidden':''}>${propObstacle?(propMode==='wheel'?'හබල් සකය ඉවත් කරන්න':'බාධකය ඉවත් කරන්න'):(propMode==='wheel'?'හබල් සකය තබන්න':'බාධකය තබන්න')}</button><button id="propPol" ${propMode!=='electric'?'hidden':''}>⇄ ධ්‍රැව මාරු කරන්න</button><label id="propFieldLabel" ${propMode!=='electric'?'hidden':''}>ක්ෂේත්‍රය <input id="propField" type="range" min="0" max="100" value="${propField}"></label><label id="propGasLabel" ${propMode!=='gas'?'hidden':''}>වායුව <select id="propGas"><option>H₂</option><option>Ne</option><option>Ar</option></select></label><label>වේගය <input id="propSpeed" type="range" min="1" max="4" step="1" value="${propSpeed}"></label><button id="propReset">↻ Reset</button></div>
+ <div class="prop-readout"><strong id="propWhat">${propDefs[propMode][0]}</strong><div id="propExplain">${propDefs[propMode][1]}</div><div id="propResult" class="prop-counts"></div></div>
+ <p class="prop-desc" style="margin-top:12px">මෙය ඉගෙනීමට භාවිතා කරන සංකල්ප animation එකකි; අංශු ගමන් මාර්ග, ගැටීම් සහ සක භ්‍රමණය ප්‍රමාණාත්මක පරීක්ෂණ දත්ත නොවේ.</p></div>`;
+ document.getElementById('controls').innerHTML='';
+ const lab=v.querySelector('.prop-lab'),canvas=lab.querySelector('canvas'),ctx=canvas.getContext('2d');lab.querySelector('#propGas').value=propGas;
+ const state={dead:false,phase:0,wheel:0,beamHits:0};propActive=state;
+ const $p=id=>lab.querySelector('#'+id);
+ function sync(){lab.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===propMode));$p('propPower').textContent=propRun?'⏸ කිරණ නවත්වන්න':'▶ කිරණ ON';$p('propObject').hidden=!['wheel','shadow'].includes(propMode);$p('propObject').textContent=propObstacle?(propMode==='wheel'?'හබල් සකය ඉවත් කරන්න':'බාධකය ඉවත් කරන්න'):(propMode==='wheel'?'හබල් සකය තබන්න':'බාධකය තබන්න');$p('propPol').hidden=propMode!=='electric';$p('propFieldLabel').hidden=propMode!=='electric';$p('propGasLabel').hidden=propMode!=='gas';$p('propWhat').textContent=propDefs[propMode][0];$p('propExplain').textContent=propDefs[propMode][1];}
+ $p('propModeSelect').onchange=e=>{propMode=e.target.value;state.phase=0;sync()};
+ $p('propPower').onclick=()=>{propRun=!propRun;sync()};$p('propObject').onclick=()=>{propObstacle=!propObstacle;sync()};$p('propPol').onclick=()=>{propPol*=-1};$p('propField').oninput=e=>propField=Number(e.target.value);$p('propSpeed').oninput=e=>propSpeed=Number(e.target.value);$p('propGas').onchange=e=>propGas=e.target.value;
+ $p('propReset').onclick=()=>{propRun=true;propObstacle=true;propPol=1;propField=65;propSpeed=1;state.phase=0;$p('propField').value=65;$p('propSpeed').value=1;sync()};
+ function line(x,y,tx,ty,color,width=2,alpha=1){ctx.globalAlpha=alpha;ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(tx,ty);ctx.stroke();ctx.globalAlpha=1}
+ function ball(x,y,r,c){ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill()}
+ function txt(s,x,y,color='#d4ebfb',size=15,align='left'){ctx.fillStyle=color;ctx.font=`${size}px sans-serif`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign='left'}
+ let last=0;function draw(t){if(state.dead||!canvas.isConnected)return;const dt=Math.min(2,(t-last)/16.7||1);last=t;if(propRun)state.phase+=dt*propSpeed*1.8;
+ ctx.fillStyle='#081827';ctx.fillRect(0,0,800,360);const positive=current===2,c=positive?'#ffac61':'#6ae9ff',from=positive?659:142,to=positive?49:680,cy=172;txt(positive?'සිදුරු සහිත කැතෝඩය (−)':'කැතෝඩය (−)',102,28);txt('ඇනෝඩය (+)',634,28,'#ffe5aa');ctx.save();ctx.shadowColor='#00c8ff';ctx.shadowBlur=18;ctx.strokeStyle='#28d4ff';ctx.lineWidth=3;let glass=ctx.createLinearGradient(0,43,0,307);glass.addColorStop(0,'#053c65');glass.addColorStop(.51,'#082238');glass.addColorStop(1,'#043252');ctx.fillStyle=glass;ctx.beginPath();ctx.roundRect(32,43,736,264,61);ctx.fill();ctx.stroke();ctx.restore();ctx.fillStyle='#f0f7ff';if(positive){ctx.fillRect(125,78,13,83);ctx.fillRect(125,183,13,89);}else{ctx.fillRect(125,78,13,194);}ctx.fillStyle='#ff345d';ctx.fillRect(679,102,14,142);
+ if(!positive){ctx.save();ctx.lineWidth=3;ctx.strokeStyle='#99c3e0';ctx.beginPath();ctx.moveTo(125,171);ctx.lineTo(28,171);ctx.lineTo(28,343);ctx.lineTo(311,343);ctx.stroke();ctx.strokeStyle='#ff5368';ctx.beginPath();ctx.moveTo(693,171);ctx.lineTo(775,171);ctx.lineTo(775,343);ctx.lineTo(490,343);ctx.stroke();ctx.fillStyle='#603c26';ctx.fillRect(310,322,180,36);ctx.fillStyle='#eef5ff';ctx.font='15px sans-serif';ctx.fillText('−',326,344);ctx.fillText('Battery',366,345);ctx.fillText('+',470,344);ctx.restore();}
+ if(propMode==='electric'){const up=propPol===1;ctx.fillStyle=up?'#f18b89':'#81aeff';ctx.fillRect(258,72,305,10);ctx.fillStyle=up?'#81aeff':'#f18b89';ctx.fillRect(258,273,305,10);txt(up?'+':'−',576,81,'white',17);txt(up?'−':'+',576,284,'white',17);}
+ if(propMode==='shadow'){ctx.fillStyle=propRun?'#72f9a5':'#375a53';ctx.fillRect(positive?60:725,100,12,148);if(propObstacle){ctx.fillStyle='#f5cd93';ctx.fillRect(382,148,15,49);if(propRun){ctx.fillStyle='#0e2637';ctx.fillRect(positive?60:725,148,12,49);}}}
+ if(propMode==='wheel'&&propObstacle){ctx.save();ctx.translate(415,172);if(propRun)state.wheel+=(dt*propSpeed*.045);ctx.rotate(state.wheel);for(let i=0;i<8;i++){ctx.save();ctx.rotate(i*Math.PI/4);ctx.fillStyle=i%2?'#ffca7e':'#9dd7f4';ctx.fillRect(0,-6,61,12);ctx.restore();}ball(0,0,10,'#dae8f6');ctx.restore();}
+ const baseYs=propMode==='shadow'?[115,135,155,175,195,215,235]:[145,161,177,193];
+ if(propRun){baseYs.forEach((y,j)=>{let bx=to,by=y;if(propMode==='shadow'&&propObstacle&&y>=148&&y<=197)bx=positive?397:382;if(propMode==='wheel'&&propObstacle)bx=415;if(propMode==='electric'){const sign=(positive?-1:1)*propPol;by=y-sign*propField*.9}if(!positive){ctx.save();ctx.shadowBlur=18;ctx.shadowColor='#76ff15';line(from,y,bx,by,'#83ff1a',3,.56);ctx.restore();}else{line(from,y,bx,by,c,2,.22);}for(let n=0;n<3;n++){const p=((state.phase*2+j*32+n*140)%490)/490;let x=from+(bx-from)*p,yy=y+(by-y)*p;if(propMode==='wheel'&&propObstacle&&((positive&&x<415)||(!positive&&x>415)))continue;ball(x,yy,4.6,c);}});}
+ if(propMode==='gas'){const vals={'H₂':['H⁺','9.58 × 10⁷'],'Ne':['Ne⁺','4.78 × 10⁶'],'Ar':['Ar⁺','2.42 × 10⁶']};for(let i=0;i<4;i++){const x=270+i*95, y=116+(i%2)*87;ball(x,y,14,'#a2bad9');txt(propGas,x,y+5,'#182944',11,'center')}txt(positive?`${vals[propGas][0]} : |q|/m = ${vals[propGas][1]} C kg⁻¹`:'e⁻ : |e|/m = 1.76 × 10¹¹ C kg⁻¹',205,286,'#a7f3de',16);}
+ txt(positive?'ධන අයන ← සිදුරු සහිත කැතෝඩය හරහා':'ඉලෙක්ට්‍රෝන → ඇනෝඩය දෙසට',250,335,c,16);
+ const read=propMode==='gas'?(positive?'වායුව වෙනස් වීමෙන් තෝරාගත් ධන අයනයේ |q|/m වෙනස් වේ.':'වායුව වෙනස් වුවත් cathode electron වල |e|/m නියතයි.'):propMode==='shadow'?(propObstacle&&propRun?'බාධකය මඟින් කිරණ කොටසක් නවතයි → තිරයේ අඳුරු සෙවණැල්ල.':propObstacle?'කිරණ OFF නිසා තිරයේ ආලෝකය නැහැ.':'බාධකය ඉවත් කළ විට සෙවණැල්ල නැති වේ.'):propMode==='wheel'?(propObstacle&&propRun?'කිරණ සකයට වැදී සකය භ්‍රමණය වන ආදර්ශනය.': 'සකයට කිරණ නොවැටෙන නිසා එය නවතී.'):('කිරණ '+(propField===0?'නොහැරේ (ක්ෂේත්‍රය 0).':( (positive?propPol<0:propPol>0)?'ඉහළට':'පහළට')+' හැරේ.'));
+ if($p('propResult').textContent!==read)$p('propResult').textContent=read;requestAnimationFrame(draw)}requestAnimationFrame(draw);sync();
+}
+const beforeNewProperties=renderLab;
+renderLab=function(){if(current===0||current===2){if(ionAnimation)ionAnimation.cancelled=true;renderPropLab();if(current===2)renderIonLab();}else{if(propActive)propActive.dead=true;beforeNewProperties();}};
+renderLab();
+
+
+/* INTEGRATED CANAL RAY LAB — single continuous apparatus */
+const integratedStyle=document.createElement('style');integratedStyle.textContent=`
+.int-lab{background:linear-gradient(145deg,#122b43,#091a2d);border:1px solid #467b9c;color:#e7f4ff;border-radius:18px;padding:16px;margin-bottom:20px}
+.int-lab h3{margin:0 0 8px}.int-note{font-size:13px;color:#bed6e8;line-height:1.65}
+.int-tabs,.int-tools{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0}.int-lab button{border:1px solid #477a97;background:#193b56;border-radius:10px;padding:10px 12px;color:#eaf8ff;font-weight:650;cursor:pointer}
+.int-lab button.chosen{background:#087b93;border-color:#60e6f6}.int-lab button:focus-visible{outline:3px solid #a8eaff;outline-offset:2px}.int-lab select,.int-lab input{accent-color:#44dcef;background:#15344e;color:white;border-radius:8px;padding:7px;border:1px solid #477a97}
+.int-lab canvas{width:100%;display:block;background:#081729;border:1px solid #456c84;border-radius:13px;touch-action:none}
+.int-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.int-metrics>div{padding:10px;background:#16344e;border-radius:10px}.int-metrics b{display:block;font-size:19px;color:#8dedfb}.int-reading{margin-top:12px;padding:12px;border-left:3px solid #ffbb70;background:#132f45;border-radius:9px;line-height:1.7}
+@media(max-width:600px){.int-metrics{grid-template-columns:1fr 1fr}.int-lab{padding:10px}.int-lab button{padding:9px;font-size:12px}}`;document.head.appendChild(integratedStyle);
+let integratedActive=null;
+function renderIntegratedPositiveLab(){
+ if(propActive)propActive.dead=true;
+ if(ionAnimation)ionAnimation.cancelled=true;
+ if(integratedActive)integratedActive.dead=true;
+ const visual=document.getElementById('visual');if(!visual)return;
+ const controls=document.getElementById('controls');if(controls)controls.innerHTML='';
+ visual.innerHTML=`<section class="int-lab"><h3>🧪 ධන කිරණ — එකම නළයක අයනීකරණය හා ගුණ පරීක්ෂණ</h3>
+ <p class="int-note">දකුණේ කැතෝඩ ඉලෙක්ට්‍රෝන වායු අංශු සමඟ ගැටෙයි. ධන අයන සිදුරු සහිත කැතෝඩය හරහා වමට එයි. වම් පැත්තේම පරීක්ෂණය මාරු කර බලන්න.</p>
+ <div class="ray-property-picker" style="margin:15px 0 13px;padding:14px;background:#163951;border:1px solid #63b8d1;border-radius:13px">
+ <label for="integratedPropertySelect" style="display:block;font-weight:800;font-size:15px;margin-bottom:8px">🔎 ධන කිරණවල ගුණයක් තෝරන්න</label>
+ <select id="integratedPropertySelect" aria-label="ධන කිරණවල ගුණය තෝරන්න" style="display:block;width:100%;font-size:15px;min-height:45px;background:#0b253a;color:white;border:1px solid #77d9eb;border-radius:9px;padding:9px">
+ <option value="straight">1. සෘජු රේඛීය ගමන</option>
+ <option value="shadow">2. සෙවණැලි ඇති කිරීම</option>
+ <option value="wheel">3. ගම්‍යතාව හා හබල් සකය</option>
+ <option value="electric">4. විද්‍යුත් ක්ෂේත්‍රයෙන් අපගමනය</option>
+ <option value="gas">5. වායුව අනුව අයන සහ |q|/m වෙනස් වීම</option>
+ </select><small style="display:block;margin-top:7px;color:#b9dced">ගුණයක් තෝරද්දී පහළ නළයේ animation එක හා පරීක්ෂණ controls වෙනස් වේ.</small></div>
+ <canvas id="integratedCanvas" width="900" height="400" aria-label="වමේ ධන කිරණ ගුණ, මැද සිදුරු කැතෝඩය, දකුණේ ඉලෙක්ට්‍රෝන හා වායු ගැටීම"></canvas>
+ <div class="int-tools"><label>වායුව <select id="integratedGas"><option value="H2">H₂</option><option value="Ne" selected>Ne</option><option value="Ar">Ar</option></select></label>
+ <button id="integratedAdd">＋ වායු අංශු 3ක් ඇතුළු කරන්න</button><button id="integratedPower">▶ Start</button>
+ <button id="integratedObject">＋ බාධකය තබන්න</button><button id="integratedFlip" hidden>⇅ ධ්‍රැව මාරු කරන්න</button>
+ <label id="integratedFieldWrap" hidden>ක්ෂේත්‍රය <input id="integratedField" type="range" min="0" max="100" value="55"></label>
+ <label>වේගය <input id="integratedSpeed" type="range" min="1" max="4" value="2"></label><button id="integratedReset">↻ Reset</button></div>
+ <div class="int-metrics"><div>වායු අංශු<b id="integratedAtoms">0</b></div><div>අයනීකරණ සිදුවීම්<b id="integratedHits">0</b></div><div>සකයට ගැටුණු අයන<b id="integratedWheelHits">0</b></div><div>තෝරාගත් අයනයේ |q|/m<b id="integratedRatio">4.78 × 10⁶</b><small>C kg⁻¹</small></div></div>
+ <div class="int-reading" id="integratedReading" aria-live="polite">පළමුව වායුව එකතු කරන්න. පසුව Start ඔබන්න.</div>
+ <p class="int-note">මේක සංකල්ප නිරූපණයක්. සියලු ඉලෙක්ට්‍රෝන ගැටීම් අයනීකරණය කරන්නේ නැහැ. සක භ්‍රමණය හා trajectory පරිමාණගත භෞතික මිනුම් නොවේ. H₂ සඳහා පෙන්වන්නේ H⁺ අයනයේ උදාහරණ අගයයි.</p></section>`;
+ const lab=visual.querySelector('.int-lab'),canvas=lab.querySelector('canvas'),ctx=canvas.getContext('2d'),$=id=>lab.querySelector('#'+id);
+ const st={dead:false,mode:'straight',gas:'Ne',run:false,object:false,pol:1,field:55,speed:2,atoms:[],electrons:[],ions:[],secondary:[],flashes:[],hits:0,frames:0,last:0,emit:0,wheel:0,wheelVelocity:0,wheelHits:0,through:0,drag:null};integratedActive=st;
+ const gasData={H2:{label:'H₂',ion:'H⁺',ratio:'9.58 × 10⁷',mass:1.008},Ne:{label:'Ne',ion:'Ne⁺',ratio:'4.78 × 10⁶',mass:20.18},Ar:{label:'Ar',ion:'Ar⁺',ratio:'2.42 × 10⁶',mass:39.95}};
+ function circle(x,y,r,c){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=c;ctx.fill()}
+ function line(x,y,a,b,color,width=2){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(a,b);ctx.stroke()}
+ function txt(t,x,y,color='#d9edf9',size=12,align='left'){ctx.textAlign=align;ctx.font=`${size}px system-ui,sans-serif`;ctx.fillStyle=color;ctx.fillText(t,x,y);ctx.textAlign='left'}
+ const updateMetrics=()=>{$('integratedAtoms').textContent=st.atoms.length;$('integratedHits').textContent=st.hits;$('integratedWheelHits').textContent=st.wheelHits;$('integratedRatio').textContent=gasData[st.gas].ratio};
+ function notice(s){$('integratedReading').textContent=s}
+ function sync(){const picker=$('integratedPropertySelect');if(picker)picker.value=st.mode;$('integratedPower').textContent=st.run?'⏸ Pause':'▶ Start';$('integratedObject').hidden=!['shadow','wheel'].includes(st.mode);$('integratedObject').textContent=st.object?'− '+(st.mode==='wheel'?'සකය':'බාධකය')+' ඉවත් කරන්න':'＋ '+(st.mode==='wheel'?'සකය':'බාධකය')+' තබන්න';$('integratedFlip').hidden=st.mode!=='electric';$('integratedFieldWrap').hidden=st.mode!=='electric';updateMetrics()}
+ function addGas(){for(let i=0;i<3;i++){if(st.atoms.length>=15)break;let idx=st.atoms.length;st.atoms.push({x:750+idx*8,y:96+(idx*41)%185,targetX:515+(idx%4)*57,targetY:113+(Math.floor(idx/4)*63),r:12,age:0,used:false})}updateMetrics();notice('වායු අංශු දකුණේ නළයට ඇතුළු වෙනවා. Start කළාම ඉලෙක්ට්‍රෝන ඒවාට ගැටෙයි.')}
+ $('integratedPropertySelect').onchange=e=>{st.mode=e.target.value;st.object=['shadow','wheel'].includes(st.mode);st.wheelVelocity=0;sync();notice(({straight:'වම් පැත්තට එන ධන අයන සෘජුව ගමන් කරන බව බලන්න.',shadow:'✅ බාධකය දැනටමත් නළයට දමා ඇත. තිරයේ අඳුරු මැද ප්‍රදේශය බලන්න; බාධකය ඉවත් කර සසඳන්න.',wheel:'✅ හබල් සකය වම් පැත්තේ තබා ඇත. Gas එකතු කර Start කළාම ධන අයන වැදී සකය කැරකෙනවා.',electric:'ඍණ තහඩුව දෙසට ධන අයන හැරෙන බව බලන්න.',gas:'වායුව තෝරලා |q|/m අනුපාතය සසඳන්න.'})[st.mode])};
+ $('integratedGas').onchange=e=>{st.gas=e.target.value;st.atoms=[];st.electrons=[];st.ions=[];st.secondary=[];st.flashes=[];st.wheelVelocity=0;updateMetrics();notice('වායුව මාරු කළා. දැන් අලුත් වායු අංශු එකතු කරන්න. '+gasData[st.gas].ion+' සඳහා |q|/m = '+gasData[st.gas].ratio+' C kg⁻¹.')};
+ $('integratedAdd').onclick=addGas;$('integratedPower').onclick=()=>{st.run=!st.run;sync();if(st.run&&!st.atoms.length)notice('වායු අංශු එකතු කරන්න. එවිට ගැටීම් නිරීක්ෂණය කළ හැකියි.')};
+ $('integratedObject').onclick=()=>{st.object=!st.object;if(!st.object)st.wheelVelocity=0;sync()};$('integratedFlip').onclick=()=>{st.pol*=-1;notice(st.pol===1?'ඉහළ ධන, පහළ ඍණ: ධන අයන පහළට හැරෙයි.':'ඉහළ ඍණ, පහළ ධන: ධන අයන ඉහළට හැරෙයි.')};
+ $('integratedField').oninput=e=>st.field=Number(e.target.value);$('integratedSpeed').oninput=e=>st.speed=Number(e.target.value);
+ $('integratedReset').onclick=()=>{st.run=false;st.atoms=[];st.electrons=[];st.ions=[];st.secondary=[];st.flashes=[];st.hits=0;st.through=0;st.wheel=0;st.wheelVelocity=0;st.wheelHits=0;st.object=false;st.frames=0;sync();notice('මුල් තත්ත්වයට ගියා. වායුව එකතු කර නැවත පටන් ගන්න.')};
+ function coords(e){let r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*900/r.width,y:(e.clientY-r.top)*400/r.height}}
+ canvas.addEventListener('pointerdown',e=>{let q=coords(e);let a=st.atoms.find(a=>Math.hypot(a.x-q.x,a.y-q.y)<19);if(a){st.drag=a;canvas.setPointerCapture(e.pointerId)}});
+ canvas.addEventListener('pointermove',e=>{if(!st.drag)return;let q=coords(e);st.drag.x=st.drag.targetX=Math.min(756,Math.max(415,q.x));st.drag.y=st.drag.targetY=Math.min(303,Math.max(91,q.y))});
+ canvas.addEventListener('pointerup',()=>st.drag=null);canvas.addEventListener('pointercancel',()=>st.drag=null);
+ function ionY(a){if(st.mode!=='electric')return a.y;let progress=Math.max(0,Math.min(1,(370-a.x)/300));return a.y+st.pol*(st.field*.7)*progress*progress}
+ function draw(){let g=ctx.createLinearGradient(0,0,0,400);g.addColorStop(0,'#0d253b');g.addColorStop(1,'#071625');ctx.fillStyle=g;ctx.fillRect(0,0,900,400);
+ ctx.beginPath();ctx.roundRect(22,52,856,304,47);ctx.fillStyle='#133048';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#5b93b4';ctx.stroke();
+ ctx.fillStyle='#b1c9d8';ctx.fillRect(374,72,14,106);ctx.fillRect(374,195,14,136);ctx.fillStyle='#f4c875';ctx.fillRect(807,92,12,237);
+ txt('වම: ධන කිරණ ගුණ පරීක්ෂණ',45,27,'#ffca89',16);txt('සිදුරු කැතෝඩය −',329,46,'#d4eafa',13);txt('දකුණ: ගැටීම / අයනීකරණය',562,27,'#8ae9fc',16);
+ txt('ඇනෝඩය +',770,375,'#ffd89b',12);txt('කැතෝඩයෙන් e⁻ →',485,76,'#74ebff',13);txt('← ධන අයන',188,375,'#ffbd7c',13);
+ line(388,188,800,188,'#35617a',1); ctx.setLineDash([5,8]);line(46,188,372,188,'#406c82',1);ctx.setLineDash([]);
+ // Left apparatus: fluorescent screen, obstruction, wheel, E-field plates.
+ if(st.mode==='electric'){ctx.fillStyle=st.pol===1?'#ff8588':'#79aaff';ctx.fillRect(105,97,180,8);ctx.fillStyle=st.pol===1?'#79aaff':'#ff8588';ctx.fillRect(105,293,180,8);txt(st.pol===1?'+':'−',289,108,'#fff',19);txt(st.pol===1?'−':'+',289,304,'#fff',19)}
+ if(st.mode==='shadow'){
+ // Wide beam representation makes the dark silhouette visually unambiguous.
+ ctx.fillStyle=st.run?'#76fa9e':'#396b64';ctx.shadowColor='#69ffa4';ctx.shadowBlur=st.run?12:0;ctx.fillRect(55,105,14,170);ctx.shadowBlur=0;
+ if(st.object){ctx.fillStyle='#edbe83';ctx.fillRect(223,159,13,58);ctx.fillStyle='#0b2435';ctx.fillRect(54,159,16,58);ctx.strokeStyle='#ffdda3';ctx.lineWidth=2;ctx.strokeRect(54,159,16,58);}
+ ctx.save();ctx.lineWidth=2;ctx.strokeStyle='#ffb66e';ctx.setLineDash([7,6]);for(let y=113;y<=266;y+=17){let blocked=st.object&&y>=159&&y<=217;ctx.beginPath();ctx.moveTo(369,y);ctx.lineTo(blocked?237:69,y);ctx.stroke()}ctx.restore();
+ txt(st.object?'අඳුරු සෙවණැල්ල':'සම්පූර්ණ තිරය දිලිසේ',78,326,'#fbd69e',14);
+ }
+ if(st.mode==='wheel'&&st.object){ctx.save();ctx.translate(213,188);ctx.rotate(st.wheel);for(let i=0;i<8;i++){ctx.rotate(Math.PI/4);ctx.fillStyle=i%2?'#9ddcff':'#ffc282';ctx.fillRect(0,-7,48,14)}circle(0,0,10,'#fff0c7');ctx.restore();txt(Math.abs(st.wheelVelocity)>.003?'↻ ධන අයන ගැටී සකය කැරකේ':'සකය නිශ්චලයි — අයන ගැටෙන තෙක්',85,319,'#ffd59d',13)}
+ if(st.mode==='straight'||st.mode==='gas'){ctx.fillStyle='#82eab7';ctx.fillRect(55,110,9,160)}
+ for(const a of st.atoms){circle(a.x,a.y,a.r,st.gas==='Ne'?'#b5a8f7':st.gas==='Ar'?'#8be2b8':'#90d8fc');txt(gasData[st.gas].label,a.x,a.y+4,'#08283c',11,'center')}
+ for(const e of st.electrons){circle(e.x,e.y,4,'#59eaff')}
+ for(const e of st.secondary){circle(e.x,e.y,4,'#6de6ff')}
+ for(const a of st.ions){let yy=ionY(a);circle(a.x,yy,9,'#ffb064');txt('+',a.x,yy+4,'#452007',13,'center')}
+ for(const f of st.flashes){ctx.globalAlpha=Math.max(0,1-f.age/25);ctx.lineWidth=2;ctx.strokeStyle='#ffe283';ctx.beginPath();ctx.arc(f.x,f.y,11+f.age,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
+ if(st.mode==='gas'){txt(gasData[st.gas].ion+'   |q|/m = '+gasData[st.gas].ratio+' C kg⁻¹',92,338,'#b3efc8',14)}
+ if(st.mode==='shadow')txt('ප්‍රතිදීප්ත තිරය',43,95,'#adfbc0',11);
+ if(st.mode==='wheel'&&st.object)txt('හබල් සකය',177,115,'#ffdda8',13);
+ txt('අධ්‍යාපනික නිරූපණය — පරිමාණයට අනුව නොවේ',450,393,'#acc9dd',11,'center');
+ }
+ function tick(t){if(st.dead||!canvas.isConnected)return;let dt=Math.min(2,(t-st.last)/16.67||1);st.last=t;if(st.run){let v=st.speed*.55*dt;st.frames+=v;
+ for(const a of st.atoms){a.age+=v;if(a!==st.drag){a.x+=(a.targetX-a.x)*Math.min(1,.065*v);a.y+=(a.targetY-a.y)*Math.min(1,.065*v)}}
+ st.emit+=v;if(st.emit>8){st.emit=0;let target=st.atoms.find(a=>a.age>8);st.electrons.push({x:392,y:target?target.y:120+Math.random()*150,target});}
+ for(const e of st.electrons){e.x+=6*v;if(e.target&&st.atoms.includes(e.target)&&Math.hypot(e.x-e.target.x,e.y-e.target.y)<e.target.r+8){let a=e.target;st.atoms.splice(st.atoms.indexOf(a),1);st.ions.push({x:a.x,y:a.y,passed:false,phase:Math.random()*7});st.secondary.push({x:a.x+5,y:a.y,vx:3,vy:-2.5});st.flashes.push({x:a.x,y:a.y,age:0});st.hits++;updateMetrics();notice('⚡ Cathode electron එකක් '+gasData[st.gas].label+' අංශුවක් අයනීකරණය කළා → '+gasData[st.gas].ion+' + e⁻. ධන අයනය වමට ඇදෙනවා.');e.x=950;}}
+ st.electrons=st.electrons.filter(e=>e.x<840);
+ for(const a of st.ions){const oldX=a.x;a.x-=3.8*v;if(a.x<375&&!a.passed){a.passed=true;st.through++;a.y=188;notice('✅ ධන අයනය සිදුරු සහිත කැතෝඩය හරහා වමට ගියා. දැන් වම් පැත්තේ එහි ගුණ පරීක්ෂා කරන්න.')}
+ if(a.passed){if(st.mode==='wheel'&&st.object&&oldX>=255&&a.x<255&&Math.abs(ionY(a)-188)<53){a.x=0;st.wheelVelocity=Math.min(.18,st.wheelVelocity+.075);st.wheelHits++;updateMetrics();notice('⚙️ ධන අයනය හබල් සකයේ තලයකට ගැටුණා. ගම්‍යතාව හුවමාරු වීම නිසා සකය කැරකෙනවා!')}if(st.mode==='shadow'&&st.object&&a.x<229&&ionY(a)>161&&ionY(a)<215)a.x=0;}}
+ st.ions=st.ions.filter(a=>a.x>50);
+ for(const e of st.secondary){e.x+=e.vx*v;e.y+=e.vy*v}st.secondary=st.secondary.filter(e=>e.y>55&&e.x<840);
+ for(const f of st.flashes)f.age+=v;st.flashes=st.flashes.filter(f=>f.age<25);
+ }
+ // Momentum-driven paddle wheel: only actual positive-ion impacts impart angular velocity.
+ // Damping slows the wheel after the last impact; no gas/no collisions means no rotation.
+ if(st.mode==='wheel'&&st.object){st.wheel+=st.wheelVelocity*dt;st.wheelVelocity*=Math.pow(.968,dt);if(Math.abs(st.wheelVelocity)<.0005)st.wheelVelocity=0;}
+ else st.wheelVelocity=0;
+ draw();requestAnimationFrame(tick)}sync();requestAnimationFrame(tick);
+}
+const renderBeforeIntegrated=renderLab;
+renderLab=function(){if(current===2){renderIntegratedPositiveLab()}else{if(integratedActive)integratedActive.dead=true;renderBeforeIntegrated()}};
+renderLab();
+
+
+// Upgraded Rutherford lab: one interactive experiment, 7 clickable views.
+let rutherfordActive=null;
+function renderRutherfordLab(){
+ if(rutherfordActive)rutherfordActive.dead=true;
+ const v=document.getElementById('visual'),ctl=document.getElementById('controls');if(ctl)ctl.innerHTML='';
+ v.classList.remove('ct-lab');
+ v.innerHTML=`<section class="ruth-lab"><h3>🧪 රදර්ෆර්ඩ්ගේ රන්පත්‍ර පරීක්ෂණය</h3><p class="ruth-small">1.1.4 · එකම පරීක්ෂණයේ කොටස් වෙන වෙනම තෝරාගෙන අත්හදා බලන්න.</p>
+ <div class="ruth-tabs" role="group" aria-label="රන්පත්‍ර පරීක්ෂණ කොටස්">
+ <button data-ruth="full" class="active">🔬 සම්පූර්ණ පරීක්ෂණය</button><button data-ruth="foil">🟡 රන්පත්‍රයේ පරමාණු</button>
+ <button data-ruth="straight">➡️ සෘජු ගමන</button><button data-ruth="scatter">↗️ අපගමනය</button>
+ <button data-ruth="back">↶ ආපසු විසිරීම</button><button data-ruth="screen">✨ ZnS තිරයේ ලප</button>
+ <button data-ruth="zoom">🔎 න්‍යෂ්ටිය Zoom</button></div>
+ <canvas id="ruthCanvas" width="1000" height="550" aria-label="රන්පත්‍රයේ අල්ෆා අංශු ගමන සහ සින්ක් සල්ෆයිඩ් තිරයේ ආලෝක ලප"></canvas>
+ <div class="ruth-buttons"><button id="ruthToggle">⏸ Pause</button><button id="ruthBack">↶ ආපසු විසිරීම පෙන්වන්න</button><button id="ruthSingle">＋ එක් α අංශුවක්</button><button id="ruthReset">↻ Reset</button></div>
+ <div class="ruth-controls"><label>අංශු නිකුත් වීමේ වේගය: <b id="ruthRateOut">5</b>/10<input type="range" min="1" max="10" value="5" id="ruthRate"></label><label>α අංශු ශක්තිය (සාපේක්ෂ): <b id="ruthEnergyOut">60</b>%<input type="range" min="20" max="100" value="60" id="ruthEnergy"></label></div>
+ <div class="ruth-stats"><div><b id="ruthForward">0</b>සුළු/නැති අපගමනය</div><div><b id="ruthScatter">0</b>විශාල අපගමනය</div><div><b id="ruthReturn">0</b>ආපසු විසිරීම</div></div>
+ <div class="ruth-text" id="ruthNote" aria-live="polite">බහුතරයක් α අංශු සැලකිය යුතු අපගමනයකින් තොරව රන්පත්‍රය හරහා ගොස් ZnS තිරයේ ආලෝක ලප ඇති කරයි.</div>
+ <p class="ruth-small">අධ්‍යාපනික නිරූපණයකි. පරමාණුක ප්‍රමාණ, ගමන් මාර්ග හා විසිරීම් ප්‍රතිශත නිවැරදි භෞතික මිනුම් නොවේ. න්‍යෂ්ටියට ගැටී bounce වීමක් නොව විද්‍යුත් විකර්ෂණයෙන් අපගමනය වේ.</p></section>`;
+ const root=v.querySelector('.ruth-lab'),canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d'),q=x=>root.querySelector('#'+x);
+ const st={dead:false,mode:'full',run:true,rate:5,energy:60,particles:[],flashes:[],count:[0,0,0],time:0,spawnAccumulator:0,number:0};rutherfordActive=st;
+ const W=1000,H=550,CX=611,CY=268,R=195,FX=599;
+ const rand=(a,b)=>a+(b-a)*Math.random();
+ const nuclei=Array.from({length:27},(_,i)=>({x:FX+Math.sin(i*7.31)*11,y:74+i*14.5}));
+ const descriptions={full:'බහුතරයක් α අංශු රන්පත්‍රය හරහා යයි. සමහරක් න්‍යෂ්ටිය අසල විකර්ෂණයෙන් හැරෙයි. ඉතා ස්වල්පයක් ආපසු විසිරෙයි.',foil:'රන් පරමාණුවල ස්කන්ධයෙන් වැඩි කොටසක් කුඩා න්‍යෂ්ටි තුළ පවතී. පරමාණුක පරිමාවෙන් වැඩි කොටසක් හිස් අවකාශයයි.',straight:'α අංශු බහුතරයක් රන් පරමාණුවල කුඩා න්‍යෂ්ටිවලින් ඈතින් ගමන් කරයි. රන්පත්‍රය පසුකර සැලකිය යුතු අපගමනයකින් තොරව ඉදිරි ZnS තිරයට වැදී ආලෝක ලප ඇති කරයි.',scatter:'ධන α අංශුව ධන න්‍යෂ්ටියට ආසන්න වන විට විද්‍යුත් විකර්ෂණයෙන් හැරෙයි.',back:'න්‍යෂ්ටියට ඉතා ආසන්නව එන α අංශුවක් 90° ට වැඩි කෝණයකින් ආපසු විසිරී වම් තිරයේ ආලෝක ලපයක් ඇති කරයි.',screen:'ZnS තිරයට α අංශු වැදීමෙන් ආලෝක ලප (scintillations) හටගනී. අංශු වැදෙන ස්ථානවලින් විසිරීමේ දිශා නිරීක්ෂණය කළ හැක.',zoom:'α අංශුවක් ධන ආරෝපිත න්‍යෂ්ටියෙන් විකර්ෂණය වන නිසා එහි ගමන් මාර්ගය වක්‍ර වේ; එය න්‍යෂ්ටියේ ගැටී bounce වන්නේ නැහැ.'};
+ function select(m){st.mode=m;st.particles=[];st.flashes=[];st.spawnAccumulator=0;root.querySelectorAll('[data-ruth]').forEach(b=>b.classList.toggle('active',b.dataset.ruth===m));q('ruthNote').textContent=descriptions[m];}
+ function clear(){st.particles=[];st.flashes=[];st.count=[0,0,0];st.number=0;st.spawnAccumulator=0;metrics()}
+ function metrics(){['ruthForward','ruthScatter','ruthReturn'].forEach((id,i)=>q(id).textContent=st.count[i])}
+ // Schematic paths calibrated for visibility, not a numerical Rutherford-scattering solver.
+ function create(forced){let n=st.number++,r=Math.random();let kind=forced===undefined?(r<.91?0:r<.993?1:2):forced;
+ let y=CY+rand(-86,86);if(kind===2)y=CY+rand(-8,8);
+ let a=kind===0?rand(-.055,.055):kind===1?rand(.42,1.25)*(Math.random()<.5?-1:1):rand(2.43,2.92)*(Math.random()<.5?-1:1);
+ const straightEndY=y+Math.sin(a)*14;
+ const end=kind===0?[CX+Math.sqrt(Math.max(0,R*R-(straightEndY-CY)**2)),straightEndY]:[CX+R*Math.cos(a),CY+R*Math.sin(a)],start=[66,y],pivot=[FX-24,y];
+ let bend=kind===2?[FX-105,y+(a>0?1:-1)*75]:kind===1?[FX+28,y+Math.sin(a)*110]:[FX+62,y+Math.sin(a)*7];
+ st.particles.push({kind,start,pivot,bend,end,t:0,trace:[],last:null,v:.006+.00006*st.energy,done:false});
+ }
+ function coord(p){let t=p.t;if(p.kind===0){return [p.start[0]+(p.end[0]-p.start[0])*t,p.start[1]+(p.end[1]-p.start[1])*t]}if(t<.6){let u=t/.6;return[p.start[0]+(p.pivot[0]-p.start[0])*u,p.start[1]+(p.pivot[1]-p.start[1])*u]}
+ let u=(t-.6)/.4,w=1-u;return[w*w*p.pivot[0]+2*w*u*p.bend[0]+u*u*p.end[0],w*w*p.pivot[1]+2*w*u*p.bend[1]+u*u*p.end[1]]}
+ function text(s,x,y,color='#dceeff',size=17,align='center'){ctx.fillStyle=color;ctx.font=size+'px system-ui,sans-serif';ctx.textAlign=align;ctx.fillText(s,x,y)}
+ function dot(x,y,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill()}
+ function line(x1,y1,x2,y2,color,width=2){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
+ function draw(){ctx.fillStyle='#081a29';ctx.fillRect(0,0,W,H);ctx.fillStyle='#112c42';ctx.beginPath();ctx.roundRect(12,36,976,476,34);ctx.fill();ctx.strokeStyle='#548099';ctx.lineWidth=2;ctx.stroke();
+ if(st.mode==='foil'||st.mode==='zoom'){
+  if(st.mode==='foil'){for(let i=0;i<20;i++){let x=145+i%5*177,y=103+Math.floor(i/5)*100;ctx.strokeStyle='rgba(103,169,214,.26)';ctx.lineWidth=3;ctx.beginPath();ctx.arc(x,y,32,0,Math.PI*2);ctx.stroke();dot(x,y,5,'#ffcb70')}text('පරමාණු අතර හා පරමාණුව තුළ විශාල හිස් අවකාශය',500,484,'#e0f4fc',21)}
+  else{for(let r of [70,125,192]){ctx.strokeStyle='rgba(118,179,225,.22)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(570,268,r,0,7);ctx.stroke()}dot(570,268,21,'#ffbd61');text('+',570,275,'#4a290a',24);ctx.strokeStyle='#73eaff';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(80,278);ctx.bezierCurveTo(330,278,492,287,490,208);ctx.bezierCurveTo(475,106,368,120,324,160);ctx.stroke();dot(324,160,8,'#80eaff');text('න්‍යෂ්ටිය සහ α අංශුව අතර ධන-ධන විකර්ෂණය',510,484,'#e3edfd',20)}
+ }else{
+  ctx.strokeStyle='rgba(158,237,121,.18)';ctx.lineWidth=25;ctx.beginPath();ctx.arc(CX,CY,R,-Math.PI+.22,Math.PI-.22);ctx.stroke();ctx.strokeStyle='#a6dd76';ctx.lineWidth=9;ctx.beginPath();ctx.arc(CX,CY,R,-Math.PI+.22,Math.PI-.22);ctx.stroke();
+  ctx.fillStyle='rgba(247,190,82,.1)';ctx.fillRect(FX-25,66,50,402);ctx.setLineDash([6,7]);line(FX,70,FX,468,'#efbf5a',2);ctx.setLineDash([]);
+  for(const n of nuclei){dot(n.x,n.y,12,'rgba(241,187,84,.12)');dot(n.x,n.y,4,'#f5bd68')}
+  ctx.fillStyle='#a7b7c7';ctx.fillRect(36,CY-53,24,106);ctx.fillStyle='#5de1fc';ctx.fillRect(60,CY-13,14,26);
+  text('α ප්‍රභවය',100,194);text('තුනී රන්පත්‍රය',FX,26,'#ffd58a');text('ZnS ප්‍රතිදීප්ත තිරය',830,77,'#beef95');
+  for(const p of st.particles){if(p.trace.length>1){ctx.beginPath();ctx.moveTo(...p.trace[0]);for(const pt of p.trace)ctx.lineTo(...pt);ctx.strokeStyle=['#70deed','#ffcf83','#ff96a7'][p.kind];ctx.lineWidth=3;ctx.stroke()}let pt=coord(p);dot(pt[0],pt[1],6,['#77eafa','#ffdb88','#ff9da8'][p.kind])}
+  for(const f of st.flashes){let intensity=Math.max(.1,1-f.age/85);ctx.globalAlpha=intensity;dot(f.x,f.y,7+Math.max(0,1-f.age/17)*11,'#d2ff89');if(f.age<18){ctx.strokeStyle='#e0ffab';ctx.lineWidth=2;for(let i=0;i<8;i++){let a=i*Math.PI/4;line(f.x+Math.cos(a)*13,f.y+Math.sin(a)*13,f.x+Math.cos(a)*27,f.y+Math.sin(a)*27,'#d9ffa3',2)}}ctx.globalAlpha=1}
+  if(st.mode==='back')text('🔴 රතු α අංශුව ආපසු වම් තිරයට හැරේ',470,489,'#ffbbc6',19);
+  if(st.mode==='screen')text('✨ අංශුව වැදුණු තැන ZnS flash එකක් දැල්වේ',508,489,'#b7f69b',19);
+ }
+ text('අධ්‍යාපනික සංකල්ප නිරූපණය · පරිමාණයට නොවේ',500,537,'#a8c3d7',15);
+ }
+ let prev=performance.now();function frame(t){if(st.dead||!canvas.isConnected)return;let dt=Math.min((t-prev)/16.67,2.5);prev=t;
+ if(st.run&&st.mode!=='foil'&&st.mode!=='zoom'){
+ st.spawnAccumulator+=dt*(.012+st.rate*.007);while(st.spawnAccumulator>=1){let forced=st.mode==='straight'?0:st.mode==='scatter'?1:st.mode==='back'?2:undefined;create(forced);st.spawnAccumulator--}
+ for(const p of st.particles){p.t=Math.min(1,p.t+p.v*dt);let point=coord(p);if(!p.last||Math.hypot(point[0]-p.last[0],point[1]-p.last[1])>4){p.trace.push(point);p.last=point}
+ if(p.t>=1&&!p.done){p.done=true;st.count[p.kind]++;st.flashes.push({x:p.end[0],y:p.end[1],age:0});metrics()}}
+ st.particles=st.particles.filter(p=>!p.done);st.flashes.forEach(f=>f.age+=dt);st.flashes=st.flashes.filter(f=>f.age<90)
+ }draw();requestAnimationFrame(frame)}
+ root.querySelectorAll('[data-ruth]').forEach(b=>b.onclick=()=>select(b.dataset.ruth));
+ q('ruthToggle').onclick=()=>{st.run=!st.run;q('ruthToggle').textContent=st.run?'⏸ Pause':'▶ Start'};
+ q('ruthBack').onclick=()=>{select('back');create(2);if(!st.run){st.run=true;q('ruthToggle').textContent='⏸ Pause'}};
+ q('ruthSingle').onclick=()=>{if(st.mode==='foil'||st.mode==='zoom')select('full');create(st.mode==='back'?2:st.mode==='scatter'?1:st.mode==='straight'?0:undefined);if(!st.run){st.run=true;q('ruthToggle').textContent='⏸ Pause'}};
+ q('ruthReset').onclick=clear;
+ q('ruthRate').oninput=e=>{st.rate=+e.target.value;q('ruthRateOut').textContent=st.rate};
+ q('ruthEnergy').oninput=e=>{st.energy=+e.target.value;q('ruthEnergyOut').textContent=st.energy};
+ metrics();requestAnimationFrame(frame);
+}
+const renderBeforeRutherford=renderLab;
+renderLab=function(){if(current===3){if(integratedActive)integratedActive.dead=true;renderRutherfordLab()}else{if(rutherfordActive)rutherfordActive.dead=true;renderBeforeRutherford()}};
+
+// Orbital Filling Workshop: user-placeable spins, rule feedback and s/p/d challenges.
+const owLevels=[['1s',1],['2s',1],['2p',3],['3s',1],['3p',3],['4s',1],['3d',5],['4p',3]];
+const owElements=[['H',1],['He',2],['Li',3],['Be',4],['B',5],['C',6],['N',7],['O',8],['F',9],['Ne',10],['Na',11],['Mg',12],['Al',13],['Si',14],['P',15],['S',16],['Cl',17],['Ar',18],['K',19],['Ca',20],['Sc',21],['Ti',22],['V',23],['Cr',24],['Mn',25],['Fe',26],['Co',27],['Ni',28],['Cu',29],['Zn',30],['Ga',31],['Ge',32],['As',33],['Se',34],['Br',35],['Kr',36]];
+let ow={z:8,boxes:[],feedback:'',selection:'up',category:'p'};
+function owReset(z){ow.z=z;ow.boxes=owLevels.map(([n,c])=>Array.from({length:c},()=>[]));ow.feedback='ඔබම electrons තබා පසුව Check ඔබන්න.';}
+function owReference(z){let remain=z,arr=owLevels.map(([n,c])=>Array.from({length:c},()=>[]));owLevels.forEach(([n,c],i)=>{let amount=Math.min(remain,2*c);remain-=amount;for(let j=0;j<amount;j++){if(j<c)arr[i][j].push('up');else arr[i][j-c].push('down')}});
+// Chromium and copper exceptions in their neutral ground state.
+if(z===24||z===29){const d=z===24?5:10;arr[5]=[['up']];arr[6]=Array.from({length:5},(_,i)=>d===10?['up','down']:['up']);}
+return arr;}
+function owFill(){ow.boxes=owReference(ow.z);ow.feedback='නිවැරදි ground-state arrangement එක පෙන්වා ඇත. දැන් Check ඔබන්න.';owDraw()}
+function owValidate(){const b=ow.boxes,flat=b.flat(1),n=flat.reduce((a,x)=>a+x.length,0),notes=[];
+if(flat.some(x=>x.length>2||x.filter(y=>y==='up').length>1||x.filter(y=>y==='down').length>1))notes.push('❌ Pauli: එක් orbital එකක උපරිම ↑↓ දෙකයි; spins ප්‍රතිවිරුද්ධ විය යුතුයි.');
+let seenEmpty=false,aufbau=false;for(let i=0;i<b.length;i++){let count=b[i].reduce((a,x)=>a+x.length,0);if(seenEmpty&&count)aufbau=true;if(count<owLevels[i][1]*2)seenEmpty=true}
+if(aufbau&&ow.z!==24&&ow.z!==29)notes.push('❌ Aufbau: අඩු ශක්ති subshell එක පිරීමට පෙර ඉහළ subshell භාවිතා කර තිබෙනවා.');
+for(let i=0;i<b.length;i++){let group=b[i], singles=group.filter(v=>v.length===1),doubles=group.filter(v=>v.length===2);if(group.length>1 && ((doubles.length && group.some(v=>v.length===0)) || (singles.length>1&&new Set(singles.map(v=>v[0])).size>1)))notes.push('❌ Hund: එකම subshell එකේ කාක්ෂික තනි තනිව සමාන spins වලින් පුරවා පසුව pair කරන්න ('+owLevels[i][0]+').')}
+if(n!==ow.z)notes.push('⚠️ Electron ගණන '+n+'යි; '+owElements.find(x=>x[1]===ow.z)[0]+' සඳහා '+ow.z+'ක් අවශ්‍යයි.');
+const expected=owReference(ow.z);let matches=expected.every((group,i)=>group.every((orb,j)=>orb.length===b[i][j].length&&orb.every(v=>b[i][j].includes(v))));
+if(n===ow.z&&!matches&&notes.length===0)notes.push('⚠️ මේක තෝරාගත් මූලද්‍රව්‍යයේ ground-state electron arrangement එක නොවේ. 4s/3d පිළිවෙළ සහ අවශ්‍ය නම් Cr/Cu exceptions බලන්න.');
+if(!notes.length&&matches)notes.push('✅ නිවැරදියි! Electron ගණන, Aufbau, Pauli, Hund සහ ground-state configuration සාර්ථකයි.');
+ow.feedback=notes.join(' ');owDraw();}
+function owDraw(){const root=document.getElementById('orbital-workshop');if(!root)return;
+root.querySelector('#ow-electron-count').textContent=ow.boxes.flat(1).reduce((a,x)=>a+x.length,0)+' / '+ow.z;
+root.querySelector('#ow-config').textContent=owLevels.map(([name],i)=>{let n=ow.boxes[i].reduce((a,x)=>a+x.length,0);return n?name+(['⁰','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹','¹⁰'][n]||'^'+n):''}).filter(Boolean).join('  ')||'හිස්';
+root.querySelector('#ow-feedback').textContent=ow.feedback;
+root.querySelector('#ow-boxes').innerHTML=owLevels.map(([name,c],i)=>'<div class="ow-row"><div class="ow-sub">'+name+'</div><div class="ow-orbs">'+ow.boxes[i].map((sp,j)=>'<button class="ow-orb" data-level="'+i+'" data-spot="'+j+'" title="'+name+' orbital '+(j+1)+'">'+(sp.map(v=>v==='up'?'↑':'↓').join('')||'·')+'</button>').join('')+'</div><small>'+ow.boxes[i].reduce((a,x)=>a+x.length,0)+'/'+(c*2)+'</small></div>').join('');
+root.querySelectorAll('.ow-orb').forEach(el=>el.onclick=()=>{let i=+el.dataset.level,j=+el.dataset.spot,orb=ow.boxes[i][j];if(ow.selection==='remove'){orb.pop()}else{if(orb.length>=2){ow.feedback='එක් orbital එකකට ඉලෙක්ට්‍රෝන දෙකකට වඩා දැමිය නොහැක.';owDraw();return}orb.push(ow.selection)}ow.feedback='Electron එකක් සකස් කළා. Check ඔබලා නීති තුනම පරීක්ෂා කරන්න.';owDraw()});
+root.querySelectorAll('[data-spin]').forEach(el=>el.classList.toggle('on',el.dataset.spin===ow.selection));}
+function renderOrbitalWorkshop(){if(!ow.boxes.length)owReset(8);
+const visual=document.getElementById('visual'),controls=document.getElementById('controls');if(controls)controls.innerHTML='';
+const select=owElements.map(([sym,z])=>'<option value="'+z+'" '+(ow.z===z?'selected':'')+'>'+sym+' · Z='+z+'</option>').join('');
+visual.innerHTML=`<section id="orbital-workshop" class="ow-lab"><h3>⚛️ Electron Configuration Interactive Lab</h3><p>Orbital boxes වලට ↑ සහ ↓ ඔබම දාන්න. වැරදි වින්‍යාසයක් හදා <b>Check Rules</b> ඔබලා Aufbau, Pauli, Hund වෙන වෙනම පරීක්ෂා කරන්න.</p><div class="ow-controls"><label>මූලද්‍රව්‍යය <select id="ow-element">${select}</select></label><div class="ow-btns"><button type="button" data-spin="up">↑ Electron</button><button type="button" data-spin="down">↓ Electron</button><button type="button" data-spin="remove">⌫ Remove</button></div></div><div class="ow-progress">Electrons: <strong id="ow-electron-count"></strong><span>සකස් කළ වින්‍යාසය: <b id="ow-config"></b></span></div><div id="ow-boxes"></div><div class="ow-btns" style="margin-top:12px"><button id="ow-check" class="primary">✓ Check Rules</button><button id="ow-answer">👁 නිවැරදි වින්‍යාසය</button><button id="ow-clear">↻ Reset</button></div><div id="ow-feedback" role="status" class="ow-feedback"></div><div class="ow-explain"><b>Aufbau:</b> අඩු ශක්ති කාක්ෂික පළමුව. <b>Pauli:</b> එක orbital එකක ↑↓ උපරිම දෙකයි. <b>Hund:</b> එකම ශක්ති orbitals තනිව එකම spin දිශාවට පුරවා පසුව pair කරන්න.<p>මෙහි s (1 box), p (3 boxes), d (5 boxes) සහ Cr/Cu විශේෂ වින්‍යාස ද පරීක්ෂා කළ හැකියි. H–Kr neutral atoms සඳහා ප්‍රායෝගික පුහුණුවකි.</p></div></section>`;
+const r=visual.querySelector('#orbital-workshop');r.querySelector('#ow-element').onchange=e=>{owReset(+e.target.value);owDraw()};r.querySelector('#ow-check').onclick=owValidate;r.querySelector('#ow-answer').onclick=owFill;r.querySelector('#ow-clear').onclick=()=>{owReset(ow.z);owDraw()};r.querySelectorAll('[data-spin]').forEach(b=>b.onclick=()=>{ow.selection=b.dataset.spin;owDraw()});owDraw();}
+const owStyle=document.createElement('style');owStyle.textContent=`.ow-lab{padding:18px;border:1px solid #456078;border-radius:16px;background:#0d2237;color:#e0f1ff;max-width:920px;margin:auto}.ow-lab h3{margin:0 0 9px}.ow-lab p{line-height:1.7}.ow-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:13px 0}.ow-controls select{background:#15334a;color:white;border:1px solid #6c8fa7;padding:8px;border-radius:9px}.ow-btns{display:flex;gap:8px;flex-wrap:wrap}.ow-btns button{background:#193a55;border:1px solid #7599b1;color:#e5f7ff;border-radius:9px;padding:9px 12px;cursor:pointer}.ow-btns button.on,.ow-btns button.primary{background:#1466a0;border-color:#87d6fc}.ow-progress{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;background:#142d43;padding:10px;border-radius:9px;margin:12px 0}.ow-row{display:grid;grid-template-columns:45px 1fr 42px;align-items:center;gap:10px;margin:7px 0}.ow-sub{font-weight:bold;color:#b5eafa}.ow-orbs{display:flex;gap:6px;flex-wrap:wrap}.ow-orb{width:42px;height:42px;border:2px solid #6d9fc3;background:#18354b;color:#dcf9ff;font-size:23px;border-radius:7px;cursor:pointer}.ow-orb:hover{border-color:#fff;background:#275476}.ow-row small{color:#accbdc}.ow-feedback{margin-top:13px;background:#1b3a51;border-radius:9px;padding:13px;line-height:1.7;min-height:34px}.ow-explain{margin-top:14px;border-top:1px solid #42647f;padding-top:13px;line-height:1.7;color:#c5dce8;font-size:13px}`;document.head.appendChild(owStyle);
+// Retain the original compact electron-box game. Add a worked-example visual below it.
+let exZ=8, exStep=0, exTimer=null;
+const exChoices=[[7,'N · නයිට්‍රජන්'],[8,'O · ඔක්සිජන්'],[11,'Na · සෝඩියම්'],[15,'P · පොස්පරස්'],[17,'Cl · ක්ලෝරීන්'],[24,'Cr · ක්‍රෝමියම්'],[29,'Cu · තඹ']];
+function exampleSequence(z){
+ const all=owReference(z),seq=[],boxes=owLevels.map(([n,c])=>Array.from({length:c},()=>[]));
+ // Ground-state order for common examples, with Cr and Cu promotion noted separately.
+ for(let i=0;i<all.length;i++)for(const spin of ['up','down'])for(let j=0;j<all[i].length;j++){
+   if(all[i][j].includes(spin))seq.push({level:i,spot:j,spin});
+ }
+ // Sorting by subshell, then by spin puts the first electrons in different boxes (Hund).
+ return seq;
+}
+function renderWorkedExample(){
+ const host=document.getElementById('controls');if(!host||current<13||current>16)return;
+ const sequence=exampleSequence(exZ),taken=sequence.slice(0,exStep);
+ const b=owLevels.map(([n,c])=>Array.from({length:c},()=>[]));
+ taken.forEach(e=>b[e.level][e.spot].push(e.spin));
+ const name=exChoices.find(x=>x[0]===exZ)?.[1]||'O';
+ const subs=b.map((group,i)=>{const n=group.reduce((a,sp)=>a+sp.length,0);return n?owLevels[i][0]+'<sup>'+n+'</sup>':''}).filter(Boolean).join(' ');
+ const last=taken[taken.length-1];
+ let rule='පළමුව මූලද්‍රව්‍යයක් තෝරා Next Electron ඔබන්න.';
+ if(last){const group=b[last.level],filled=group.filter(o=>o.length>0).length;
+   rule='Aufbau: අඩු ශක්ති කාක්ෂික පළමුව පිරෙයි.';
+   if(group.length>1 && group.some(o=>o.length===1) && !group.some(o=>o.length===2))rule='Hund: සමාන ශක්ති කාක්ෂිකවල පළමුව ↑ බැගින් තනි තනිව පිරෙයි.';
+   if(last.spin==='down')rule='Pauli: මේ කාක්ෂිකයේ දෙවැනි ඉලෙක්ට්‍රෝනය ↓ ලෙස ප්‍රතිවිරුද්ධ spin එකකින් පිහිටයි.';
+ }
+ if((exZ===24||exZ===29)&&exStep===sequence.length)rule+=' '+(exZ===24?'Cr: [Ar] 3d⁵ 4s¹':'Cu: [Ar] 3d¹⁰ 4s¹')+' විශේෂ ground-state configuration එකකි.';
+ const html=`<section class="worked-example" id="worked-example">
+ <h3>⚛️ උදාහරණයක් අරන් Electron පිරෙන හැටි බලමු</h3>
+ <p class="mini-info">කලින් තිබුණු ↑ Electron / − Electron game එක ඉහළ තියෙනවා. මේක අමතර පියවරෙන්-පියවර නිරූපණයක්.</p>
+ <div class="controls"><label>මූලද්‍රව්‍යය <select id="ex-element">${exChoices.map(([z,n])=>`<option value="${z}" ${z===exZ?'selected':''}>${n} (Z=${z})</option>`).join('')}</select></label><span class="mini-info">ඉලෙක්ට්‍රෝන ${exStep} / ${exZ}</span></div>
+ <div class="ex-config">${name} · ${subs||'කාක්ෂික හිස්'}</div>
+ <div class="ex-orbits" aria-label="කාක්ෂික සියල්ල එකම තිරස් පේළියක">${owLevels.map(([label,c],i)=>{
+   const n=b[i].reduce((t,sp)=>t+sp.length,0);
+   return `<div class="ex-row"><b>${label}</b><div class="ex-boxes">${b[i].map(sp=>`<span class="ex-box">${sp.map(v=>v==='up'?'↑':'↓').join('')||'·'}</span>`).join('')}</div><small>${n}/${c*2}</small></div>`
+ }).join('')}</div>
+ <p class="ex-rule" role="status">${rule}</p>
+ <div class="controls"><button class="btn primary" id="ex-next" ${exStep>=sequence.length?'disabled':''}>+ ඊළඟ Electron</button><button class="btn" id="ex-prev" ${exStep===0?'disabled':''}>← පෙර</button><button class="btn" id="ex-play">${exTimer?'⏸ Pause':'▶ Auto Play'}</button><button class="btn" id="ex-reset">↻ Reset</button></div>
+ <p class="mini-info">කාක්ෂික පෙට්ටි සියල්ල එකම තිරස් පේළියක පෙන්වයි. ඉඩ මදි නම් පැත්තට scroll කරන්න. මෙහි s (1), p (3), d (5) orbital boxes තිබෙනවා. Cr/Cu විශේෂ ground-state configurations ලෙස පෙන්වයි.</p>
+ </section>`;
+ host.insertAdjacentHTML('beforeend',html);
+ const root=host.querySelector('#worked-example');
+ root.querySelector('#ex-element').onchange=e=>{stopExample();exZ=+e.target.value;exStep=0;renderLab()};
+ root.querySelector('#ex-next').onclick=()=>{exStep=Math.min(sequence.length,exStep+1);renderLab()};
+ root.querySelector('#ex-prev').onclick=()=>{stopExample();exStep=Math.max(0,exStep-1);renderLab()};
+ root.querySelector('#ex-reset').onclick=()=>{stopExample();exStep=0;renderLab()};
+ root.querySelector('#ex-play').onclick=()=>{if(exTimer){stopExample();renderLab();return}if(exStep>=sequence.length)exStep=0;exTimer=setInterval(()=>{if(current<13||current>16){stopExample();return}exStep++;if(exStep>=exampleSequence(exZ).length)stopExample();renderLab()},750);renderLab()};
+}
+
+// Three optional visual rule-check examples, without replacing the existing electron game.
+let ruleQuizKind='pauli',ruleQuizPick=-1;
+const ruleQuizData={
+ pauli:{name:'Pauli බහිෂ්කාර මූලධර්මය',explain:'එකම කාක්ෂිකයේ electrons දෙදෙනාට ප්‍රතිවිරුද්ධ spin තිබිය යුතුයි. ↑↑ හෝ ↓↓ වැරදියි; ↑↓ නිවැරදියි.',options:[{l:'1s',arr:['↑↓'],right:true},{l:'1s',arr:['↑↑'],right:false},{l:'1s',arr:['↓↓'],right:false}]},
+ hund:{name:'Hund ගේ නීතිය',explain:'2p³ සඳහා සමාන ශක්ති කාක්ෂික තුනට පළමුව එක් ඉලෙක්ට්‍රෝනය බැගින් සමාන්තර spin (↑ ↑ ↑) සහිතව ඇතුළත් විය යුතුයි. ↑↓ | ↑ | හිස් ලෙස කලින් යුගල කිරීමත් ↑ | ↓ | ↑ ලෙස තනි ඉලෙක්ට්‍රෝනවල spin වෙනස් කිරීමත් Hund නීතියට පටහැනියි.',options:[{l:'2p',arr:['↑','↑','↑'],right:true},{l:'2p',arr:['↑↓','↑',''],right:false},{l:'2p',arr:['↑','↓','↑'],right:false}]},
+ aufbau:{name:'ගොඩනැගීමේ මූලධර්මය (Aufbau)',explain:'Ground-state පිරවීමේදී මුලින්ම 1s පිරී, ඉන්පසු 2s පිරෙයි (මෙහි මූලික H–Be උදාහරණ).',options:[{l:'1s · 2s',arr:['↑↓','↑'],right:true},{l:'1s · 2s',arr:['↑','↑↓'],right:false},{l:'1s · 2s',arr:['','↑↑'],right:false}]}
+};
+function renderRuleQuiz(){
+ if(current<13||current>16)return;
+ const host=document.getElementById('controls');if(!host)return;
+ const data=ruleQuizData[ruleQuizKind];
+ const html=`<section class="rule-quiz" id="rule-quiz"><h3>✅ / ❌ Electron Spin නිවැරදිද? — රූප සටහන් අභ්‍යාසය</h3>
+ <p class="mini-info">ඔයා එවපු ↑↓ රූප සටහන අනුව. පළමුව නීතියක් තෝරා, නිවැරදි electron arrangement එක click කරලා Check කරන්න.</p>
+ <div class="rule-tabs">${Object.entries(ruleQuizData).map(([k,v])=>`<button class="btn ${k===ruleQuizKind?'primary':''}" data-rule-kind="${k}">${v.name.split(' ')[0]}</button>`).join('')}</div>
+ <h4>${data.name}</h4><div class="rule-choices">${data.options.map((opt,i)=>`<button class="rule-choice ${ruleQuizPick===i?'selected':''}" data-rule-pick="${i}" aria-pressed="${ruleQuizPick===i}"><span class="rule-symbol">${ruleQuizPick===i?'◉':'○'}</span><span class="rule-orb-row">${opt.arr.map(sp=>`<span class="rule-orb"><span class="rule-arrows">${[...sp].map(a=>`<span style="color:${a==='↑'?'#35d9e9':'#79e05b'}">${a}</span>`).join('')}</span><span class="rule-line"></span></span>`).join('')}</span><span class="rule-label">${opt.l}</span></button>`).join('')}</div>
+ <div class="controls"><button class="btn primary" id="rule-check" ${ruleQuizPick<0?'disabled':''}>✓ Check කරන්න</button><button class="btn" id="rule-new">↻ නැවත තෝරන්න</button></div>
+ <div id="rule-result" class="rule-result" aria-live="polite">පිළිතුරක් තෝරා Check කරන්න.</div></section>`;
+ host.insertAdjacentHTML('beforeend',html);
+ let root=document.getElementById('rule-quiz');
+ root.querySelectorAll('[data-rule-kind]').forEach(b=>b.onclick=()=>{ruleQuizKind=b.dataset.ruleKind;ruleQuizPick=-1;renderLab()});
+ root.querySelectorAll('[data-rule-pick]').forEach(b=>b.onclick=()=>{ruleQuizPick=+b.dataset.rulePick;renderLab()});
+ root.querySelector('#rule-new').onclick=()=>{ruleQuizPick=-1;renderLab()};
+ root.querySelector('#rule-check').onclick=()=>{const correct=data.options[ruleQuizPick].right;root.querySelector('#rule-result').innerHTML=`<strong>${correct?'✅ නිවැරදියි!':'❌ මේ වින්‍යාසය වැරදියි.'}</strong> ${data.explain}`;root.querySelectorAll('[data-rule-pick]').forEach((b,i)=>{b.classList.toggle('correct',data.options[i].right);b.classList.toggle('incorrect',i===ruleQuizPick&&!correct)});};
+}
+
+// Sinhala Aufbau teaching panel. Extra visualization; it does not replace the Hund/Pauli game.
+let aufStep=0,aufElement='Na';
+const aufOrder=[['1s',1],['2s',1],['2p',3],['3s',1],['3p',3],['4s',1],['3d',5],['4p',3]];
+const aufAtomic={He:2,Li:3,Be:4,B:5,C:6,N:7,O:8,Ne:10,Na:11,Mg:12,Al:13,Si:14,P:15,S:16,Cl:17,Ar:18,K:19,Ca:20,Sc:21};
+function aufConfiguration(count){let remain=count;return aufOrder.map(([name,boxes])=>{const n=Math.min(remain,boxes*2);remain-=n;return {name,boxes,n};})}
+function renderAufbauSinhala(){
+ if(current!==13)return;
+ const host=document.getElementById('controls');if(!host)return;
+ const max=aufAtomic[aufElement];aufStep=Math.min(max,aufStep);
+ const groups=aufConfiguration(aufStep);
+ const diagram=groups.map(({name,boxes,n})=>{
+  const arrows=Array.from({length:boxes},(_,i)=>(i<n?'↑':'')+(i<n-boxes?'↓':''));
+  return `<div class="auf-sub"><div class="auf-orbs">${arrows.map(a=>`<span class="auf-box">${a||'·'}</span>`).join('')}</div><b>${name}</b><small>${n}/${boxes*2}</small></div>`;
+ }).join('');
+ const occupied=groups.filter(g=>g.n>0);const last=occupied[occupied.length-1];
+ const cfg=occupied.map(x=>`${x.name}<sup>${x.n}</sup>`).join(' ')||'—';
+ const detail=!last?'පළමු ඉලෙක්ට්‍රෝනය 1s කාක්ෂිකයට ඇතුළු කරන්න.':
+ `${last.name} උපකක්ෂිකයේ දැන් ඉලෙක්ට්‍රෝන ${last.n}ක් තිබෙනවා. ${last.name} උපකක්ෂිකයේ උපරිමය ${last.boxes*2}යි. ${last.n===last.boxes*2?'මෙම උපකක්ෂිකය පිරී ඇති නිසා ඊළඟ ඉලෙක්ට්‍රෝනය ඊළඟ සුදුසු උපකක්ෂිකයට යයි.':'ඊළඟ ඉලෙක්ට්‍රෝනය ද පිරවීමේ නීති අනුව යොදයි.'}`;
+ host.insertAdjacentHTML('beforeend',`<section class="auf-lab" id="auf-lab"><h3>⚡ ගොඩනැගීමේ මූලධර්මය (Aufbau) — සිංහල Interactive පාඩම</h3>
+ <p>පරමාණුවේ <b>භූමි අවස්ථාවේ (ground state)</b> ඉලෙක්ට්‍රෝන සාමාන්‍යයෙන් <b>අඩුම ශක්ති උපකක්ෂිකයේ සිට</b> ඉහළ ශක්ති උපකක්ෂික දක්වා පිරෙනවා. උපකක්ෂිකවල පිහිටීමේ පේළියක් සහ ශක්ති අනුපිළිවෙළක් එකම දේ නොවේ.</p>
+ <div class="auf-sequence"><b>ශක්තිය වැඩිවන සාමාන්‍ය පිළිවෙළ:</b><div>1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p</div></div>
+ <label class="auf-select">මූලද්‍රව්‍යය: <select id="auf-element">${Object.entries(aufAtomic).map(([sym,z])=>`<option value="${sym}" ${sym===aufElement?'selected':''}>${sym} (Z=${z})</option>`).join('')}</select></label>
+ <div class="auf-count">ඉලෙක්ට්‍රෝන <strong>${aufStep} / ${max}</strong> · වින්‍යාසය: <b>${cfg}</b></div>
+ <div class="auf-orb-row" aria-label="කාක්ෂික සියල්ල තිරස් පේළියක">${diagram}</div>
+ <div class="auf-btns"><button id="auf-add" ${aufStep>=max?'disabled':''}>+ ඉලෙක්ට්‍රෝනය එක් කරන්න</button><button id="auf-minus" ${aufStep===0?'disabled':''}>− ඉලෙක්ට්‍රෝනය ඉවත් කරන්න</button><button id="auf-reset">↻ නැවත පටන්ගන්න</button></div>
+ <div class="auf-expl" role="status">${detail}</div>
+ <p class="mini-info"><b>මතක තියාගන්න:</b> 1s සහ 2s පිරුණු පසුයි 2p ආරම්භ වෙන්නේ. 2p කාක්ෂික තුනට පළමුව ↑ බැගින් දමා ඉන්පසු ↓ යුගල කරනවා (Hund). ↑↓ දෙකේ spin ප්‍රතිවිරුද්ධයි (Pauli). 4s සාමාන්‍යයෙන් 3dට පෙර පිරුණත්, Cr/Cu වැනි විශේෂ තත්ත්ව ඇති නිසා මේ නිරූපණය ඒවා සඳහා භාවිත නොකරන්න.</p></section>`);
+ const root=document.getElementById('auf-lab');
+ root.querySelector('#auf-element').onchange=e=>{aufElement=e.target.value;aufStep=0;renderLab()};
+ root.querySelector('#auf-add').onclick=()=>{aufStep=Math.min(max,aufStep+1);renderLab()};
+ root.querySelector('#auf-minus').onclick=()=>{aufStep=Math.max(0,aufStep-1);renderLab()};
+ root.querySelector('#auf-reset').onclick=()=>{aufStep=0;renderLab()};
+}
+
+const beforeRuleQuiz=renderLab;
+let lastRuleTopic=-1;
+renderLab=function(){if(current!==lastRuleTopic){lastRuleTopic=current;if(current===15)ruleQuizKind='hund';else if(current===14)ruleQuizKind='pauli';else if(current===13)ruleQuizKind='aufbau';ruleQuizPick=-1;}beforeRuleQuiz();if(current>=13&&current<=16)renderRuleQuiz();if(current===13)renderAufbauSinhala()};
+const ruleCss=document.createElement('style');ruleCss.textContent=`.rule-quiz{margin-top:18px;padding:18px;border:1px solid #496884;background:#112940;border-radius:15px}.rule-quiz h3{margin:0 0 8px;font-size:18px}.rule-quiz h4{margin:13px 0 9px;color:#b8e9fa}.rule-tabs{display:flex;gap:8px;flex-wrap:wrap}.rule-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}.rule-choice{display:flex;flex-direction:column;gap:7px;align-items:center;justify-content:center;border:2px solid #50728b;border-radius:12px;background:#142f49;color:#effaff;padding:12px 8px;min-height:106px;cursor:pointer}.rule-choice.selected{border-color:#49d3f2;background:#1d4259}.rule-choice.correct{border-color:#5ddd96}.rule-choice.incorrect{border-color:#fa8498}.rule-symbol{align-self:flex-start;color:#76ddf0}.rule-orb-row{display:flex;gap:9px;align-items:center;justify-content:center;min-height:43px}.rule-orb{display:flex;min-width:35px;flex-direction:column;align-items:center;gap:0}.rule-arrows{font-size:27px;line-height:1.1;font-weight:800;height:33px;white-space:nowrap}.rule-line{height:4px;background:#e5eef6;border-radius:3px;width:41px}.rule-label{font-size:13px;color:#bbd1e7}.rule-result{margin-top:10px;padding:11px;background:#1a3853;border-radius:9px;color:#e6eef9;line-height:1.7}`;document.head.appendChild(ruleCss);
+
+function stopExample(){if(exTimer){clearInterval(exTimer);exTimer=null}}
+const beforeWorkedExample=renderLab;
+renderLab=function(){if(current<13||current>16)stopExample();beforeWorkedExample();if(current>=13&&current<=16)renderWorkedExample()};
+const exStyle=document.createElement('style');exStyle.textContent=`.worked-example{padding:16px;margin-top:16px;background:#122943;border:1px solid #45627f;border-radius:15px}.worked-example h3{font-size:17px;margin:0 0 8px}.worked-example select{background:#1b3856;color:white;border:1px solid #7196b2;padding:7px;border-radius:7px}.ex-config{font-size:16px;font-weight:700;color:#7de6e9;margin:12px 0}.ex-orbits{display:flex;align-items:flex-start;gap:13px;overflow-x:auto;overflow-y:hidden;max-height:none;padding:10px 4px 16px;scrollbar-width:thin}.ex-row{display:flex;flex:0 0 auto;align-items:center;flex-direction:column;gap:6px;font-size:13px}.ex-row b{width:auto;color:#b5eafa;order:2}.ex-row small{color:#b0c4df;order:3}.ex-boxes{display:flex;gap:4px;min-width:0;order:1}.ex-box{width:33px;height:37px;border:1px solid #80a3c5;border-radius:5px;display:grid;place-items:center;color:#95f2ff;font-size:19px}.ex-rule{color:#e5d39b;padding:10px;background:#1b304c;border-radius:9px}`;document.head.appendChild(exStyle);
+
+
+// Isolated advanced hydrogen spectrum lab; existing topics are unchanged.
+const sp={mode:'emission',series:2,hi:3,all:true,run:true,open:false,phase:0};
+let spProcessTimer=null;function spStopProcess(){if(spProcessTimer!==null){clearInterval(spProcessTimer);spProcessTimer=null}}
+const SP_R=10973731.568160; // vacuum Rydberg constant (m^-1) for infinite-nuclear-mass approximation
+function spWavelength(a,b){return 1e9/(SP_R*(1/(a*a)-1/(b*b)))}
+function spColor(nm){if(nm<380)return '#ab8bff';if(nm>750)return '#ffa76a';if(nm<440)return '#a27aff';if(nm<490)return '#5a9dff';if(nm<520)return '#5de7e7';if(nm<565)return '#5bdd9c';if(nm<600)return '#edec67';if(nm<630)return '#ffae57';return '#ff5a62'}
+function spSpectrumLines(){return Array.from({length:8-sp.series},(_,i)=>{let hi=sp.series+i+1,nm=spWavelength(sp.series,hi);return{hi,nm,color:spColor(nm)}})}
+function spPos(nm){return 27+(nm-380)/370*546}
+function renderSpectrum(){if(current!==10)return;spStopProcess();
+const mode=sp.mode, n0=sp.series, n1=sp.hi, nm=spWavelength(n0,n1),en=1239.841984/nm, visible=nm>=380&&nm<=750;
+const names={1:'Lyman',2:'Balmer',3:'Paschen'};const region=nm<380?'UV — පාරජම්බුල':nm>750?'IR — අධෝරක්ත':'දෘශ්‍ය (Visible)';
+const lines=spSpectrumLines().filter(x=>sp.all||x.hi===n1).filter(x=>x.nm>=380&&x.nm<=750);
+const y=n=>228-31*n, selectedColor=spColor(nm);
+const levels=Array.from({length:7},(_,i)=>i+1).map(n=>`<line x1="48" x2="244" y1="${y(n)}" y2="${y(n)}" stroke="${n===n0||n===n1?'#77e6ec':'#425c76'}" stroke-width="${n===n0||n===n1?3:1.3}"/><text x="13" y="${y(n)+5}" fill="#c8d9ed" font-size="12">n=${n}</text>`).join('');
+const start=mode==='emission'?n1:n0,end=mode==='emission'?n0:n1;
+const photonArrow=mode==='emission'?'→':'←';
+const visibleBars=lines.map(l=>`<rect x="${spPos(l.nm)-2.5}" y="29" width="5" height="70" fill="${mode==='emission'?l.color:'#060913'}"/>`).join('');
+let allHigh=sp.series===1?7:7;
+const highOptions=Array.from({length:allHigh-sp.series},(_,i)=>sp.series+i+1).map(n=>`<option value="${n}" ${sp.hi===n?'selected':''}>n = ${n}</option>`).join('');
+const prismOut=mode==='emission'?`<path d="M134 73 L196 105" stroke="${selectedColor}" stroke-width="4"/><path d="M196 105 L310 59" stroke="${selectedColor}" stroke-width="3"/><path d="M196 105 L314 140" stroke="${selectedColor}" stroke-width="2" opacity=".5"/>`:`<path d="M22 92 L134 73" stroke="url(#spWhite)" stroke-width="9"/><path d="M196 105 L310 59" stroke="url(#spWhite)" stroke-width="4"/><path d="M196 105 L314 140" stroke="url(#spRainbow)" stroke-width="6" opacity=".65"/>`;
+const html=`<section class="sp-lab" id="spLab"><div class="sp-head"><div><h3>🔬 Advanced Hydrogen Spectrum Lab</h3><div class="sp-sub">ප්‍රිස්මය • ආලෝක වර්ණාවලි • ශක්ති මට්ටම් • Photon</div></div><span class="pill">Interactive Preview</span></div>
+<div class="sp-modes"><button type="button" class="sp-mode ${mode==='emission'?'sel':''}" data-spmode="emission">✨ විමෝචන වර්ණාවලිය</button><button type="button" class="sp-mode ${mode==='absorption'?'sel':''}" data-spmode="absorption">🌈 අවශෝෂණ වර්ණාවලිය</button></div>
+<div class="sp-controls"><label>වර්ණාවලි ශ්‍රේණිය<select id="spSeries"><option value="1" ${n0===1?'selected':''}>Lyman • UV</option><option value="2" ${n0===2?'selected':''}>Balmer • Visible / UV</option><option value="3" ${n0===3?'selected':''}>Paschen • IR</option></select></label><label>ඉහළ ශක්ති මට්ටම<select id="spHigh">${highOptions}</select></label><label>පෙන්වීම<select id="spAll"><option value="1" ${sp.all?'selected':''}>සියලු රේඛා</option><option value="0" ${!sp.all?'selected':''}>තෝරාගත් රේඛාව</option></select></label></div>
+<div class="sp-source-demo" style="background:#f8fbff;border-radius:15px;padding:12px 10px 8px;margin:15px 0;color:#12243c;overflow:hidden">
+<div style="font-size:15px;font-weight:800;text-align:center;margin-bottom:4px">${mode==='emission'?'✨ විමෝචනය: ආලෝකය නිපදවෙන අයුරු':'🌈 අවශෝෂණය: ආලෝකය අවශෝෂණය වන අයුරු'}</div>
+<svg viewBox="0 0 600 284" style="display:block;width:100%;height:auto" role="img" aria-label="${mode==='emission'?'Excited hydrogen discharge tube, slit, prism and bright-line detector':'White light source, cool hydrogen gas, slit, prism and dark-line detector'}">
+<defs><linearGradient id="spSourceRainbow" x1="0" x2="1"><stop stop-color="#994dec"/><stop offset=".2" stop-color="#456ef8"/><stop offset=".4" stop-color="#42c4e6"/><stop offset=".58" stop-color="#55d78e"/><stop offset=".73" stop-color="#f5db57"/><stop offset="1" stop-color="#f55a55"/></linearGradient></defs>
+${mode==='emission'?`<rect x="15" y="70" width="134" height="97" rx="16" fill="#293e54" stroke="#5ca5d6" stroke-width="2"/><rect x="38" y="87" width="88" height="65" rx="12" stroke="#6ee5f6" stroke-width="2" fill="#204052"/><path d="M72 99 Q94 118 73 138 M100 99 Q78 118 100 138" fill="none" stroke="#ff84bc" stroke-width="4"/><text x="82" y="185" font-size="13" text-anchor="middle" fill="#18273c">H₂ discharge</text><text x="82" y="202" font-size="13" text-anchor="middle" fill="#18273c">tube</text>`:`<circle cx="49" cy="119" r="31" fill="#ffcc5d"/><circle cx="49" cy="119" r="18" fill="#fff2bc"/><text x="49" y="175" text-anchor="middle" font-size="13" fill="#18273c">White light</text><rect x="117" y="69" width="124" height="100" rx="17" fill="#7b93a4" stroke="#67c4e9" stroke-width="2"/><circle cx="155" cy="117" r="5" fill="#fc849e"/><circle cx="188" cy="97" r="5" fill="#fc849e"/><circle cx="204" cy="135" r="5" fill="#fc849e"/><text x="179" y="189" text-anchor="middle" font-size="13" fill="#18273c">Cool H gas</text>`}
+${mode==='emission'?`<path d="M150 118 H234 M254 118 H329" stroke="#bd80ed" stroke-width="5" opacity=".85"/>`:`<path d="M80 118 H117 M241 118 H265 M286 118 H329" stroke="#e8d48b" stroke-width="7" opacity=".9"/>`}
+<rect x="${mode==='emission'?234:265}" y="78" width="20" height="81" rx="5" fill="#6d8ba7"/><rect x="${mode==='emission'?241:272}" y="91" width="5" height="56" fill="#0b1a2a"/>
+<text x="${mode==='emission'?244:275}" y="174" text-anchor="middle" font-size="12" fill="#18273c">Slit</text>
+<path d="M353 174 L411 63 L471 174 Z" fill="#82c9f1" fill-opacity=".23" stroke="#5db5e4" stroke-width="3"/>
+<text x="412" y="190" text-anchor="middle" font-size="13" fill="#18273c">Prism</text>
+${mode==='emission'?`<path d="M418 124 L520 78" stroke="#b47bfc" stroke-width="4"/><path d="M418 124 L520 106" stroke="#6b78ff" stroke-width="4"/><path d="M418 124 L520 130" stroke="#51c2ed" stroke-width="4"/><path d="M418 124 L520 160" stroke="#fa6769" stroke-width="4"/>`:`<path d="M416 124 L520 67 L520 171 Z" fill="url(#spSourceRainbow)" opacity=".85"/>`}
+<rect x="525" y="51" width="52" height="132" rx="9" fill="${mode==='emission'?'#0c1627':'url(#spSourceRainbow)'}" stroke="#7891b2" stroke-width="2"/>
+${mode==='emission'?`<path d="M525 79 H577" stroke="#ab75f5" stroke-width="5"/><path d="M525 106 H577" stroke="#617bfa" stroke-width="5"/><path d="M525 130 H577" stroke="#52cced" stroke-width="5"/><path d="M525 161 H577" stroke="#f76870" stroke-width="5"/>`:`<rect x="534" y="52" width="6" height="130" fill="#07101f"/><rect x="546" y="52" width="5" height="130" fill="#07101f"/><rect x="557" y="52" width="5" height="130" fill="#07101f"/><rect x="569" y="52" width="5" height="130" fill="#07101f"/>`}
+<text x="550" y="202" text-anchor="middle" font-size="13" fill="#18273c">Screen</text>
+<g id="spSourceTap" role="button" tabindex="0" aria-label="${mode==='emission'?'Electron transition බලන්න':'Photon absorption බලන්න'}" style="cursor:pointer"><rect x="${mode==='emission'?9:108}" y="220" width="${mode==='emission'?153:165}" height="42" rx="11" fill="#087fa4" stroke="#76def5" stroke-width="1.5"/><text x="${mode==='emission'?85:190}" y="246" text-anchor="middle" font-size="12" fill="white" font-weight="bold">${mode==='emission'?'⚛ Electron ↑↓ බලන්න':'⚛ Absorption බලන්න'}</text></g>
+</svg>
+<div style="display:flex;align-items:center;gap:10px;margin-top:1px;flex-wrap:wrap">
+<div style="width:${mode==='emission'?'28%':'44%'};display:flex;justify-content:center;min-width:170px"><button type="button" id="spOpenTransition" aria-expanded="${sp.open?'true':'false'}" style="background:linear-gradient(110deg,#0098b4,#6574dc);color:white;border:0;border-radius:12px;padding:11px 12px;cursor:pointer;font-size:13px;font-weight:800;box-shadow:0 4px 12px #184a7030">⚛ ${mode==='emission'?'Electron ↑↓ බලන්න':'Photon අවශෝෂණය බලන්න'} ${sp.open?'▲':'▼'}</button></div>
+<div style="flex:1;min-width:170px;font-size:12px;line-height:1.5;color:#38536f">${mode==='emission'?'නළය ඇතුළේ electron උද්දීපනය → පහළට සංක්‍රමණය → photon විමෝචනය':'Cool H gas තුළ photon අවශෝෂණය → electron ඉහළ ශක්ති මට්ටමට සංක්‍රමණය'}</div>
+</div></div>
+<div class="sp-stage"><svg viewBox="0 0 600 250" role="img" aria-label="Hydrogen electron transition diagram and dispersing prism">
+<defs><linearGradient id="spWhite"><stop stop-color="#b7d9ff"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#b7d9ff"/></linearGradient><linearGradient id="spRainbow" x1="0" x2="1"><stop stop-color="#a675ff"/><stop offset=".22" stop-color="#4388fa"/><stop offset=".42" stop-color="#55e0bd"/><stop offset=".66" stop-color="#fcdf5e"/><stop offset="1" stop-color="#fb676a"/></linearGradient></defs>
+<text x="119" y="23" fill="#e4f0ff" font-size="14" font-weight="bold">ශක්ති මට්ටම්</text>${levels}
+<line x1="161" x2="161" y1="${y(start)}" y2="${y(end)}" stroke="${selectedColor}" stroke-width="3" stroke-dasharray="6 5"/>
+<polygon points="155,${y(end)+(end>start?12:-12)} 161,${y(end)} 167,${y(end)+(end>start?12:-12)}" fill="${selectedColor}"/><circle cx="161" cy="${y(start)}" r="8" fill="#6be8fa" stroke="#c6f7fa" stroke-width="2"/>
+<text x="335" y="23" fill="#e4f0ff" font-size="14" font-weight="bold">Photon සහ ප්‍රිස්මය</text>
+<rect x="322" y="51" width="110" height="135" fill="#0b2234" rx="10" stroke="#3a5b75"/>
+<polygon points="367,71 337,155 397,155" fill="#70c4eb" opacity=".36" stroke="#c3edff" stroke-width="2"/>
+<path d="M324 113 L356 113" stroke="${mode==='emission'?selectedColor:'#f6ffff'}" stroke-width="4"/>
+<path d="M356 113 L369 125" stroke="${mode==='emission'?selectedColor:'#f6ffff'}" stroke-width="3"/>
+<path d="M369 125 L417 125" stroke="${mode==='emission'?selectedColor:'#f6ffff'}" stroke-width="3"/>
+<path d="M417 125 L487 92" stroke="${selectedColor}" stroke-width="${mode==='emission'?4:2.5}"/>
+<path d="M417 125 L487 160" stroke="${mode==='emission'?selectedColor:'#80daf4'}" opacity="${mode==='emission'?.2:.8}" stroke-width="3"/>
+<line x1="492" y1="63" x2="492" y2="190" stroke="#758da5" stroke-width="5"/>
+<circle class="${sp.run?'sp-photon':''}" cx="487" cy="92" r="7" fill="${selectedColor}"/>
+<text x="409" y="218" fill="#b9cadd" text-anchor="middle" font-size="12">ප්‍රිස්ම නිරූපණය (schematic)</text>
+<text x="500" y="105" fill="${selectedColor}" font-size="13">${photonArrow}</text>
+</svg></div>
+${sp.open?`<section style="background:#0a1a30;border:1px solid #416786;border-radius:14px;padding:14px;margin-bottom:14px;color:#eaf5ff" id="spTransitionDetail">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><strong>⚛ Hydrogen Electron Energy Transition</strong><span id="spProcessTitle" style="font-size:12px;color:#79e2ea">පියවර 1 / 4</span></div>
+<svg viewBox="0 0 550 255" role="img" aria-label="Electron excited to a higher discrete energy level and photon emitted when returning to lower level">
+<defs><linearGradient id="spPhotGrad"><stop stop-color="#ffb4ae"/><stop offset="1" stop-color="#ff5e67"/></linearGradient></defs>
+<rect x="12" y="28" width="335" height="193" rx="14" fill="#11283c" stroke="#446b89"/><text x="30" y="47" font-size="12" fill="#b9d3e8">Hydrogen gas · energy levels</text>
+${Array.from({length:7},(_,i)=>i+1).map(n=>`<line x1="76" x2="300" y1="${231-n*27}" y2="${231-n*27}" stroke="${n===n0||n===n1?'#63dcde':'#3b526b'}" stroke-width="${n===n0||n===n1?3:1}"/><text x="39" y="${235-n*27}" fill="#9fc3dd" font-size="11">n=${n}</text>`).join('')}
+<circle id="spElectronDot" cx="177" cy="${231-(mode==='emission'?n0:n0)*27}" r="8" fill="#5ee8fa" stroke="#d1ffff" stroke-width="2" style="transition:cy .65s ease"/>
+<path id="spEnergyArrow" d="M208 ${231-n0*27} V${231-n1*27}" stroke="#ffd478" stroke-width="3" stroke-dasharray="6 5" opacity="0"/>
+<text id="spElectronState" x="177" y="243" font-size="10" fill="#a8c7db" text-anchor="middle">Lower energy state</text>
+<circle id="spPhotonDot" cx="337" cy="130" r="8" fill="${selectedColor}" opacity="0"/><path id="spPhotonRay" d="M290 130 Q302 113 314 130 T338 130 T362 130 T386 130 T410 130 T434 130" fill="none" stroke="${selectedColor}" stroke-width="3" opacity="0"/>
+<path d="M453 54 L488 107 L419 107 Z" fill="#70c9e6" fill-opacity=".19" stroke="#9bdaf1" stroke-width="2"/><text x="452" y="130" fill="#cadfec" font-size="12" text-anchor="middle">Prism</text><rect x="505" y="45" width="14" height="118" rx="3" fill="#071222" stroke="#7995b3"/><rect id="spDetected" x="506" y="100" width="12" height="7" fill="${mode==='emission'?selectedColor:'#050c15'}" opacity="0"/>
+<text x="422" y="191" fill="#aac6d8" font-size="11" text-anchor="middle">Photon → prism → spectrum</text>
+</svg>
+<div id="spProcessDesc" style="background:#1b3450;padding:12px;border-radius:9px;min-height:72px;line-height:1.75;font-size:13px"></div>
+<div class="sp-actions"><button type="button" id="spProcessPlay">▶ ක්‍රියාවලිය බලන්න</button><button type="button" id="spProcessNext">ඊළඟ පියවර →</button><button type="button" id="spProcessReset">↺ නැවත</button></div>
+<p class="sp-legend">ඉලෙක්ට්‍රෝනය සත්‍ය වෘත්තාකාර කක්ෂයක ගමන් කරන බව නොවේ: මෙහි පෙන්වන්නේ ශක්ති මට්ටම් අතර සංක්‍රමණයකි. n=${n0} ↔ n=${n1} යන සංක්‍රමණය තෝරාගෙන ඇත.</p>
+</section>`:''}
+<div class="sp-data"><div><small>Transition</small><strong>${start} ${mode==='emission'?'↓':'↑'} ${end}</strong></div><div><small>Wavelength (vacuum)</small><strong>${nm.toFixed(1)} nm</strong></div><div><small>Photon Energy</small><strong>${en.toFixed(2)} eV</strong></div></div>
+<div class="sp-spectrum"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><strong>${mode==='emission'?'දීප්තිමත් රේඛා — Emission':'අඳුරු රේඛා — Absorption'}</strong><span class="sp-sub">${names[n0]} Series</span></div>
+<svg viewBox="0 0 600 132" role="img" aria-label="Visible spectral window, 380 to 750 nanometers">
+<defs><linearGradient id="spVisible" x1="0" x2="1"><stop stop-color="#733ccb"/><stop offset=".16" stop-color="#3e56e9"/><stop offset=".30" stop-color="#36b9f5"/><stop offset=".47" stop-color="#41c66f"/><stop offset=".62" stop-color="#e5e344"/><stop offset=".79" stop-color="#f69339"/><stop offset="1" stop-color="#e8394b"/></linearGradient></defs>
+<rect x="27" y="29" width="546" height="70" rx="3" fill="${mode==='emission'?'#040713':'url(#spVisible)'}"/>${visibleBars}
+${visible?`<rect x="${spPos(nm)-9}" y="23" width="18" height="82" stroke="#fff" stroke-dasharray="4 4" fill="none"/>`:''}
+<text x="27" y="120" fill="#b3c5d7" font-size="12">380 nm</text><text x="573" y="120" text-anchor="end" fill="#b3c5d7" font-size="12">750 nm</text></svg>
+${!visible?`<p class="sp-legend">⚠ මෙම transition එක ${region} කලාපයේ නිසා දෘශ්‍ය වර්ණාවලි තීරුවේ රේඛාවක් නොපෙන්වයි. එහි wavelength ඉහතින් බලන්න.</p>`:`<p class="sp-legend">Highlighted line: ${nm.toFixed(1)} nm (${region}).</p>`}</div>
+<div class="sp-actions"><button id="spPlay">${sp.run?'⏸ Animation Pause':'▶ Animation Play'}</button><button id="spReset">↺ Reset</button></div>
+<div class="sp-explain">${mode==='emission'?`<b>විමෝචනය:</b> ඉලෙක්ට්‍රෝනය n = ${n1} සිට n = ${n0} දක්වා පහළට යද්දී ${nm.toFixed(1)} nm තරංග ආයාමයේ photon එකක් නිකුත් වෙනවා. වර්ණාවලියේ එම තරංග ආයාමයේ දීප්තිමත් රේඛාව පෙනේ.`:`<b>අවශෝෂණය:</b> n = ${n0} මට්ටමේ ඉලෙක්ට්‍රෝනයක් ${nm.toFixed(1)} nm photon එක අවශෝෂණය කර n = ${n1} වෙත යනවා. පසුබිම් අඛණ්ඩ ආලෝකයෙන් එම තරංග ආයාමය අඩුවීමෙන් අඳුරු රේඛාවක් පෙනේ.`} <b>${region}</b>. එකම මට්ටම් යුගලයට absorption/emission wavelength සමානයි.</div>
+<p class="sp-legend">මෙය අධ්‍යාපනික schematic එකකි. ප්‍රිස්මයේ නැමීම සහ තීව්‍රතාව සත්‍ය optical ray tracing නොවේ. සියලු රේඛා option එකේ පෙන්වන්නේ තෝරාගත් series එකේ transitions; ඒවායේ සාපේක්ෂ intensity නිරූපණය නොවේ.</p>
+</section>`;
+const visual=document.getElementById('visual');visual.classList.remove('lab');visual.innerHTML=html;
+const control=document.getElementById('controls');control.innerHTML='';
+visual.querySelector('#spOpenTransition').onclick=()=>{sp.open=!sp.open;sp.phase=0;renderSpectrum();if(sp.open){document.getElementById('spTransitionDetail')?.scrollIntoView({behavior:'smooth',block:'nearest'})}};
+const sourceTap=visual.querySelector('#spSourceTap');if(sourceTap){sourceTap.addEventListener('click',()=>visual.querySelector('#spOpenTransition').click());sourceTap.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();visual.querySelector('#spOpenTransition').click()}})}
+if(sp.open){
+const el=id=>visual.querySelector('#'+id);
+function processFrame(){
+const emission=sp.mode==='emission',step=sp.phase;
+const eStart=emission?n0:n0, eHigh=n1;
+const elevated=emission?(step===1||step===2):(step>=2);
+el('spElectronDot').setAttribute('cy',231-(elevated?eHigh:eStart)*27);
+el('spEnergyArrow').setAttribute('opacity',step===1||step===2?'1':'0');
+el('spPhotonDot').setAttribute('opacity',emission?(step>=2?'1':'0'):(step<=1?'1':'0'));
+el('spPhotonDot').setAttribute('cx',emission?(step===3?430:324):(step===0?393:317));
+el('spPhotonRay').setAttribute('opacity',emission&&step>=2?'1':(!emission&&step===0?'1':'0'));
+el('spDetected').setAttribute('opacity',step===3?'1':'0');
+el('spElectronState').textContent=elevated?'Higher energy state':'Lower energy state';
+el('spProcessTitle').textContent=`පියවර ${step+1} / 4`;
+const desc=emission?[
+'① Discharge tube එකට විදුලිය ලබා දුන් විට වේගවත් අංශු/ඉලෙක්ට්‍රෝන hydrogen පරමාණු සමඟ ගැටෙනවා. පරමාණුව උද්දීපනය කිරීමට ශක්තිය ලබා දෙයි.',
+`② Hydrogen electron එක n=${n0} සිට n=${n1} උසස් ශක්ති මට්ටමට පත් වෙනවා. මෙහි අවශෝෂණය වූ ශක්තිය උද්දීපන ගැටීමෙන් ලැබෙයි.`,
+`③ Electron එක n=${n1} සිට n=${n0} පහළ මට්ටමට සංක්‍රමණය වෙනවා. ΔE=${en.toFixed(2)} eV ශක්තියේ photon එකක් නිකුත් වෙනවා (λ≈${nm.toFixed(1)} nm).`,
+'④ ඒ ආලෝකය slit → prism → screen වෙත ගමන් කර තෝරාගත් තරංග ආයාමයේ දීප්තිමත් emission line එකක් ඇති කරනවා.'
+]:[
+'① Continuous light source එකෙන් ආලෝකය hydrogen gas cell එක හරහා යවනවා.',
+`② n=${n0} පහළ මට්ටමේ hydrogen පරමාණුවට λ≈${nm.toFixed(1)} nm photon එකක් ලැබී අවශෝෂණය වෙනවා.`,
+`③ එම ශක්තියෙන් electron එක n=${n0} සිට n=${n1} ඉහළ මට්ටමට සංක්‍රමණය වෙනවා.`,
+'④ අදාළ තරංග ආයාමයේ ඉදිරියට යන ආලෝකයේ තීව්‍රතාව අඩුවන නිසා අඛණ්ඩ වර්ණාවලියේ අඳුරු absorption line එකක් ඇති වෙනවා.'
+];el('spProcessDesc').textContent=desc[step];
+}
+el('spProcessNext').onclick=()=>{spStopProcess();sp.phase=(sp.phase+1)%4;processFrame()};
+el('spProcessReset').onclick=()=>{spStopProcess();sp.phase=0;processFrame()};
+el('spProcessPlay').onclick=()=>{spStopProcess();sp.phase=0;processFrame();el('spProcessPlay').textContent='▶ නැවත ධාවනය';spProcessTimer=setInterval(()=>{sp.phase++;if(sp.phase>3){spStopProcess();return;}processFrame()},1450)};
+processFrame();}
+visual.querySelectorAll('[data-spmode]').forEach(b=>b.onclick=()=>{sp.mode=b.dataset.spmode;renderSpectrum()});
+visual.querySelector('#spSeries').onchange=e=>{sp.series=+e.target.value;sp.hi=sp.series+1;renderSpectrum()};
+visual.querySelector('#spHigh').onchange=e=>{sp.hi=+e.target.value;renderSpectrum()};
+visual.querySelector('#spAll').onchange=e=>{sp.all=e.target.value==='1';renderSpectrum()};
+visual.querySelector('#spPlay').onclick=()=>{sp.run=!sp.run;renderSpectrum()};
+visual.querySelector('#spReset').onclick=()=>{Object.assign(sp,{mode:'emission',series:2,hi:3,all:true,run:true});renderSpectrum()};
+}
+const beforeSpectrumLab=renderLab;
+renderLab=function(){if(current===10){renderSpectrum()}else{document.getElementById('visual').classList.add('lab');beforeSpectrumLab()}};
+
+renderLab();
+
+
+/* Unit 1 final comprehensive knowledge-check page. Existing lab modules unchanged. */
+let quizView=false, quizIndex=0;
+const unitQuizList=topics.map((t,i)=>({title:t[1],code:t[0],q:t[4],answers:t[5],correct:t[6],reason:t[7],key:'topic'+i}));
+if(typeof rayQuestions!=='undefined') rayQuestions.forEach((q,i)=>unitQuizList.push({title:'කිරණවල ගුණ',code:'1.1',q:q[0],answers:q[1],correct:q[2],reason:q[3],key:'ray'+i}));
+const originalSetTopic=setTopic;
+setTopic=function(i){quizView=false;document.body.classList.remove('quiz-active');originalSetTopic(i)};
+const originalRender=render;
+render=function(){if(quizView){renderFinalQuiz();return;}originalRender();addQuizEntry()};
+function addQuizEntry(){
+ const nav=document.getElementById('nav');if(nav&&!nav.querySelector('#quizNavEntry'))nav.insertAdjacentHTML('beforeend','<div class="nav-head">අවසාන අභ්‍යාසය</div><button class="nav" id="quizNavEntry"><i>🎯</i><span>දැනුම පරීක්ෂාව · Final Quiz</span></button>');
+ const item=document.getElementById('quizNavEntry');if(item)item.onclick=openFinalQuiz;
+ const next=document.getElementById('next');if(next&&current===topics.length-1){next.disabled=false;next.textContent='අවසාන දැනුම පරීක්ෂාව →';next.onclick=openFinalQuiz;}else if(next){next.textContent='ඊළඟ පාඩම →';next.onclick=()=>setTopic(current+1)}
+ const map=document.getElementById('map');if(map&&!map.querySelector('#quizMapEntry')){map.insertAdjacentHTML('beforeend','<button class="tile" id="quizMapEntry"><b>🎯</b>අවසාන දැනුම පරීක්ෂාව</button>');map.querySelector('#quizMapEntry').onclick=openFinalQuiz;}
+}
+function openFinalQuiz(){quizView=true;document.body.classList.add('quiz-active');renderFinalQuiz();window.scrollTo({top:0,behavior:'smooth'});if(window.innerWidth<721)document.getElementById('sidebar').classList.add('collapsed')}
+function renderFinalQuiz(){
+ let host=document.getElementById('final-quiz-page');if(!host)return;
+ const q=unitQuizList[quizIndex], found=answered[q.key], total=unitQuizList.length;
+ const mastered=unitQuizList.filter(x=>answered[x.key]===x.correct).length;
+ host.innerHTML=`<div class="quiz-hero"><div class="eyebrow">CHEMISTRY QUEST · UNIT 01</div><h1>🎯 අවසාන දැනුම පරීක්ෂාව</h1><p>සියලු පාඩම් ඉගෙනගෙන අවසානයේ දැනුම පරීක්ෂා කරන්න. පිළිතුර තෝරා “පිළිතුර පරීක්ෂා කරන්න” ඔබන්න.</p><div class="quiz-stat-row"><span>ප්‍රශ්නය ${quizIndex+1} / ${total}</span><span>නිවැරදි ${mastered} / ${total}</span></div><div class="progress"><div style="width:${100*(quizIndex+1)/total}%"></div></div></div><section class="card"><span class="topic-label">${safe(q.code)} · ${safe(q.title)}</span><h2 style="margin-top:14px">${safe(q.q)}</h2><div class="options" id="finalQuizOptions">${q.answers.map((a,i)=>`<button class="quiz-option ${found!==undefined?(i===q.correct?'correct':i===found?'incorrect':''):''}" data-final-answer="${i}" ${found!==undefined?'disabled':''}>${String.fromCharCode(65+i)}. ${safe(a)}</button>`).join('')}</div>${found!==undefined?`<div id="quiz-result">${found===q.correct?'✅ නිවැරදියි!':'❌ නිවැරදි පිළිතුර: '+safe(q.answers[q.correct])}<p>${safe(q.reason)}</p></div>`:'<p class="small">පිළිතුරක් තෝරන්න.</p>'}<div class="quiz-actions"><button class="quiz-nav" id="quizBack" ${quizIndex===0?'disabled':''}>← පෙර ප්‍රශ්නය</button><button class="quiz-nav primary" id="quizNext">${quizIndex===total-1?'ප්‍රතිඵල බලන්න':'ඊළඟ ප්‍රශ්නය →'}</button><button class="quiz-nav" id="quizRestart">↻ සියලු පිළිතුරු නැවත කරන්න</button><button class="quiz-nav" id="quizLessons">← පාඩම් වෙත</button></div></section>`;
+ host.querySelectorAll('[data-final-answer]').forEach(b=>b.onclick=()=>{answered[q.key]=Number(b.dataset.finalAnswer);save();renderFinalQuiz()});
+ host.querySelector('#quizBack').onclick=()=>{quizIndex=Math.max(0,quizIndex-1);renderFinalQuiz()};
+ host.querySelector('#quizNext').onclick=()=>{if(quizIndex<total-1){quizIndex++;renderFinalQuiz()}else{host.innerHTML=`<div class="quiz-hero"><h1>🏆 Unit 1 – ප්‍රතිඵලය</h1><h2>${mastered} / ${total} නිවැරදි</h2><p>නැවත උත්සාහ කරලා දැනුම වැඩිදියුණු කරන්න.</p><button class="quiz-nav primary" id="quizAgain">↻ නැවත අරඹන්න</button> <button class="quiz-nav" id="quizReturn">← පාඩම් වෙත</button></div>`;host.querySelector('#quizAgain').onclick=()=>{quizIndex=0;renderFinalQuiz()};host.querySelector('#quizReturn').onclick=()=>setTopic(0)}};
+ host.querySelector('#quizRestart').onclick=()=>{unitQuizList.forEach(x=>delete answered[x.key]);save();quizIndex=0;renderFinalQuiz()};
+ host.querySelector('#quizLessons').onclick=()=>setTopic(current);
+ document.getElementById('total').textContent=`🎯 Quiz ${mastered} / ${total}`;
+}
+(function prepareDedicatedQuiz(){
+ let grid=document.querySelector('.main-grid');if(!grid)return;grid.id='unit-main-grid';
+ const cards=grid.querySelectorAll(':scope > .card');if(cards[1])cards[1].classList.add('unit-inline-quiz');
+ const hero=document.querySelector('.hero');if(hero)hero.classList.add('unit-hero-lesson');
+ let page=document.createElement('section');page.id='final-quiz-page';grid.parentNode.insertBefore(page,grid.nextSibling);
+ const prev=document.getElementById('prev');if(prev)prev.onclick=()=>setTopic(Math.max(0,current-1));
+ addQuizEntry();
+ render(); // Initialize the overridden Cathode dropdown and final-quiz navigation on first load.
+})();
+</script></body></html>
