@@ -1233,12 +1233,12 @@ function create(host,positive){
  for(const x of [-4.72,4.72]){const cap=new THREE.Mesh(new THREE.CylinderGeometry(.36,.36,.65,32),capmat);cap.rotation.z=Math.PI/2;cap.position.x=x;rig.add(cap)}
  const white=mat(0xebf4ff,{metalness:.6}),gold=mat(0xff6580,{emissive:0x8c162e,emissiveIntensity:.25}),screenMat=mat(0x5effb0,{emissive:0x14a761,emissiveIntensity:1.3,side:THREE.DoubleSide});
  function disc(x,m,rad=.76,th=.075){const mesh=new THREE.Mesh(new THREE.CylinderGeometry(rad,rad,th,48),m);mesh.rotation.z=Math.PI/2;mesh.position.x=x;rig.add(mesh);return mesh}
- const cath=disc(positive?-.6:-3.46,white),anode=disc(positive?3.35:1.12,gold,.44),screen=disc(positive?-3.70:3.95,screenMat,.79,.045);
+ const cath=disc(positive?-.6:-3.46,white),anode=disc(positive?3.35:3.95,gold,positive?.44:.70);const wallGlow=disc(positive?-4.21:3.48,new THREE.MeshBasicMaterial({color:0x6beaab,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}),.75,.02);
  if(positive){rig.remove(cath);const ring=new THREE.Mesh(new THREE.TorusGeometry(.52,.18,18,60),white);ring.rotation.y=Math.PI/2;ring.position.x=-.6;rig.add(ring)}
  // Copper connection wires outside the chamber and a separate DC source.
  const wireMat=positive?gold:gold;
  const wire=(points,color)=>{const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));const mesh=new THREE.Mesh(new THREE.TubeGeometry(curve,40,.026,8,false),mat(color,{emissive:color,emissiveIntensity:.12}));rig.add(mesh)};
- const negX=positive?-.6:-3.46, posX=positive?3.35:1.12;
+ const negX=positive?-.6:-3.46, posX=positive?3.35:3.95;
  wire([[negX,0,0],[negX,-1.35,0],[negX,-1.85,1],[-.63,-1.58,1]],0x75d8ff);
  wire([[posX,0,0],[posX,1.3,0],[posX,1.8,1],[.63,1.8,1],[.63,-1.58,1]],0xff607f);
  const battery=new THREE.Mesh(new THREE.BoxGeometry(1.4,.55,.65),mat(0x25394e,{roughness:.8,metalness:.06}));battery.position.set(0,-1.88,1);rig.add(battery);
@@ -1378,7 +1378,7 @@ function create(host,positive){
  }
  const running=positive?(!!integratedActive&&integratedActive.run):typeof propRun==='undefined'?true:propRun;
  const showObject=positive?!!integratedActive?.object:(typeof propObstacle==='undefined'||propObstacle);
- if(wheel)wheel.visible=showObject;if(obstacle)obstacle.visible=showObject;if(shadowMark)shadowMark.visible=showObject&&running;screen.material.emissiveIntensity=positive?(running ? (.12+1.35*(integratedActive?.screenPulse||0)) : .035):(running ? 1.3 : .04);
+ if(wheel)wheel.visible=showObject;if(obstacle)obstacle.visible=showObject;if(shadowMark)shadowMark.visible=showObject&&running;wallGlow.material.opacity=positive?(running?.045+.19*(integratedActive?.screenPulse||0):.008):(running?.12:.008);
  const pol=positive?(integratedActive?.pol||1):(typeof propPol!=='undefined'?propPol:1);
  const strength=positive?(integratedActive?.field||0):(typeof propField!=='undefined'?propField:0);
  if(plates){plates.children[0].material.color.setHex(pol===1?0x5daaff:0xff5778);plates.children[1].material.color.setHex(pol===1?0xff5778:0x5daaff)}
