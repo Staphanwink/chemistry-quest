@@ -1623,14 +1623,14 @@ let attempts=0;const poll=setInterval(()=>{attempts++;if(window.THREE){clearInte
   }
   function drawPhoto(){
    txt(tr('ආලෝකය → ලෝහ මතුපිට → electron විමෝචනය','Light → metal surface → electron emission'),26,35,17,'#dbf4fa');
-   const allowed=Eev()>2.3+1e-8;
+   const allowed=Eev()>=2.3;
    ctx.fillStyle='#4a718b';ctx.fillRect(585,60,58,205);ctx.fillStyle='#83afc8';ctx.fillRect(585,60,7,205);
    txt(tr('ලෝහය','Metal'),584,286,13,'#b7d8e9');
    const count=rate+2;
    for(let i=0;i<count;i++){const x=84+((elapsed*.12+i*485/count)%480);const y=103+i%3*53;
     disc(x,y,7,'#68e4ff',10);line(x-17,y,x-9,y,'#5ecae9',2);
    }
-   if(allowed){for(let k=0;k<5;k++){const x=642+((elapsed*.14+k*42)%168);const y=120+(k%3)*38-(x-642)*.13;disc(x,y,5,'#ffe39a',9);}}
+   if(allowed){for(let k=0;k<rate+2;k++){const x=642+((elapsed*.14+k*42)%168);const y=120+(k%3)*38-(x-642)*.13;disc(x,y,5,'#ffe39a',9);}}
    ctx.fillStyle='#1b354c';ctx.fillRect(38,234,430,55);
    txt('Eγ = '+Eev().toFixed(2)+' eV',54,261,17,'#9feaff');
    txt('φ = 2.30 eV',278,261,17,'#ffc49a');
