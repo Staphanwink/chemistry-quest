@@ -634,7 +634,7 @@ function renderIntegratedPositiveLab(){
  st.emit+=v;if(st.emit>8){st.emit=0;let target=st.atoms.find(a=>a.age>8);st.electrons.push({x:392,y:target?target.y:120+Math.random()*150,target});}
  for(const e of st.electrons){e.x+=6*v;if(e.target&&st.atoms.includes(e.target)&&Math.hypot(e.x-e.target.x,e.y-e.target.y)<e.target.r+8){let a=e.target;st.atoms.splice(st.atoms.indexOf(a),1);st.ions.push({x:a.x,y:a.y,passed:false,phase:Math.random()*7});st.secondary.push({x:a.x+5,y:a.y,vx:3,vy:-2.5});st.flashes.push({x:a.x,y:a.y,age:0});st.hits++;updateMetrics();refreshAddButton();notice('⚡ Cathode electron එකක් '+gasData[st.gas].label+' අංශුවක් අයනීකරණය කළා → '+gasData[st.gas].ion+' + e⁻. ධන අයනය වමට ඇදෙනවා.');e.x=950;}}
  st.electrons=st.electrons.filter(e=>e.x<840);
- for(const a of st.ions){const oldX=a.x;a.x-=3.8*v;if(a.x<375&&!a.passed){a.passed=true;st.through++;a.y=188;notice('✅ ධන අයනය කැතෝඩයේ සිදුර හරහා වම් පැත්තේ ප්‍රතිදීප්ත තිරය දෙසට ගමන් කරයි.')}
+ for(const a of st.ions){const oldX=a.x;a.x-=3.8*v;if(a.x<375&&!a.passed){a.passed=true;st.through++;a.y=188;notice('✅ ධන අයනය කැතෝඩයේ සිදුර හරහා වම් පැත්තේ වීදුරු බිත්තිය දෙසට ගමන් කරයි.')}
  if(a.passed){if(st.mode==='wheel'&&st.object&&oldX>=255&&a.x<255&&Math.abs(ionY(a)-188)<53){a.x=0;st.wheelVelocity=Math.min(.18,st.wheelVelocity+.075);st.wheelHits++;updateMetrics();notice('⚙️ ධන අයනය හබල් සකයේ තලයකට ගැටුණා. ගම්‍යතාව හුවමාරු වීම නිසා සකය කැරකෙනවා!')}if(st.mode==='shadow'&&st.object&&a.x<229&&ionY(a)>161&&ionY(a)<215)a.x=0;}}
  for(const ion of st.ions){if(ion.passed&&ion.x<=67&&ion.x>0){st.screenHits++;st.screenPulse=1;}}
  st.ions=st.ions.filter(a=>a.x>65);
