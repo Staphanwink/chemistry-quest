@@ -1098,6 +1098,8 @@ function renderFinalQuiz(){
 .cq3d-experiment-tools{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:10px;padding:12px 13px;background:#0a263b;border-bottom:1px solid #335e7a}
 .cq3d-experiment-tools button,.cq3d-experiment-tools select{min-height:38px}
 .cq3d-wrap [data-label-toggle][aria-pressed="false"]{opacity:.76;border-color:#5c7188}
+.cq3d-wrap [data-add-10]{background:#0d654f;border-color:#42d4a6;color:#d9fff3;font-weight:800}
+.cq3d-wrap [data-add-10][hidden]{display:none!important}
 
 .cq3d-workspace .cq3d-stage{grid-column:2;grid-row:1;height:370px;min-width:0;min-height:0;cursor:default}
 .cq3d-parts{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:space-evenly;gap:7px;padding:16px 9px;background:linear-gradient(160deg,#0b283f,#081c30)}
@@ -1133,7 +1135,7 @@ function create(host,positive){
  const stage=document.createElement('div');stage.className='cq3d-stage';stage.setAttribute('aria-label',positive?'3D positive ray tube':'3D cathode ray tube');
  const wrap=document.createElement('section');wrap.className='cq3d-wrap';
  const bar=document.createElement('div');bar.className='cq3d-toolbar';
- bar.innerHTML='<strong>🔬 3D Lab · Controls</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-label-toggle aria-pressed="true">🏷 නම්: ON</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
+ bar.innerHTML='<strong>🔬 3D Lab · Controls</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-label-toggle aria-pressed="true">🏷 නම්: ON</button><button type="button" class="cq3d-2d-toggle cq3d-fast-particles" data-add-10>＋ අංශු 10</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
  const caption=document.createElement('p');caption.className='cq3d-caption';
  caption.textContent=positive?'ධන අයන: ඇනෝඩය පැත්ත → සිදුරු කැතෝඩය → පිටුපස ප්‍රතිදීප්ත තිරය. Zoom ＋ / － buttons භාවිතා කර දර්ශනය විශාල හෝ කුඩා කරන්න.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) → ඇනෝඩය (+) දෙසට. Zoom ＋ / － buttons භාවිතා කරන්න.';
  // Labels stay in a dedicated RIGHT column instead of overlapping the glass tube.
@@ -1202,6 +1204,13 @@ function create(host,positive){
  // Move the elements, not clones, so their original listeners and state stay intact.
  if(positive){const tools=host.querySelector('.int-tools');if(tools){tools.classList.add('cq3d-experiment-tools');wrap.appendChild(tools);}}
  wrap.append(workspace,footnote,caption);
+ const quickAdd=bar.querySelector('[data-add-10]');
+ if(!positive){quickAdd.hidden=true;}
+ else{quickAdd.onclick=()=>{
+  const quantity=host.querySelector('#integratedBatch'),add=host.querySelector('#integratedAdd');
+  if(quantity){quantity.value='10';quantity.dispatchEvent(new Event('change'));}
+  if(add)add.click();
+ };}
  let old=positive?host.querySelector('#integratedCanvas'):host.querySelector('.prop-view');
  if(!old)return;
  const parent=positive?host:old.parentNode;
@@ -1253,10 +1262,16 @@ function create(host,positive){
  // Render real gas particles from the positive-ray laboratory state in the 3D tube.
  // Counts update as students add particles or collisions ionize existing atoms.
  const gasBeads=[],gasBeadMaterial=positive?new THREE.MeshStandardMaterial({color:0xb6a0ff,roughness:.2,emissive:0x41347b,emissiveIntensity:.32}):null;
- if(positive)for(let i=0;i<24;i++){
-  const bead=new THREE.Mesh(new THREE.SphereGeometry(.09,12,10),gasBeadMaterial);
-  bead.visible=false;rig.add(bead);gasBeads.push(bead);
+ function ensureGasBeads(requested){
+  if(!positive)return;
+  // Grow the 3D pool as more batches are added; keep a graphics-only ceiling for weak devices.
+  const count=Math.min(Math.max(0,requested),240);
+  while(gasBeads.length<count){
+   const bead=new THREE.Mesh(new THREE.SphereGeometry(.079,9,8),gasBeadMaterial);
+   bead.visible=false;rig.add(bead);gasBeads.push(bead);
+  }
  }
+ if(positive)ensureGasBeads(24);
  // Particle positions are driven by the ionization simulator, not emitted by the anode.
  const electronModels=[],ionModels=[],collisionModels=[];
  const from2DX=x=>-.6+(x-381)*(3.95/432);
@@ -1329,6 +1344,7 @@ function create(host,positive){
  if(positive){
   const current=integratedActive;
   const particles=current?.atoms||[];
+  ensureGasBeads(particles.length);
   const color=current?.gas==='Ar'?0x8ce5af:current?.gas==='H2'?0x7ed5ff:0xb6a0ff;
   gasBeadMaterial.color.setHex(color);
   for(let i=0;i<gasBeads.length;i++){
