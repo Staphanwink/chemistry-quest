@@ -1065,9 +1065,9 @@ function create(host,positive){
  }
  const wrap=document.createElement('section');wrap.className='cq3d-wrap';
  const bar=document.createElement('div');bar.className='cq3d-toolbar';
- bar.innerHTML='<strong>🔬 Discharge Tube Lab</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Camera</button></div>';
+ bar.innerHTML='<strong>🔬 Discharge Tube Lab</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
  const caption=document.createElement('p');caption.className='cq3d-caption';
- caption.textContent=positive?'ධන අයන: ඇනෝඩය පැත්ත → සිදුරු කැතෝඩය → පිටුපස ප්‍රතිදීප්ත තිරය. Mouse / touch ඇදලා rotate කරන්න; wheel / pinch කර zoom කරන්න.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) → ඇනෝඩය (+) දෙසට. Mouse / touch ඇදලා rotate කරන්න; wheel / pinch කර zoom කරන්න.';
+ caption.textContent=positive?'ධන අයන: ඇනෝඩය පැත්ත → සිදුරු කැතෝඩය → පිටුපස ප්‍රතිදීප්ත තිරය. Zoom ＋ / － buttons භාවිතා කර දර්ශනය විශාල හෝ කුඩා කරන්න.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) → ඇනෝඩය (+) දෙසට. Zoom ＋ / － buttons භාවිතා කරන්න.';
  wrap.append(bar,stage,caption);
  let old=positive?host.querySelector('#integratedCanvas'):host.querySelector('.prop-view');
  if(!old)return;
@@ -1146,12 +1146,14 @@ function create(host,positive){
  setDynamicLabel(m);currentMode=m
  }
  // Three-quarter front camera preset, labels remain anchored to parts during rotation.
- let yaw=-.28,pitch=.12,zoom=12.4,down=false,lastX=0,lastY=0;
- bar.querySelector('[data-camera="reset"]').onclick=()=>{yaw=-.28;pitch=.12;zoom=12.4};
- stage.addEventListener('pointerdown',e=>{down=true;lastX=e.clientX;lastY=e.clientY;stage.setPointerCapture(e.pointerId)});
- stage.addEventListener('pointermove',e=>{if(!down)return;yaw+=(e.clientX-lastX)*.007;pitch=Math.max(-.85,Math.min(.85,pitch+(e.clientY-lastY)*.007));lastX=e.clientX;lastY=e.clientY});
- stage.addEventListener('pointerup',()=>down=false);stage.addEventListener('pointercancel',()=>down=false);
- stage.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(8,Math.min(19,zoom+e.deltaY*.012))},{passive:false});
+ // Locked three-quarter camera: zoom only, no drag rotation.
+ const yaw=-.28,pitch=.12;let zoom=12.4;
+ const clampZoom=z=>Math.max(8,Math.min(19,z));
+ bar.querySelector('[data-camera="reset"]').onclick=()=>{zoom=12.4};
+ bar.querySelector('[data-zoom="in"]').onclick=()=>{zoom=clampZoom(zoom-1.1)};
+ bar.querySelector('[data-zoom="out"]').onclick=()=>{zoom=clampZoom(zoom+1.1)};
+ stage.style.cursor='default';stage.style.touchAction='pan-y';
+ stage.addEventListener('wheel',e=>{e.preventDefault();zoom=clampZoom(zoom+e.deltaY*.012)},{passive:false});
  let frame=0,ended=false;const resize=()=>{const w=stage.clientWidth,h=stage.clientHeight;if(w&&h){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}};
  const ro=new ResizeObserver(resize);ro.observe(stage);resize();
  function animate(){if(!stage.isConnected){ended=true;ro.disconnect();renderer.dispose();return}
