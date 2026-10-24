@@ -1086,23 +1086,28 @@ function renderFinalQuiz(){
 .cq3d-hidden-2d{display:none!important}
 @media(max-width:650px){.cq3d-stage{height:270px}.cq3d-toolbar{font-size:12px}}
 .cq3d-switch{display:flex;flex-wrap:wrap;gap:6px}.cq3d-switch .active{background:#147d9b;border-color:#74e7ff;font-weight:800}.cq3d-stage{min-height:240px}
-.cq3d-workspace{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 218px;min-height:355px;isolation:isolate}
+.cq3d-workspace{position:relative;display:grid;grid-template-columns:minmax(145px,180px) minmax(0,1fr) minmax(145px,180px);min-height:370px;isolation:isolate;align-items:stretch}
 .cq3d-workspace[hidden]{display:none!important}
-.cq3d-workspace .cq3d-stage{height:355px;min-width:0;min-height:0;cursor:default}
-.cq3d-parts{z-index:2;display:flex;flex-direction:column;justify-content:space-evenly;gap:5px;padding:14px 10px;background:linear-gradient(135deg,#0b263b,#0a192e);border-left:1px solid #35637f}
-.cq3d-parts-title{font-size:12px;font-weight:750;color:#8dcfe5;margin:0 0 3px;text-align:center}
-.cq3d-part-row{display:flex;align-items:center;gap:8px;padding:9px 9px;border:1px solid #355e79;border-radius:9px;background:#11344b;color:#e5f6ff;font-size:12px;font-weight:650;line-height:1.35;min-height:35px;overflow-wrap:anywhere}
+.cq3d-workspace .cq3d-stage{grid-column:2;grid-row:1;height:370px;min-width:0;min-height:0;cursor:default}
+.cq3d-parts{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:space-evenly;gap:7px;padding:16px 9px;background:linear-gradient(160deg,#0b283f,#081c30)}
+.cq3d-parts-left{grid-column:1;grid-row:1;border-right:1px solid #35637f}
+.cq3d-parts-right{grid-column:3;grid-row:1;border-left:1px solid #35637f}
+.cq3d-parts-title{font-size:12px;font-weight:750;color:#8dcfe5;margin:0 0 6px;text-align:center}
+.cq3d-part-row{display:flex;align-items:center;gap:6px;padding:10px 8px;border:1px solid #355e79;border-radius:9px;background:#11344b;color:#e5f6ff;font-size:12px;font-weight:650;line-height:1.4;min-height:42px;overflow-wrap:anywhere}
 .cq3d-part-row[data-key="experiment"]{border-color:#a88454;color:#ffe3b3}
 .cq3d-part-row[hidden]{display:none!important}
 .cq3d-side-arrow{color:#72d9f7;font-size:17px;flex:none;font-weight:850}
 .cq3d-connectors{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
 .cq3d-workspace .cq3d-stage canvas{display:block;width:100%;height:100%}
-@media(max-width:730px){
- .cq3d-workspace{display:flex;flex-direction:column}
- .cq3d-workspace .cq3d-stage{width:100%;height:275px;min-height:275px}
- .cq3d-parts{border-left:0;border-top:1px solid #35637f;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:10px}
- .cq3d-parts-title{grid-column:1/-1}
- .cq3d-part-row{font-size:11px;min-height:34px;padding:7px}
+.cq3d-footnote{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:9px 12px;background:#0b2238;border-top:1px solid #284960}
+.cq3d-footnote span{font-size:12px;color:#cce7fa;border:1px solid #315c74;padding:5px 9px;border-radius:999px}
+@media(max-width:820px){
+ .cq3d-workspace{grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:0}
+ .cq3d-workspace .cq3d-stage{grid-column:1/-1;grid-row:1;height:285px;min-height:285px}
+ .cq3d-parts{grid-row:2;display:flex;flex-direction:column;justify-content:flex-start;gap:7px;padding:10px 7px}
+ .cq3d-parts-left{grid-column:1;border-right:1px solid #35637f;border-top:1px solid #35637f}
+ .cq3d-parts-right{grid-column:2;border-left:1px solid #35637f;border-top:1px solid #35637f}
+ .cq3d-part-row{font-size:11px;min-height:34px;padding:8px}
  .cq3d-connectors{display:none}
 }
 </style>
@@ -1117,47 +1122,60 @@ function create(host,positive){
  const stage=document.createElement('div');stage.className='cq3d-stage';stage.setAttribute('aria-label',positive?'3D positive ray tube':'3D cathode ray tube');
  const wrap=document.createElement('section');wrap.className='cq3d-wrap';
  const bar=document.createElement('div');bar.className='cq3d-toolbar';
- bar.innerHTML='<strong>🔬 3D Lab · Right Labels</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
+ bar.innerHTML='<strong>🔬 3D Lab · Left & Right Labels</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
  const caption=document.createElement('p');caption.className='cq3d-caption';
  caption.textContent=positive?'ධන අයන: ඇනෝඩය පැත්ත → සිදුරු කැතෝඩය → පිටුපස ප්‍රතිදීප්ත තිරය. Zoom ＋ / － buttons භාවිතා කර දර්ශනය විශාල හෝ කුඩා කරන්න.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) → ඇනෝඩය (+) දෙසට. Zoom ＋ / － buttons භාවිතා කරන්න.';
  // Labels stay in a dedicated RIGHT column instead of overlapping the glass tube.
  const workspace=document.createElement('div');workspace.className='cq3d-workspace';
- const parts=document.createElement('aside');parts.className='cq3d-parts';parts.setAttribute('aria-label','3D උපකරණ කොටස්');
- const partTitle=document.createElement('p');partTitle.className='cq3d-parts-title';partTitle.textContent='↖ උපකරණ කොටස්';parts.appendChild(partTitle);
- const map=positive?[
-  ['screen','ප්‍රතිදීප්ත තිරය',[-3.70,0,0]],
-  ['cathode','සිදුරු කැතෝඩය (−)',[-.6,0,0]],
-  ['glass','වීදුරු නළය',[0,.90,0]],
-  ['anode','ඇනෝඩය (+)',[3.35,0,0]],
-  ['battery','DC Battery',[0,-1.88,1]]
+ const leftParts=document.createElement('aside'),rightParts=document.createElement('aside');
+ leftParts.className='cq3d-parts cq3d-parts-left';rightParts.className='cq3d-parts cq3d-parts-right';
+ leftParts.setAttribute('aria-label','වම් පැත්තේ කොටස්');rightParts.setAttribute('aria-label','දකුණු පැත්තේ කොටස්');
+ for(const [area,text] of [[leftParts,'← වම් කොටස්'],[rightParts,'දකුණු කොටස් →']]){
+  const title=document.createElement('p');title.className='cq3d-parts-title';title.textContent=text;area.appendChild(title);
+ }
+ // The label side matches the actual end of the tube. The central power source stays in a footer.
+ const partList=positive?[
+  ['screen','ප්‍රතිදීප්ත තිරය',[-3.70,0,0],'left'],
+  ['cathode','සිදුරු කැතෝඩය (−)',[-.6,0,0],'left'],
+  ['positiveIon','ධන අයන ←',[-2.3,.05,.10],'left'],
+  ['gas','වායු අණු',[1.6,.45,.10],'right'],
+  ['ionize','අයනීකරණය',[1.4,-.30,.12],'right'],
+  ['anode','ඇනෝඩය (+)',[3.35,0,0],'right'],
+  ['electron','කැතෝඩ කිරණ →',[1.9,0,.12],'right']
  ]:[
-  ['cathode','කැතෝඩය (−)',[-3.46,0,0]],
-  ['glass','වීදුරු නළය',[0,.90,0]],
-  ['anode','ඇනෝඩය (+)',[1.12,0,0]],
-  ['screen','ප්‍රතිදීප්ත තිරය',[3.95,0,0]],
-  ['battery','DC Battery',[0,-1.88,1]]
+  ['cathode','කැතෝඩය (−)',[-3.46,0,0],'left'],
+  ['tube','වීදුරු නළය',[-1.8,.85,0],'left'],
+  ['electron','කැතෝඩ කිරණ →',[-1.10,.10,.12],'left'],
+  ['anode','ඇනෝඩය (+)',[1.12,0,0],'right'],
+  ['screen','ප්‍රතිදීප්ත තිරය',[3.95,0,0],'right']
  ];
  const annotations=new Map();
- function addPart(key,label,point){
+ function addPart(key,label,point,side){
   const row=document.createElement('div');row.className='cq3d-part-row';row.dataset.key=key;
-  const arrow=document.createElement('span');arrow.className='cq3d-side-arrow';arrow.textContent='←';arrow.setAttribute('aria-hidden','true');
-  const labelEl=document.createElement('span');labelEl.textContent=label;row.append(arrow,labelEl);parts.appendChild(row);
-  annotations.set(key,{row,labelEl,point:new THREE.Vector3(...point)});
+  const arrow=document.createElement('span');arrow.className='cq3d-side-arrow';arrow.textContent=side==='left'?'→':'←';arrow.setAttribute('aria-hidden','true');
+  const caption=document.createElement('span');caption.textContent=label;
+  if(side==='left')row.append(caption,arrow);else row.append(arrow,caption);
+  (side==='left'?leftParts:rightParts).appendChild(row);
+  annotations.set(key,{row,labelEl:caption,point:new THREE.Vector3(...point),side});
  }
- map.forEach(([key,name,point])=>addPart(key,name,point));
- addPart('experiment','කිරණ පරීක්ෂණය',[positive?-2.3:1.8,.35,0]);
- const SVG_NS='http://www.w3.org/2000/svg';
- const connector=document.createElementNS(SVG_NS,'svg');connector.setAttribute('class','cq3d-connectors');connector.setAttribute('aria-hidden','true');
+ partList.forEach(([key,name,point,side])=>addPart(key,name,point,side));
+ addPart('experiment','පරීක්ෂණ උපකරණය',[positive?-2.3:1.8,.35,0],positive?'left':'right');
+ const svgNS='http://www.w3.org/2000/svg',connector=document.createElementNS(svgNS,'svg');
+ connector.setAttribute('class','cq3d-connectors');connector.setAttribute('aria-hidden','true');
  const lines=new Map();
  for(const [key] of annotations){
-  const path=document.createElementNS(SVG_NS,'path');
-  path.setAttribute('fill','none');path.setAttribute('stroke',key==='experiment'?'#f4bf75':'#76cae4');
-  path.setAttribute('stroke-width','1.6');path.setAttribute('stroke-opacity','.63');path.setAttribute('stroke-linecap','round');
-  const dot=document.createElementNS(SVG_NS,'circle');dot.setAttribute('r','3.2');dot.setAttribute('fill',key==='experiment'?'#ffd396':'#7fe9ff');
+  const path=document.createElementNS(svgNS,'path'),dot=document.createElementNS(svgNS,'circle');
+  path.setAttribute('fill','none');path.setAttribute('stroke',key==='experiment'?'#ffcc85':'#76cae4');
+  path.setAttribute('stroke-width','1.5');path.setAttribute('stroke-opacity','.67');path.setAttribute('stroke-linecap','round');
+  dot.setAttribute('r','3.0');dot.setAttribute('fill',key==='experiment'?'#ffd396':'#7fe9ff');
   connector.append(path,dot);lines.set(key,{path,dot});
  }
- workspace.append(stage,connector,parts);
- wrap.append(bar,workspace,caption);
+ const footnote=document.createElement('div');footnote.className='cq3d-footnote';
+ for(const caption of ['DC Battery (− / +)','අඩු පීඩන වීදුරු නළය']){
+  const pill=document.createElement('span');pill.textContent=caption;footnote.appendChild(pill);
+ }
+ workspace.append(leftParts,stage,rightParts,connector);
+ wrap.append(bar,workspace,footnote,caption);
  let old=positive?host.querySelector('#integratedCanvas'):host.querySelector('.prop-view');
  if(!old)return;
  const parent=positive?host:old.parentNode;
@@ -1296,27 +1314,31 @@ function create(host,positive){
  if(wheelMomentum<.0002)wheelMomentum=0;
  }
  renderer.render(scene,camera);
- // Draw arrows from the RIGHT labels toward the projected parts without overlapping their text.
- if(currentView==='3d'&&workspace.clientWidth&&stage.clientWidth){
+ // Leader lines begin at the nearest edge of their label column and terminate at the physical part.
+ if(currentView==='3d'&&workspace.clientWidth&&stage.clientWidth&&window.innerWidth>820){
   rig.updateWorldMatrix(true,true);camera.updateWorldMatrix(true,false);
-  const ww=workspace.clientWidth,wh=workspace.clientHeight,sw=stage.clientWidth,sh=stage.clientHeight;
+  const whole=workspace.getBoundingClientRect(),stageRect=stage.getBoundingClientRect();
+  const ww=workspace.clientWidth,wh=workspace.clientHeight;
   connector.setAttribute('viewBox','0 0 '+ww+' '+wh);
   for(const [key,entry] of annotations){
-   const ln=lines.get(key),active=!entry.row.hidden;
-   ln.path.style.display=active?'':'none';ln.dot.style.display=active?'':'none';
+   const line=lines.get(key),active=!entry.row.hidden;
+   line.path.style.display=active?'':'none';line.dot.style.display=active?'':'none';
    if(!active)continue;
    if(key==='experiment')entry.point.set(positive?-2.3:1.8,m==='electric'?.60:.35,0);
    const projected=entry.point.clone().applyMatrix4(rig.matrixWorld).project(camera);
-   const ex=Math.max(8,Math.min(sw-8,(projected.x+1)*sw*.5));
-   const ey=Math.max(8,Math.min(sh-8,(1-projected.y)*sh*.5));
-   const rootRect=workspace.getBoundingClientRect(),rowRect=entry.row.getBoundingClientRect();
-   const startX=rowRect.left-rootRect.left+4;
-   const startY=rowRect.top-rootRect.top+rowRect.height/2;
-   const bendX=Math.max(ex+22,Math.min(startX-26,sw+6));
-   ln.path.setAttribute('d','M '+startX+' '+startY+' L '+bendX+' '+startY+' L '+ex+' '+ey);
-   ln.dot.setAttribute('cx',ex);ln.dot.setAttribute('cy',ey);
+   const px=stageRect.left-whole.left+(projected.x+1)*stageRect.width*.5;
+   const py=stageRect.top-whole.top+(1-projected.y)*stageRect.height*.5;
+   const endX=Math.max(stageRect.left-whole.left+9,Math.min(stageRect.right-whole.left-9,px));
+   const endY=Math.max(9,Math.min(wh-9,py));
+   const rowRect=entry.row.getBoundingClientRect();
+   const originX=entry.side==='left'?rowRect.right-whole.left-2:rowRect.left-whole.left+2;
+   const originY=rowRect.top-whole.top+rowRect.height*.5;
+   const elbowX=entry.side==='left'?Math.min(endX-15,originX+13):Math.max(endX+15,originX-13);
+   line.path.setAttribute('d','M '+originX+' '+originY+' L '+elbowX+' '+originY+' L '+endX+' '+endY);
+   line.dot.setAttribute('cx',endX);line.dot.setAttribute('cy',endY);
   }
  }
+
  requestAnimationFrame(animate)
  }animate()
 }
