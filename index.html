@@ -407,21 +407,21 @@ function renderPropLab(){
  for(let y=17;y<470;y+=22)for(let x=16;x<920;x+=22){g.fillStyle='#1a385c';g.fillRect(x,y,2,2)}
  const bg=g.createLinearGradient(0,88,0,356);bg.addColorStop(0,'#064471');bg.addColorStop(.48,'#052438');bg.addColorStop(1,'#06416c');g.save();g.shadowColor='#09c5ff';g.shadowBlur=23;g.fillStyle=bg;g.strokeStyle='#26d4ff';g.lineWidth=3;g.beginPath();g.roundRect(45,77,830,274,91);g.fill();g.stroke();g.restore();
  // Fixed electrodes: solid cathode, perforated anode so particles can reach target screen.
- g.fillStyle='#f6faff';g.fillRect(162,130,16,161);g.fillStyle='#ff3159';g.fillRect(738,130,16,57);g.fillRect(738,206,16,85);
- text('කැතෝඩය (−)',169,56,'#eaf7ff',20);text('සිදුර සහිත ඇනෝඩය (+)',744,56,'#ffd2b6',19);
+ g.fillStyle='#f6faff';g.fillRect(162,130,16,161);g.fillStyle='#ff3159';g.fillRect(264,113,15,31);g.fillRect(264,250,15,51);
+ text('කැතෝඩය (−)',169,56,'#eaf7ff',20);text('සිදුරු සහිත ඇනෝඩය (+)',284,104,'#ffd2b6',17);
  const cx=180,mid=197,screenX=823,objectX=514;
  if(propMode==='electric'){
   const upperPlus=propPol===1;g.fillStyle=upperPlus?'#ff6280':'#70b9ff';g.fillRect(363,117,249,12);g.fillStyle=upperPlus?'#70b9ff':'#ff6280';g.fillRect(363,271,249,12);text(upperPlus?'+':'−',629,131,'#fff',23);text(upperPlus?'−':'+',629,284,'#fff',23);
  }
  if(propMode==='shadow'){
-  g.fillStyle=propRun?'#76ff95':'#1d5c58';g.fillRect(screenX,126,13,143);g.fillStyle='#153e48';g.fillRect(screenX,269,13,21);
+  g.fillStyle=propRun?'#76ff95':'#1d5c58';g.fillRect(screenX,126,13,164);
   if(propObstacle){g.fillStyle='#fbd89d';g.fillRect(objectX,180,13,34);g.fillRect(objectX-10,190,33,12);text('බාධකය',objectX+5,312,'#f7d39a',15)}
   if(propRun&&propObstacle){g.fillStyle='#072735';g.fillRect(screenX,180,13,34);g.fillRect(screenX,190,13,12);}
  }
  if(propMode==='wheel'&&propObstacle){
   if(propRun)state.angle+=dt*propSpeed*.036;g.save();g.translate(objectX,mid);g.rotate(state.angle);for(let k=0;k<8;k++){g.save();g.rotate(k*Math.PI/4);g.fillStyle=k%2?'#ffc781':'#c6dafa';g.fillRect(0,-6,57,12);g.restore()}g.fillStyle='#eeffff';g.beginPath();g.arc(0,0,11,0,Math.PI*2);g.fill();g.restore();text('හබල් සකය',objectX,313,'#f7d39a',15);
  }
- if(propMode!=='shadow'){g.fillStyle=propRun?'#72f4a7':'#27586a';g.fillRect(screenX,148,13,96)}
+ if(propMode!=='shadow'){g.fillStyle=propRun?'#72f4a7':'#27586a';g.fillRect(screenX,126,13,164)}
  // The central beam passes through the anode aperture (not through solid electrode metal).
  if(propRun){const glow=g.createLinearGradient(cx,0,screenX,0);glow.addColorStop(0,'#49d660');glow.addColorStop(.6,'#7fff19');glow.addColorStop(1,'#68ffe0');const ys=propMode==='shadow'?[156,176,196,216,236]:[mid];
  ys.forEach((y,i)=>{
@@ -435,7 +435,7 @@ function renderPropLab(){
  });
  }
  // External circuit, separate from discharge chamber.
- seg(162,mid,26,mid,'#9abbd6',3);seg(26,mid,26,427,'#9abbd6',3);seg(26,427,360,427,'#9abbd6',3);seg(754,mid,898,mid,'#ff4b69',3);seg(898,mid,898,427,'#ff4b69',3);seg(898,427,560,427,'#ff4b69',3);
+ seg(162,mid,26,mid,'#9abbd6',3);seg(26,mid,26,427,'#9abbd6',3);seg(26,427,360,427,'#9abbd6',3);seg(271,113,271,68,'#ff4b69',3);seg(271,68,898,68,'#ff4b69',3);seg(898,68,898,427,'#ff4b69',3);seg(898,427,560,427,'#ff4b69',3);
  g.fillStyle='#6c4428';g.fillRect(360,404,200,56);text('Battery',460,439,'#fff',19);g.fillStyle='#e7f3ff';g.fillRect(360,411,17,14);g.fillStyle='#ff375f';g.fillRect(543,411,17,14);text('−',368,399,'#f2faff',21);text('+',552,399,'#ff879d',23);
  const result=!propRun?'කිරණ නවතා ඇත.':propMode==='shadow'?(propObstacle?'බාධකය නිසා fluorescent තිරයේ අඳුරු සෙවණැල්ලක් පෙනේ.':'බාධකය ඉවත් කළ විට fluorescent තිරය ආලෝකමත් වේ.'):propMode==='wheel'?(propObstacle?'කිරණ සකයට ගැටෙන විට ගම්‍යතා හුවමාරුව නිරූපණය වේ.':'සකය ඉවත් කළ විට කිරණ බාධාවකින් තොරව ඉදිරියට යයි.'):propField===0?'ක්ෂේත්‍රය ශූන්‍යයි: කිරණ සෘජුව ගමන් කරයි.':(propPol===1?'ධන ඉහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.':'ධන පහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.');if($('propResult').textContent!==result)$('propResult').textContent=result;
  requestAnimationFrame(draw)}requestAnimationFrame(draw);sync();
