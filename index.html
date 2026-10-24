@@ -1328,7 +1328,7 @@ function create(host,positive){
  }
  const running=positive?(!!integratedActive&&integratedActive.run):typeof propRun==='undefined'?true:propRun;
  const showObject=positive?!!integratedActive?.object:(typeof propObstacle==='undefined'||propObstacle);
- if(wheel)wheel.visible=showObject;if(obstacle)obstacle.visible=showObject;if(shadowMark)shadowMark.visible=showObject&&running;screen.material.emissiveIntensity=positive?(running?.12+1.35*(integratedActive?.screenPulse||0):.035):(running?1.3:.04);
+ if(wheel)wheel.visible=showObject;if(obstacle)obstacle.visible=showObject;if(shadowMark)shadowMark.visible=showObject&&running;screen.material.emissiveIntensity=positive?(running ? (.12+1.35*(integratedActive?.screenPulse||0)) : .035):(running ? 1.3 : .04);
  const pol=positive?(integratedActive?.pol||1):(typeof propPol!=='undefined'?propPol:1);
  const strength=positive?(integratedActive?.field||0):(typeof propField!=='undefined'?propField:0);
  if(plates){plates.children[0].material.color.setHex(pol===1?0x5daaff:0xff5778);plates.children[1].material.color.setHex(pol===1?0xff5778:0x5daaff)}
