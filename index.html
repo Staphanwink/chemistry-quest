@@ -1041,6 +1041,7 @@ function renderFinalQuiz(){
 .cq3d-wrap .cq3d-2d-toggle{border:1px solid #4b819e;border-radius:9px;padding:6px 11px;background:#1b405b;color:#fff}
 .cq3d-hidden-2d{display:none!important}
 @media(max-width:650px){.cq3d-stage{height:270px}.cq3d-toolbar{font-size:12px}}
+.cq3d-switch{display:flex;flex-wrap:wrap;gap:6px}.cq3d-switch .active{background:#147d9b;border-color:#74e7ff;font-weight:800}.cq3d-stage{min-height:240px}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" defer></script>
 <script>
@@ -1053,7 +1054,7 @@ function create(host,positive){
  const stage=document.createElement('div');stage.className='cq3d-stage';stage.setAttribute('aria-label',positive?'3D positive ray tube':'3D cathode ray tube');
  const wrap=document.createElement('section');wrap.className='cq3d-wrap';
  const bar=document.createElement('div');bar.className='cq3d-toolbar';
- bar.innerHTML='<strong>🔬 3D Glass Discharge Tube</strong><button type="button" class="cq3d-2d-toggle">2D පරීක්ෂණය පෙන්වන්න ↓</button>';
+ bar.innerHTML='<strong>🔬 Discharge Tube Lab</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Camera</button></div>';
  const caption=document.createElement('p');caption.className='cq3d-caption';
  caption.textContent=positive?'ධන අයන: ඇනෝඩය පැත්ත → සිදුරු කැතෝඩය → පිටුපස ප්‍රතිදීප්ත තිරය. Mouse / touch ඇදලා rotate කරන්න; wheel / pinch කර zoom කරන්න.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) → ඇනෝඩය (+) දෙසට. Mouse / touch ඇදලා rotate කරන්න; wheel / pinch කර zoom කරන්න.';
  wrap.append(bar,stage,caption);
@@ -1063,7 +1064,7 @@ function create(host,positive){
  parent.insertBefore(wrap,positive?old:old);
  const oldContainer=positive?old:old;
  oldContainer.classList.add('cq3d-hidden-2d');
- bar.querySelector('button').onclick=()=>{oldContainer.classList.toggle('cq3d-hidden-2d');bar.querySelector('button').textContent=oldContainer.classList.contains('cq3d-hidden-2d')?'2D පරීක්ෂණය පෙන්වන්න ↓':'2D පරීක්ෂණය වහන්න ↑'};
+ const viewButtons=bar.querySelectorAll('[data-view]');let currentView='3d';function setView(value){currentView=value;stage.style.display=value==='3d'?'block':'none';oldContainer.classList.toggle('cq3d-hidden-2d',value!=='2d');viewButtons.forEach(btn=>{const active=btn.dataset.view===value;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active))});}viewButtons.forEach(btn=>btn.onclick=()=>setView(btn.dataset.view));setView('3d');
  const scene=new THREE.Scene();
  const camera=new THREE.PerspectiveCamera(36,1,.1,100);camera.position.set(0,2.3,13);
  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));stage.appendChild(renderer.domElement);
@@ -1094,7 +1095,7 @@ function create(host,positive){
  beam.rotation.z=Math.PI/2;beam.position.x=positive?-.05:.23;rig.add(beam);
  const sparks=[];const spmat=new THREE.MeshBasicMaterial({color:positive?0xffd58c:0xa6ffff});
  for(let i=0;i<13;i++){const sphere=new THREE.Mesh(new THREE.SphereGeometry(.065,8,8),spmat);rig.add(sphere);sparks.push(sphere)}
- let currentMode='',wheel=null,plates=null;
+ let currentMode='',wheel=null,plates=null,obstacle=null;const segments=[];const sMat=new THREE.MeshBasicMaterial({color:positive?0xffba65:0x91ff36});for(let i=0;i<18;i++){const seg=new THREE.Mesh(new THREE.SphereGeometry(.045,8,8),sMat);rig.add(seg);segments.push(seg)}
  function mode(){
  const v=positive?document.getElementById('integratedPropertySelect')?.value:document.getElementById('propModeSelect')?.value;
  return v||'straight'
@@ -1102,11 +1103,13 @@ function create(host,positive){
  function rebuild(m){
  if(wheel){rig.remove(wheel);wheel=null}
  if(plates){rig.remove(plates);plates=null}
+ if(obstacle){rig.remove(obstacle);obstacle=null}
+ if(m==='shadow'){obstacle=new THREE.Group();obstacle.position.x=positive?-2.25:1.7;const om=mat(0xffca80);const upright=new THREE.Mesh(new THREE.BoxGeometry(.12,.68,.12),om),across=new THREE.Mesh(new THREE.BoxGeometry(.12,.12,.68),om);obstacle.add(upright,across);rig.add(obstacle)}
  if(m==='wheel'){wheel=new THREE.Group();wheel.position.x=positive?-2.3:1.8;for(let i=0;i<8;i++){const p=new THREE.Mesh(new THREE.BoxGeometry(.95,.14,.06),mat(i%2?0xffc680:0x7acfff));p.rotation.x=i*Math.PI/4;wheel.add(p)}rig.add(wheel)}
  if(m==='electric'){plates=new THREE.Group();for(const yy of [-.62,.62]){const pl=new THREE.Mesh(new THREE.BoxGeometry(2.8,.06,.7),mat(yy>0?0xff5778:0x5daaff));pl.position.y=yy;plates.add(pl)}plates.position.x=positive?-2.35:1.1;rig.add(plates)}
  currentMode=m
  }
- let yaw=-.18,pitch=.10,zoom=13,down=false,lastX=0,lastY=0;
+ let yaw=-.18,pitch=.10,zoom=13,down=false,lastX=0,lastY=0;bar.querySelector('[data-camera="reset"]').onclick=()=>{yaw=-.18;pitch=.10;zoom=13};
  stage.addEventListener('pointerdown',e=>{down=true;lastX=e.clientX;lastY=e.clientY;stage.setPointerCapture(e.pointerId)});
  stage.addEventListener('pointermove',e=>{if(!down)return;yaw+=(e.clientX-lastX)*.007;pitch=Math.max(-.85,Math.min(.85,pitch+(e.clientY-lastY)*.007));lastX=e.clientX;lastY=e.clientY});
  stage.addEventListener('pointerup',()=>down=false);stage.addEventListener('pointercancel',()=>down=false);
@@ -1116,10 +1119,18 @@ function create(host,positive){
  function animate(){if(!stage.isConnected){ended=true;ro.disconnect();renderer.dispose();return}
  const m=mode();if(m!==currentMode)rebuild(m);
  const running=positive?(!!integratedActive&&integratedActive.run):typeof propRun==='undefined'?true:propRun;
+ const showObject=positive?!!integratedActive?.object:(typeof propObstacle==='undefined'||propObstacle);
+ if(wheel)wheel.visible=showObject;if(obstacle)obstacle.visible=showObject;
+ const pol=positive?(integratedActive?.pol||1):(typeof propPol!=='undefined'?propPol:1);
+ const strength=positive?(integratedActive?.field||0):(typeof propField!=='undefined'?propField:0);
+ if(plates){plates.children[0].material.color.setHex(pol===1?0x5daaff:0xff5778);plates.children[1].material.color.setHex(pol===1?0xff5778:0x5daaff)}
  rig.rotation.y=yaw;rig.rotation.x=pitch;camera.position.z=zoom;
- beam.visible=running;frame+=running?.011:0;
- for(let i=0;i<sparks.length;i++){const v=(frame+i/sparks.length)%1;sparks[i].position.set(positive?3.0-v*6.4:-3.34+v*7.2,0,0);sparks[i].visible=running}
- if(wheel&&running)wheel.rotation.x+=.025;
+ beam.visible=running&&m!=='electric'&&!(m==='shadow'&&showObject)&&!(m==='wheel'&&showObject);frame+=running?.011:0;
+ const bend=m==='electric'?(positive?-1:1)*pol*strength*.006:0;
+ for(let i=0;i<segments.length;i++){const x=positive?3.1-i*.37:-3.3+i*.37;segments[i].position.set(x,bend*Math.pow((positive?3.1-x:x+3.3)/6.4,2),0);segments[i].visible=running&&!(m==='wheel'&&showObject&&((positive&&x<-2.2)||(!positive&&x>1.7)))&&!(m==='shadow'&&showObject&&((positive&&x<-2.2)||(!positive&&x>1.7)))}
+ for(let i=0;i<sparks.length;i++){const v=(frame+i/sparks.length)%1;const x=positive?3.0-v*6.4:-3.34+v*7.2;sparks[i].position.set(x,bend*Math.pow(v,2),0);sparks[i].visible=running&&!(m==='wheel'&&showObject&&v>.7)&&!(m==='shadow'&&showObject&&v>.7)}
+ // 3D wheel is driven by the same experimental impact state, not by the animation clock alone.
+ if(wheel&&running&&showObject){const impact=positive?(integratedActive?.wheelVelocity||0):.024;wheel.rotation.x+=impact}
  renderer.render(scene,camera);requestAnimationFrame(animate)
  }animate()
 }
