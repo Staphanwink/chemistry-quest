@@ -1059,7 +1059,7 @@ function create(host,positive){
  const stage=document.createElement('div');stage.className='cq3d-stage';stage.setAttribute('aria-label',positive?'3D positive ray tube':'3D cathode ray tube');
  const wrap=document.createElement('section');wrap.className='cq3d-wrap';
  const bar=document.createElement('div');bar.className='cq3d-toolbar';
- bar.innerHTML='<strong>🔬 3D Lab · Centered v2</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
+ bar.innerHTML='<strong>🔬 3D Lab · Fixed v3</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
  const caption=document.createElement('p');caption.className='cq3d-caption';
  caption.textContent=positive?'ධන අයන: ඇනෝඩය පැත්ත → සිදුරු කැතෝඩය → පිටුපස ප්‍රතිදීප්ත තිරය. Zoom ＋ / － buttons භාවිතා කර දර්ශනය විශාල හෝ කුඩා කරන්න.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) → ඇනෝඩය (+) දෙසට. Zoom ＋ / － buttons භාවිතා කරන්න.';
  const legend=document.createElement('div');legend.className='cq3d-legend';
@@ -1106,6 +1106,7 @@ function create(host,positive){
  const sparks=[];const spmat=new THREE.MeshBasicMaterial({color:positive?0xffd58c:0xa6ffff});
  for(let i=0;i<13;i++){const sphere=new THREE.Mesh(new THREE.SphereGeometry(.065,8,8),spmat);rig.add(sphere);sparks.push(sphere)}
  let currentMode='',wheel=null,plates=null,obstacle=null,shadowMark=null,wheelMomentum=0,lastImpactCycle=-1;
+ const segments=[];const sMat=new THREE.MeshBasicMaterial({color:positive?0xffba65:0x91ff36});for(let i=0;i<18;i++){const seg=new THREE.Mesh(new THREE.SphereGeometry(.045,8,8),sMat);rig.add(seg);segments.push(seg)}
  function mode(){
  const v=positive?document.getElementById('integratedPropertySelect')?.value:document.getElementById('propModeSelect')?.value;
  return v||'straight'
@@ -1187,10 +1188,10 @@ const obs=new MutationObserver(()=>{
  const host=view.querySelector('.prop-lab')||view.querySelector('.int-lab');if(!host||host===lastHost)return;lastHost=host;
  const isPositive=host.classList.contains('int-lab');
  if(!window.THREE)return;
- try{create(host,isPositive)}catch(e){console.warn('3D preview fallback to 2D',e)}
+ try{create(host,isPositive)}catch(e){console.error('3D preview fallback to 2D',e);const w=host.querySelector('.cq3d-wrap');if(w)w.remove();const old=host.querySelector(isPositive?'#integratedCanvas':'.prop-view');if(old)old.classList.remove('cq3d-hidden-2d')}
 });
 const view=document.getElementById('visual');if(view)obs.observe(view,{childList:true,subtree:false});
-let attempts=0;const poll=setInterval(()=>{attempts++;if(window.THREE){clearInterval(poll);lastHost=null;obs.takeRecords();const v=document.getElementById('visual'),h=v&&(v.querySelector('.prop-lab')||v.querySelector('.int-lab'));if(h){try{create(h,h.classList.contains('int-lab'));lastHost=h}catch(e){console.warn(e)}}}else if(attempts>35)clearInterval(poll)},300);
+let attempts=0;const poll=setInterval(()=>{attempts++;if(window.THREE){clearInterval(poll);lastHost=null;obs.takeRecords();const v=document.getElementById('visual'),h=v&&(v.querySelector('.prop-lab')||v.querySelector('.int-lab'));if(h){try{create(h,h.classList.contains('int-lab'));lastHost=h}catch(e){console.error(e);const w=h.querySelector('.cq3d-wrap');if(w)w.remove();const old=h.querySelector(h.classList.contains('int-lab')?'#integratedCanvas':'.prop-view');if(old)old.classList.remove('cq3d-hidden-2d')}}}else if(attempts>35)clearInterval(poll)},300);
 })();
 </script>
 </body></html>
