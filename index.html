@@ -1492,15 +1492,27 @@ function create(host,positive){
  requestAnimationFrame(animate)
  }animate()
 }
+// Safeguard: preserve the original working experiment controls if WebGL setup fails.
+function restore2DLab(host,positive){
+ const old=host.querySelector(positive?'#integratedCanvas':'.prop-view');
+ const controls=host.querySelector('.int-tools');
+ if(positive&&old&&controls){
+  old.insertAdjacentElement('afterend',controls);
+  controls.classList.remove('cq3d-experiment-tools');
+ }
+ const dock=host.querySelector('.cq3d-control-dock');if(dock)dock.remove();
+ const wrapper=host.querySelector('.cq3d-wrap');if(wrapper)wrapper.remove();
+ if(old)old.classList.remove('cq3d-hidden-2d');
+}
 const obs=new MutationObserver(()=>{
  const view=document.getElementById('visual');if(!view)return;
  const host=view.querySelector('.prop-lab')||view.querySelector('.int-lab');if(!host||host===lastHost)return;lastHost=host;
  const isPositive=host.classList.contains('int-lab');
  if(!window.THREE)return;
- try{create(host,isPositive)}catch(e){console.error('3D preview fallback to 2D',e);const w=host.querySelector('.cq3d-wrap');if(w)w.remove();const old=host.querySelector(isPositive?'#integratedCanvas':'.prop-view');if(old)old.classList.remove('cq3d-hidden-2d')}
+ try{create(host,isPositive)}catch(e){console.error('3D preview fallback to 2D',e);restore2DLab(host,isPositive)}
 });
 const view=document.getElementById('visual');if(view)obs.observe(view,{childList:true,subtree:false});
-let attempts=0;const poll=setInterval(()=>{attempts++;if(window.THREE){clearInterval(poll);lastHost=null;obs.takeRecords();const v=document.getElementById('visual'),h=v&&(v.querySelector('.prop-lab')||v.querySelector('.int-lab'));if(h){try{create(h,h.classList.contains('int-lab'));lastHost=h}catch(e){console.error(e);const w=h.querySelector('.cq3d-wrap');if(w)w.remove();const old=h.querySelector(h.classList.contains('int-lab')?'#integratedCanvas':'.prop-view');if(old)old.classList.remove('cq3d-hidden-2d')}}}else if(attempts>35)clearInterval(poll)},300);
+let attempts=0;const poll=setInterval(()=>{attempts++;if(window.THREE){clearInterval(poll);lastHost=null;obs.takeRecords();const v=document.getElementById('visual'),h=v&&(v.querySelector('.prop-lab')||v.querySelector('.int-lab'));if(h){try{create(h,h.classList.contains('int-lab'));lastHost=h}catch(e){console.error('3D preview fallback to 2D',e);restore2DLab(h,h.classList.contains('int-lab'))}}}else if(attempts>35)clearInterval(poll)},300);
 })();
 </script>
 
