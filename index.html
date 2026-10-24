@@ -1149,6 +1149,14 @@ function create(host,positive){
  beam.rotation.z=Math.PI/2;beam.position.x=positive?-.05:.23;rig.add(beam);
  const sparks=[];const spmat=new THREE.MeshBasicMaterial({color:positive?0xffd58c:0xa6ffff});
  for(let i=0;i<13;i++){const sphere=new THREE.Mesh(new THREE.SphereGeometry(.065,8,8),spmat);rig.add(sphere);sparks.push(sphere)}
+ // Render real gas particles from the positive-ray laboratory state in the 3D tube.
+ // Counts update as students add particles or collisions ionize existing atoms.
+ const gasBeads=[],gasBeadMaterial=positive?new THREE.MeshStandardMaterial({color:0xb6a0ff,roughness:.2,emissive:0x41347b,emissiveIntensity:.32}):null;
+ if(positive)for(let i=0;i<24;i++){
+  const bead=new THREE.Mesh(new THREE.SphereGeometry(.09,12,10),gasBeadMaterial);
+  bead.visible=false;rig.add(bead);gasBeads.push(bead);
+ }
+
  let currentMode='',wheel=null,plates=null,obstacle=null,shadowMark=null,wheelMomentum=0,lastImpactCycle=-1;
  const segments=[];const sMat=new THREE.MeshBasicMaterial({color:positive?0xffba65:0x91ff36});for(let i=0;i<18;i++){const seg=new THREE.Mesh(new THREE.SphereGeometry(.045,8,8),sMat);rig.add(seg);segments.push(seg)}
  function mode(){
@@ -1197,6 +1205,24 @@ function create(host,positive){
  const ro=new ResizeObserver(resize);ro.observe(stage);resize();
  function animate(){if(!stage.isConnected){ended=true;ro.disconnect();renderer.dispose();return}
  const m=mode();if(m!==currentMode)rebuild(m);
+ if(positive){
+  const current=integratedActive;
+  const particles=current?.atoms||[];
+  const color=current?.gas==='Ar'?0x8ce5af:current?.gas==='H2'?0x7ed5ff:0xb6a0ff;
+  gasBeadMaterial.color.setHex(color);
+  for(let i=0;i<gasBeads.length;i++){
+   const bead=gasBeads[i],atom=particles[i];
+   bead.visible=!!atom;
+   if(atom){
+    bead.position.set(
+     Math.max(1.36,Math.min(3.23,1.36+(atom.x-515)*.0074)),
+     Math.max(-.7,Math.min(.7,.7-(atom.y-100)*.007)),
+     .24+(i%3)*.1
+    );
+   }
+  }
+ }
+
  const running=positive?(!!integratedActive&&integratedActive.run):typeof propRun==='undefined'?true:propRun;
  const showObject=positive?!!integratedActive?.object:(typeof propObstacle==='undefined'||propObstacle);
  if(wheel)wheel.visible=showObject;if(obstacle)obstacle.visible=showObject;if(shadowMark)shadowMark.visible=showObject&&running;screen.material.emissiveIntensity=running?1.3:.04;
