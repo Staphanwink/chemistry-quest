@@ -406,9 +406,10 @@ function renderPropLab(){
  g.clearRect(0,0,920,476);g.fillStyle='#061326';g.fillRect(0,0,920,476);
  for(let y=17;y<470;y+=22)for(let x=16;x<920;x+=22){g.fillStyle='#1a385c';g.fillRect(x,y,2,2)}
  const bg=g.createLinearGradient(0,88,0,356);bg.addColorStop(0,'#064471');bg.addColorStop(.48,'#052438');bg.addColorStop(1,'#06416c');g.save();g.shadowColor='#09c5ff';g.shadowBlur=23;g.fillStyle=bg;g.strokeStyle='#26d4ff';g.lineWidth=3;g.beginPath();g.roundRect(45,77,830,274,91);g.fill();g.stroke();g.restore();
- // Fixed electrodes: solid cathode, perforated anode so particles can reach target screen.
- g.fillStyle='#f6faff';g.fillRect(162,130,16,161);g.fillStyle='#ff3159';g.fillRect(264,113,15,31);g.fillRect(264,250,15,51);
- text('කැතෝඩය (−)',169,56,'#eaf7ff',20);text('සිදුරු සහිත ඇනෝඩය (+)',284,104,'#ffd2b6',17);
+ // Conceptual cathode-ray property apparatus: no perforated cathode or anode.
+ g.fillStyle='#f6faff';g.fillRect(162,130,16,161);
+ text('කැතෝඩය (−)',169,56,'#eaf7ff',20);
+ text('ප්‍රතිදීප්ත තිරය',823,110,'#abffc4',17);
  const cx=180,mid=197,screenX=823,objectX=514;
  if(propMode==='electric'){
   const upperPlus=propPol===1;g.fillStyle=upperPlus?'#ff6280':'#70b9ff';g.fillRect(363,117,249,12);g.fillStyle=upperPlus?'#70b9ff':'#ff6280';g.fillRect(363,271,249,12);text(upperPlus?'+':'−',629,131,'#fff',23);text(upperPlus?'−':'+',629,284,'#fff',23);
@@ -434,9 +435,8 @@ function renderPropLab(){
   }else{seg(cx,y,till,y,glow,3.3,13);for(let n=0;n<6;n++){const f=((state.t*.013+n/6+i*.09)%1),x=cx+(screenX-cx)*f;if(x<till)particle(x,y,3.6)}}
  });
  }
- // External circuit, separate from discharge chamber.
- seg(162,mid,26,mid,'#9abbd6',3);seg(26,mid,26,427,'#9abbd6',3);seg(26,427,360,427,'#9abbd6',3);seg(271,113,271,68,'#ff4b69',3);seg(271,68,898,68,'#ff4b69',3);seg(898,68,898,427,'#ff4b69',3);seg(898,427,560,427,'#ff4b69',3);
- g.fillStyle='#6c4428';g.fillRect(360,404,200,56);text('Battery',460,439,'#fff',19);g.fillStyle='#e7f3ff';g.fillRect(360,411,17,14);g.fillStyle='#ff375f';g.fillRect(543,411,17,14);text('−',368,399,'#f2faff',21);text('+',552,399,'#ff879d',23);
+ // Simplified beam model: omit external supply wiring rather than imply an incomplete circuit.
+ text('සංකල්පීය කිරණ ආදර්ශනය • විදුලි සැපයුමේ සම්පූර්ණ පරිපථය මෙහි නොපෙන්වයි',460,410,'#9fbad0',16);
  const result=!propRun?'කිරණ නවතා ඇත.':propMode==='shadow'?(propObstacle?'බාධකය නිසා fluorescent තිරයේ අඳුරු සෙවණැල්ලක් පෙනේ.':'බාධකය ඉවත් කළ විට fluorescent තිරය ආලෝකමත් වේ.'):propMode==='wheel'?(propObstacle?'කිරණ සකයට ගැටෙන විට ගම්‍යතා හුවමාරුව නිරූපණය වේ.':'සකය ඉවත් කළ විට කිරණ බාධාවකින් තොරව ඉදිරියට යයි.'):propField===0?'ක්ෂේත්‍රය ශූන්‍යයි: කිරණ සෘජුව ගමන් කරයි.':(propPol===1?'ධන ඉහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.':'ධන පහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.');if($('propResult').textContent!==result)$('propResult').textContent=result;
  requestAnimationFrame(draw)}requestAnimationFrame(draw);sync();
 }
