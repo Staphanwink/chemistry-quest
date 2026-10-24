@@ -1045,7 +1045,7 @@ function renderFinalQuiz(){
 .cq3d-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .cq3d-part-label{position:absolute;transform:translate(-50%,-100%);padding:5px 8px;border:1px solid #75c9e488;border-radius:8px;background:#061a2bdc;color:#e7f8ff;font:600 11px/1.35 system-ui,'Noto Sans Sinhala',sans-serif;white-space:nowrap;box-shadow:0 3px 10px #0006;transition:opacity .15s}
 .cq3d-part-label:after{content:'';height:12px;width:1px;background:#89cbdf;position:absolute;top:100%;left:50%}
-.cq3d-part-label.cq3d-dynamic{border-color:#e7ba6c88;color:#ffdfab}
+.cq3d-legend{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:10px 14px;background:#0a2033;border-top:1px solid #214a66}.cq3d-legend span{padding:6px 10px;border:1px solid #4d8fb1;border-radius:999px;background:#0d2a42;color:#e9f8ff;font-size:12px;line-height:1.3}
 @media(max-width:650px){.cq3d-part-label{font-size:9px;padding:3px 5px;max-width:100px;white-space:normal;text-align:center}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" defer></script>
@@ -1057,18 +1057,17 @@ let lastHost=null;
 function create(host,positive){
  const THREE=window.THREE;if(!THREE)return;
  const stage=document.createElement('div');stage.className='cq3d-stage';stage.setAttribute('aria-label',positive?'3D positive ray tube':'3D cathode ray tube');
- const labelsLayer=document.createElement('div');labelsLayer.className='cq3d-labels';stage.appendChild(labelsLayer);
- const labelNodes=new Map();
- function addLabel(key,label,at,dynamic=false){
-  const tag=document.createElement('span');tag.className='cq3d-part-label'+(dynamic?' cq3d-dynamic':'');tag.textContent=label;labelsLayer.appendChild(tag);
-  labelNodes.set(key,{tag,point:new THREE.Vector3(...at)});
- }
  const wrap=document.createElement('section');wrap.className='cq3d-wrap';
  const bar=document.createElement('div');bar.className='cq3d-toolbar';
  bar.innerHTML='<strong>🔬 Discharge Tube Lab</strong><div class="cq3d-switch"><button type="button" class="cq3d-2d-toggle active" data-view="3d">3D View</button><button type="button" class="cq3d-2d-toggle" data-view="2d">2D View</button><button type="button" class="cq3d-2d-toggle" data-zoom="in">＋ Zoom</button><button type="button" class="cq3d-2d-toggle" data-zoom="out">－ Zoom</button><button type="button" class="cq3d-2d-toggle" data-camera="reset">⟲ Reset</button></div>';
  const caption=document.createElement('p');caption.className='cq3d-caption';
  caption.textContent=positive?'ධන අයන: ඇනෝඩය පැත්ත → සිදුරු කැතෝඩය → පිටුපස ප්‍රතිදීප්ත තිරය. Zoom ＋ / － buttons භාවිතා කර දර්ශනය විශාල හෝ කුඩා කරන්න.':'ඉලෙක්ට්‍රෝන: කැතෝඩය (−) → ඇනෝඩය (+) දෙසට. Zoom ＋ / － buttons භාවිතා කරන්න.';
- wrap.append(bar,stage,caption);
+ const legend=document.createElement('div');legend.className='cq3d-legend';
+ const names=positive?['ප්‍රතිදීප්ත තිරය','සිදුරු කැතෝඩය (−)','වීදුරු නළය','ඇනෝඩය (+)','DC Battery']:['කැතෝඩය (−)','වීදුරු නළය','ඇනෝඩය (+)','ප්‍රතිදීප්ත තිරය','DC Battery'];
+ const modeTag=document.createElement('span');
+ names.forEach(name=>{const chip=document.createElement('span');chip.textContent=name;legend.appendChild(chip)});
+ legend.appendChild(modeTag);
+ wrap.append(bar,stage,legend,caption);
  let old=positive?host.querySelector('#integratedCanvas'):host.querySelector('.prop-view');
  if(!old)return;
  const parent=positive?host:old.parentNode;
@@ -1091,10 +1090,6 @@ function create(host,positive){
  const white=mat(0xebf4ff,{metalness:.6}),gold=mat(0xff6580,{emissive:0x8c162e,emissiveIntensity:.25}),screenMat=mat(0x5effb0,{emissive:0x14a761,emissiveIntensity:1.3,side:THREE.DoubleSide});
  function disc(x,m,rad=.76,th=.075){const mesh=new THREE.Mesh(new THREE.CylinderGeometry(rad,rad,th,48),m);mesh.rotation.z=Math.PI/2;mesh.position.x=x;rig.add(mesh);return mesh}
  const cath=disc(positive?-.6:-3.46,white),anode=disc(positive?3.35:1.12,gold,.44),screen=disc(positive?-3.70:3.95,screenMat,.79,.045);
- addLabel('cathode',positive?'සිදුරු කැතෝඩය (−)':'කැතෝඩය (−)',[positive?-.6:-3.46,1.27,0]);
- addLabel('anode','ඇනෝඩය (+)',[positive?3.35:1.12,1.28,0]);
- addLabel('screen','ප්‍රතිදීප්ත තිරය',[positive?-3.70:3.95,1.32,0]);
- addLabel('tube','වීදුරු නළය',[0,1.38,-.2]);
  if(positive){rig.remove(cath);const ring=new THREE.Mesh(new THREE.TorusGeometry(.52,.18,18,60),white);ring.rotation.y=Math.PI/2;ring.position.x=-.6;rig.add(ring)}
  // Copper connection wires outside the chamber and a separate DC source.
  const wireMat=positive?gold:gold;
@@ -1103,7 +1098,6 @@ function create(host,positive){
  wire([[negX,0,0],[negX,-1.35,0],[negX,-1.85,1],[-.7,-1.85,1]],0x9dcfff);
  wire([[posX,0,0],[posX,1.3,0],[posX,1.8,1],[.7,1.8,1],[.7,-1.85,1]],0xff5978);
  const battery=new THREE.Mesh(new THREE.BoxGeometry(1.4,.55,.65),mat(0x99633e));battery.position.set(0,-1.88,1);rig.add(battery);
- addLabel('battery','DC Battery (− / +)',[0,-2.20,1]);
  const terminals=[[-.63,0xe3f7ff],[.63,0xff425d]];
  for(const [x,c] of terminals){const terminal=new THREE.Mesh(new THREE.SphereGeometry(.12,16,12),mat(c));terminal.position.set(x,-1.58,1);rig.add(terminal)}
  const beamMat=new THREE.MeshBasicMaterial({color:positive?0xffbd62:0x80ff37,transparent:true,opacity:.66,depthWrite:false});
@@ -1112,12 +1106,6 @@ function create(host,positive){
  const sparks=[];const spmat=new THREE.MeshBasicMaterial({color:positive?0xffd58c:0xa6ffff});
  for(let i=0;i<13;i++){const sphere=new THREE.Mesh(new THREE.SphereGeometry(.065,8,8),spmat);rig.add(sphere);sparks.push(sphere)}
  let currentMode='',wheel=null,plates=null,obstacle=null,shadowMark=null,wheelMomentum=0,lastImpactCycle=-1;
- let dynamicLabel=null;
- function setDynamicLabel(m){
-  if(dynamicLabel){dynamicLabel.remove();labelNodes.delete('mode');dynamicLabel=null}
-  const name=m==='shadow'?'බාධකය / සෙවණැල්ල':m==='wheel'?'හබල් සකය':m==='electric'?'විද්‍යුත් තහඩු':null;
-  if(name){addLabel('mode',name,[positive?-2.28:1.8,m==='electric'?1.15:1.0,0],true);dynamicLabel=labelNodes.get('mode').tag}
- }const segments=[];const sMat=new THREE.MeshBasicMaterial({color:positive?0xffba65:0x91ff36});for(let i=0;i<18;i++){const seg=new THREE.Mesh(new THREE.SphereGeometry(.045,8,8),sMat);rig.add(seg);segments.push(seg)}
  function mode(){
  const v=positive?document.getElementById('integratedPropertySelect')?.value:document.getElementById('propModeSelect')?.value;
  return v||'straight'
@@ -1149,13 +1137,13 @@ function create(host,positive){
  rig.add(wheel);wheelMomentum=0;lastImpactCycle=-1;
  }
  if(m==='electric'){plates=new THREE.Group();for(const yy of [-.62,.62]){const pl=new THREE.Mesh(new THREE.BoxGeometry(2.8,.06,.7),mat(yy>0?0xff5778:0x5daaff));pl.position.y=yy;plates.add(pl)}plates.position.x=positive?-2.35:1.1;rig.add(plates)}
- setDynamicLabel(m);currentMode=m
+ currentMode=m
  }
  // Three-quarter front camera preset, labels remain anchored to parts during rotation.
  // Locked three-quarter camera: zoom only, no drag rotation.
- const yaw=-.28,pitch=.12;let zoom=12.4;
+ const yaw=-.08,pitch=.03;let zoom=11.8;
  const clampZoom=z=>Math.max(8,Math.min(19,z));
- bar.querySelector('[data-camera="reset"]').onclick=()=>{zoom=12.4};
+ bar.querySelector('[data-camera="reset"]').onclick=()=>{zoom=11.8};
  bar.querySelector('[data-zoom="in"]').onclick=()=>{zoom=clampZoom(zoom-1.1)};
  bar.querySelector('[data-zoom="out"]').onclick=()=>{zoom=clampZoom(zoom+1.1)};
  stage.style.cursor='default';stage.style.touchAction='pan-y';
@@ -1170,7 +1158,7 @@ function create(host,positive){
  const pol=positive?(integratedActive?.pol||1):(typeof propPol!=='undefined'?propPol:1);
  const strength=positive?(integratedActive?.field||0):(typeof propField!=='undefined'?propField:0);
  if(plates){plates.children[0].material.color.setHex(pol===1?0x5daaff:0xff5778);plates.children[1].material.color.setHex(pol===1?0xff5778:0x5daaff)}
- rig.rotation.y=yaw;rig.rotation.x=pitch;camera.position.z=zoom;
+ rig.rotation.y=yaw;rig.rotation.x=pitch;rig.position.set(0,0.52,0);camera.position.set(0,1.05,zoom);camera.lookAt(0,0.25,0);modeTag.textContent=m==='wheel'?'හබල් සකය':m==='shadow'?'සෙවණැලි බාධකය':m==='electric'?'විද්‍යුත් තහඩු':'කිරණ පරීක්ෂණය';
  beam.visible=running&&m!=='electric'&&!(m==='shadow'&&showObject)&&!(m==='wheel'&&showObject);frame+=running?.011:0;
  const bend=m==='electric'?(positive?-1:1)*pol*strength*.006:0;
  for(let i=0;i<segments.length;i++){const x=positive?3.1-i*.37:-3.3+i*.37;segments[i].position.set(x,bend*Math.pow((positive?3.1-x:x+3.3)/6.4,2),0);segments[i].visible=running&&!(m==='wheel'&&showObject&&((positive&&x<-2.2)||(!positive&&x>1.7)))&&!(m==='shadow'&&showObject&&((positive&&x<-2.2)||(!positive&&x>1.7)))}
@@ -1191,16 +1179,6 @@ function create(host,positive){
  if(wheelMomentum<.0002)wheelMomentum=0;
  }
  renderer.render(scene,camera);
- // Keep names legible and fixed to projected component positions, without altering the 3D geometry.
- const rect=stage.getBoundingClientRect();
- rig.updateMatrixWorld(true);camera.updateMatrixWorld(true);
- for(const [key,item] of labelNodes){
-  const world=rig.localToWorld(item.point.clone()).project(camera);
-  const inside=world.z>-1&&world.z<1&&world.x>-.9&&world.x<.9&&world.y>-.87&&world.y<.87;
-  item.tag.style.display=inside?'block':'none';
-  if(inside){item.tag.style.left=((world.x+1)*.5*rect.width)+'px';item.tag.style.top=((1-world.y)*.5*rect.height)+'px'}
-  if(key==='mode')item.tag.style.opacity=(showObject||m==='electric')?'1':'0';
- }
  requestAnimationFrame(animate)
  }animate()
 }
