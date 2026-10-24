@@ -384,37 +384,61 @@ const propDefs={
  shadow:['සෘජු ගමන හා සෙවණැල්ල','කිරණ මාර්ගයට බාධකයක් දමන්න. තිරයේ ආලෝකමත් ප්‍රදේශය සහ සෙවණැල්ල එකවර බලන්න.','බාධකය නැවැත්වූ කිරණ තිරයට නොවැටෙන නිසා අඳුරු ප්‍රදේශයක් ඇති වේ. මෙය සෘජු ගමනට සාක්ෂියකි.'],
  electric:['විද්‍යුත් ක්ෂේත්‍රයෙන් හැරීම','තහඩුවල + / − ධ්‍රැව මාරු කරලා ක්ෂේත්‍රයේ ප්‍රබලතාව වෙනස් කරන්න.','ඍණ ආරෝපිත ඉලෙක්ට්‍රෝන ධන තහඩුව දෙසටත්, ධන අයන ඍණ තහඩුව දෙසටත් අපගමනය වේ.'],
  gas:['වායුව සහ ආරෝපණ/ස්කන්ධ අනුපාතය','H₂ / Ne / Ar වෙනස් කරලා අගයන් සසඳන්න. ධන අයනවල ස්කන්ධය අනුව |q|/m අගය වෙනස් වේ.','කැතෝඩ කිරණයේ ඉලෙක්ට්‍රෝනයේ |e|/m වෙනස් නොවේ. ධන කිරණ සඳහා මෙහි පෙන්වන්නේ එක් ආරෝපණයක් ඇති H⁺, Ne⁺, Ar⁺ අයනවල ආසන්න අගයන්ය.']};
-function renderPropLab(){const positive=current===2;const v=document.getElementById('visual'); if(!v)return;
+function renderPropLab(){
+ const v=document.getElementById('visual');if(!v)return;
  if(propActive)propActive.dead=true;
- v.innerHTML=`<div class="prop-lab"><h3>🧪 ${positive?'ධන කිරණ':'කැතෝඩ කිරණ'} — ක්‍රියාකාරී ගුණ පරීක්ෂණ</h3><div class="prop-desc">අත්හදා බලන ගුණය තෝරන්න. එක් එක් පරීක්ෂණයේ controls වෙනස් කරන විට නළය ඇතුළේ සිදුවන දේ බලන්න.</div>
- <div class="ray-property-picker"><label for="propModeSelect">🔎 කැතෝඩ / ධන කිරණවල ගුණය තෝරන්න</label><select id="propModeSelect">${Object.entries(propDefs).map(([key,item])=>`<option value="${key}" ${key===propMode?'selected':''}>${item[0]}</option>`).join('')}</select><small>පහළ animation සහ controls තෝරන ගුණය අනුව වෙනස් වේ.</small></div>
- <div class="prop-view"><canvas id="propCanvas" width="800" height="360" aria-label="Animated discharge tube physics demonstration"></canvas></div>
- <div class="prop-actions"><button id="propPower">${propRun?'⏸ කිරණ නවත්වන්න':'▶ කිරණ ON'}</button><button id="propObject" ${!['wheel','shadow'].includes(propMode)?'hidden':''}>${propObstacle?(propMode==='wheel'?'හබල් සකය ඉවත් කරන්න':'බාධකය ඉවත් කරන්න'):(propMode==='wheel'?'හබල් සකය තබන්න':'බාධකය තබන්න')}</button><button id="propPol" ${propMode!=='electric'?'hidden':''}>⇄ ධ්‍රැව මාරු කරන්න</button><label id="propFieldLabel" ${propMode!=='electric'?'hidden':''}>ක්ෂේත්‍රය <input id="propField" type="range" min="0" max="100" value="${propField}"></label><label id="propGasLabel" ${propMode!=='gas'?'hidden':''}>වායුව <select id="propGas"><option>H₂</option><option>Ne</option><option>Ar</option></select></label><label>වේගය <input id="propSpeed" type="range" min="1" max="4" step="1" value="${propSpeed}"></label><button id="propReset">↻ Reset</button></div>
- <div class="prop-readout"><strong id="propWhat">${propDefs[propMode][0]}</strong><div id="propExplain">${propDefs[propMode][1]}</div><div id="propResult" class="prop-counts"></div></div>
- <p class="prop-desc" style="margin-top:12px">මෙය ඉගෙනීමට භාවිතා කරන සංකල්ප animation එකකි; අංශු ගමන් මාර්ග, ගැටීම් සහ සක භ්‍රමණය ප්‍රමාණාත්මක පරීක්ෂණ දත්ත නොවේ.</p></div>`;
+ if(!['shadow','wheel','electric'].includes(propMode))propMode='shadow';
+ const modes={shadow:['සෘජු ගමන හා සෙවණැල්ල','බාධකය ඉදිරියෙන් තැබූ විට තිරයේ අඳුරු සෙවණැල්ලක් දක්නට ලැබේ.'],wheel:['ගම්‍යතාව හා හබල් සකය','කිරණ සකයේ පෙතිවලට ගැටීමෙන් සකය චලනය වන සංකල්පීය ආදර්ශනයකි.'],electric:['විද්‍යුත් ක්ෂේත්‍රයේ අපගමනය','ඉලෙක්ට්‍රෝන ඍණ ආරෝපිත බැවින් ධන තහඩුව දෙසට අපගමනය වේ.']};
+ v.innerHTML=`<div class="prop-lab"><h3>🔬 කැතෝඩ කිරණ — Neon Virtual Laboratory</h3><p class="prop-desc">වීදුරු නළයේ කැතෝඩයෙන් ඉලෙක්ට්‍රෝන ඇනෝඩය දෙසට ගමන් කරයි. පරීක්ෂණය තෝරා උපකරණ පාලනය කරන්න.</p>
+ <div class="ray-property-picker"><label for="propModeSelect">පරීක්ෂා කරන ගුණය</label><select id="propModeSelect">${Object.entries(modes).map(([id,m])=>`<option value="${id}" ${id===propMode?'selected':''}>${m[0]}</option>`).join('')}</select></div>
+ <div class="prop-view"><canvas id="propCanvas" width="920" height="476" aria-label="කැතෝඩ කිරණ පරීක්ෂණයේ විද්‍යාත්මක සජීවී ආදර්ශනය"></canvas></div>
+ <div class="prop-actions"><button id="propPower">⏸ නවත්වන්න</button><button id="propObject"></button><button id="propPol">⇄ ධ්‍රැව මාරු කරන්න</button><label id="propFieldLabel">ක්ෂේත්‍රයේ ප්‍රබලතාව <input id="propField" type="range" min="0" max="100" value="${propField}"></label><label>වේගය <input id="propSpeed" type="range" min="1" max="4" step="1" value="${propSpeed}"></label><button id="propReset">↻ Reset</button></div>
+ <div class="prop-readout"><strong id="propWhat"></strong><div id="propExplain"></div><div id="propResult" class="prop-counts"></div></div><p class="prop-desc" style="margin-top:12px">ඉගෙනීමට නිර්මාණය කළ ආදර්ශනයකි. කිරණ glow එක, සක භ්‍රමණය සහ ක්ෂේත්‍රයේ අපගමනය ප්‍රමාණාත්මක මිනුම් නොවේ.</p></div>`;
  document.getElementById('controls').innerHTML='';
- const lab=v.querySelector('.prop-lab'),canvas=lab.querySelector('canvas'),ctx=canvas.getContext('2d');lab.querySelector('#propGas').value=propGas;
- const state={dead:false,phase:0,wheel:0,beamHits:0};propActive=state;
- const $p=id=>lab.querySelector('#'+id);
- function sync(){lab.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===propMode));$p('propPower').textContent=propRun?'⏸ කිරණ නවත්වන්න':'▶ කිරණ ON';$p('propObject').hidden=!['wheel','shadow'].includes(propMode);$p('propObject').textContent=propObstacle?(propMode==='wheel'?'හබල් සකය ඉවත් කරන්න':'බාධකය ඉවත් කරන්න'):(propMode==='wheel'?'හබල් සකය තබන්න':'බාධකය තබන්න');$p('propPol').hidden=propMode!=='electric';$p('propFieldLabel').hidden=propMode!=='electric';$p('propGasLabel').hidden=propMode!=='gas';$p('propWhat').textContent=propDefs[propMode][0];$p('propExplain').textContent=propDefs[propMode][1];}
- $p('propModeSelect').onchange=e=>{propMode=e.target.value;state.phase=0;sync()};
- $p('propPower').onclick=()=>{propRun=!propRun;sync()};$p('propObject').onclick=()=>{propObstacle=!propObstacle;sync()};$p('propPol').onclick=()=>{propPol*=-1};$p('propField').oninput=e=>propField=Number(e.target.value);$p('propSpeed').oninput=e=>propSpeed=Number(e.target.value);$p('propGas').onchange=e=>propGas=e.target.value;
- $p('propReset').onclick=()=>{propRun=true;propObstacle=true;propPol=1;propField=65;propSpeed=1;state.phase=0;$p('propField').value=65;$p('propSpeed').value=1;sync()};
- function line(x,y,tx,ty,color,width=2,alpha=1){ctx.globalAlpha=alpha;ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(tx,ty);ctx.stroke();ctx.globalAlpha=1}
- function ball(x,y,r,c){ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill()}
- function txt(s,x,y,color='#d4ebfb',size=15,align='left'){ctx.fillStyle=color;ctx.font=`${size}px sans-serif`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign='left'}
- let last=0;function draw(t){if(state.dead||!canvas.isConnected)return;const dt=Math.min(2,(t-last)/16.7||1);last=t;if(propRun)state.phase+=dt*propSpeed*1.8;
- ctx.fillStyle='#081827';ctx.fillRect(0,0,800,360);const positive=current===2,c=positive?'#ffac61':'#6ae9ff',from=positive?659:142,to=positive?49:680,cy=172;txt(positive?'සිදුරු සහිත කැතෝඩය (−)':'කැතෝඩය (−)',102,28);txt('ඇනෝඩය (+)',634,28,'#ffe5aa');ctx.save();ctx.shadowColor='#00c8ff';ctx.shadowBlur=18;ctx.strokeStyle='#28d4ff';ctx.lineWidth=3;let glass=ctx.createLinearGradient(0,43,0,307);glass.addColorStop(0,'#053c65');glass.addColorStop(.51,'#082238');glass.addColorStop(1,'#043252');ctx.fillStyle=glass;ctx.beginPath();ctx.roundRect(32,43,736,264,61);ctx.fill();ctx.stroke();ctx.restore();ctx.fillStyle='#f0f7ff';if(positive){ctx.fillRect(125,78,13,83);ctx.fillRect(125,183,13,89);}else{ctx.fillRect(125,78,13,194);}ctx.fillStyle='#ff345d';ctx.fillRect(679,102,14,142);
- if(!positive){ctx.save();ctx.lineWidth=3;ctx.strokeStyle='#99c3e0';ctx.beginPath();ctx.moveTo(125,171);ctx.lineTo(28,171);ctx.lineTo(28,343);ctx.lineTo(311,343);ctx.stroke();ctx.strokeStyle='#ff5368';ctx.beginPath();ctx.moveTo(693,171);ctx.lineTo(775,171);ctx.lineTo(775,343);ctx.lineTo(490,343);ctx.stroke();ctx.fillStyle='#603c26';ctx.fillRect(310,322,180,36);ctx.fillStyle='#eef5ff';ctx.font='15px sans-serif';ctx.fillText('−',326,344);ctx.fillText('Battery',366,345);ctx.fillText('+',470,344);ctx.restore();}
- if(propMode==='electric'){const up=propPol===1;ctx.fillStyle=up?'#f18b89':'#81aeff';ctx.fillRect(258,72,305,10);ctx.fillStyle=up?'#81aeff':'#f18b89';ctx.fillRect(258,273,305,10);txt(up?'+':'−',576,81,'white',17);txt(up?'−':'+',576,284,'white',17);}
- if(propMode==='shadow'){ctx.fillStyle=propRun?'#72f9a5':'#375a53';ctx.fillRect(positive?60:725,100,12,148);if(propObstacle){ctx.fillStyle='#f5cd93';ctx.fillRect(382,148,15,49);if(propRun){ctx.fillStyle='#0e2637';ctx.fillRect(positive?60:725,148,12,49);}}}
- if(propMode==='wheel'&&propObstacle){ctx.save();ctx.translate(415,172);if(propRun)state.wheel+=(dt*propSpeed*.045);ctx.rotate(state.wheel);for(let i=0;i<8;i++){ctx.save();ctx.rotate(i*Math.PI/4);ctx.fillStyle=i%2?'#ffca7e':'#9dd7f4';ctx.fillRect(0,-6,61,12);ctx.restore();}ball(0,0,10,'#dae8f6');ctx.restore();}
- const baseYs=propMode==='shadow'?[115,135,155,175,195,215,235]:[145,161,177,193];
- if(propRun){baseYs.forEach((y,j)=>{let bx=to,by=y;if(propMode==='shadow'&&propObstacle&&y>=148&&y<=197)bx=positive?397:382;if(propMode==='wheel'&&propObstacle)bx=415;if(propMode==='electric'){const sign=(positive?-1:1)*propPol;by=y-sign*propField*.9}if(!positive){ctx.save();ctx.shadowBlur=18;ctx.shadowColor='#76ff15';line(from,y,bx,by,'#83ff1a',3,.56);ctx.restore();}else{line(from,y,bx,by,c,2,.22);}for(let n=0;n<3;n++){const p=((state.phase*2+j*32+n*140)%490)/490;let x=from+(bx-from)*p,yy=y+(by-y)*p;if(propMode==='wheel'&&propObstacle&&((positive&&x<415)||(!positive&&x>415)))continue;ball(x,yy,4.6,c);}});}
- if(propMode==='gas'){const vals={'H₂':['H⁺','9.58 × 10⁷'],'Ne':['Ne⁺','4.78 × 10⁶'],'Ar':['Ar⁺','2.42 × 10⁶']};for(let i=0;i<4;i++){const x=270+i*95, y=116+(i%2)*87;ball(x,y,14,'#a2bad9');txt(propGas,x,y+5,'#182944',11,'center')}txt(positive?`${vals[propGas][0]} : |q|/m = ${vals[propGas][1]} C kg⁻¹`:'e⁻ : |e|/m = 1.76 × 10¹¹ C kg⁻¹',205,286,'#a7f3de',16);}
- txt(positive?'ධන අයන ← සිදුරු සහිත කැතෝඩය හරහා':'ඉලෙක්ට්‍රෝන → ඇනෝඩය දෙසට',250,335,c,16);
- const read=propMode==='gas'?(positive?'වායුව වෙනස් වීමෙන් තෝරාගත් ධන අයනයේ |q|/m වෙනස් වේ.':'වායුව වෙනස් වුවත් cathode electron වල |e|/m නියතයි.'):propMode==='shadow'?(propObstacle&&propRun?'බාධකය මඟින් කිරණ කොටසක් නවතයි → තිරයේ අඳුරු සෙවණැල්ල.':propObstacle?'කිරණ OFF නිසා තිරයේ ආලෝකය නැහැ.':'බාධකය ඉවත් කළ විට සෙවණැල්ල නැති වේ.'):propMode==='wheel'?(propObstacle&&propRun?'කිරණ සකයට වැදී සකය භ්‍රමණය වන ආදර්ශනය.': 'සකයට කිරණ නොවැටෙන නිසා එය නවතී.'):('කිරණ '+(propField===0?'නොහැරේ (ක්ෂේත්‍රය 0).':( (positive?propPol<0:propPol>0)?'ඉහළට':'පහළට')+' හැරේ.'));
- if($p('propResult').textContent!==read)$p('propResult').textContent=read;requestAnimationFrame(draw)}requestAnimationFrame(draw);sync();
+ const lab=v.querySelector('.prop-lab'),canvas=lab.querySelector('canvas'),g=canvas.getContext('2d');
+ const state={dead:false,t:0,angle:0};propActive=state;const $=id=>lab.querySelector('#'+id);
+ function sync(){ $('propPower').textContent=propRun?'⏸ කිරණ නවත්වන්න':'▶ කිරණ ආරම්භ කරන්න';$('propObject').hidden=propMode==='electric';$('propObject').textContent=propMode==='wheel'?(propObstacle?'හබල් සකය ඉවත් කරන්න':'හබල් සකය තබන්න'):(propObstacle?'බාධකය ඉවත් කරන්න':'බාධකය තබන්න');$('propPol').hidden=propMode!=='electric';$('propFieldLabel').hidden=propMode!=='electric';$('propWhat').textContent=modes[propMode][0];$('propExplain').textContent=modes[propMode][1];}
+ $('propModeSelect').onchange=e=>{propMode=e.target.value;propObstacle=true;state.t=0;state.angle=0;sync()};$('propPower').onclick=()=>{propRun=!propRun;sync()};$('propObject').onclick=()=>{propObstacle=!propObstacle;sync()};$('propPol').onclick=()=>{propPol*=-1};$('propField').oninput=e=>propField=Number(e.target.value);$('propSpeed').oninput=e=>propSpeed=Number(e.target.value);$('propReset').onclick=()=>{propRun=true;propObstacle=true;propPol=1;propField=65;propSpeed=1;state.t=0;state.angle=0;$('propField').value=65;$('propSpeed').value=1;sync()};
+ function text(s,x,y,c='#e5f4ff',size=18,align='center'){g.fillStyle=c;g.font=`${size}px sans-serif`;g.textAlign=align;g.fillText(s,x,y);g.textAlign='left'}
+ function seg(x,y,xx,yy,c='#83ff23',w=3,glow=0){g.save();g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';if(glow){g.shadowColor=c;g.shadowBlur=glow}g.beginPath();g.moveTo(x,y);g.lineTo(xx,yy);g.stroke();g.restore()}
+ function particle(x,y,r=4){g.save();g.fillStyle='#c6ffff';g.shadowColor='#59faff';g.shadowBlur=12;g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill();g.restore()}
+ function draw(ms){if(state.dead||!canvas.isConnected)return;const dt=Math.min(2,(ms-(draw.last||ms))/16.67);draw.last=ms;if(propRun)state.t+=dt*propSpeed;
+ g.clearRect(0,0,920,476);g.fillStyle='#061326';g.fillRect(0,0,920,476);
+ for(let y=17;y<470;y+=22)for(let x=16;x<920;x+=22){g.fillStyle='#1a385c';g.fillRect(x,y,2,2)}
+ const bg=g.createLinearGradient(0,88,0,356);bg.addColorStop(0,'#064471');bg.addColorStop(.48,'#052438');bg.addColorStop(1,'#06416c');g.save();g.shadowColor='#09c5ff';g.shadowBlur=23;g.fillStyle=bg;g.strokeStyle='#26d4ff';g.lineWidth=3;g.beginPath();g.roundRect(45,77,830,274,91);g.fill();g.stroke();g.restore();
+ // Fixed electrodes: solid cathode, perforated anode so particles can reach target screen.
+ g.fillStyle='#f6faff';g.fillRect(162,130,16,161);g.fillStyle='#ff3159';g.fillRect(738,130,16,57);g.fillRect(738,206,16,85);
+ text('කැතෝඩය (−)',169,56,'#eaf7ff',20);text('සිදුර සහිත ඇනෝඩය (+)',744,56,'#ffd2b6',19);
+ const cx=180,mid=197,screenX=823,objectX=514;
+ if(propMode==='electric'){
+  const upperPlus=propPol===1;g.fillStyle=upperPlus?'#ff6280':'#70b9ff';g.fillRect(363,117,249,12);g.fillStyle=upperPlus?'#70b9ff':'#ff6280';g.fillRect(363,271,249,12);text(upperPlus?'+':'−',629,131,'#fff',23);text(upperPlus?'−':'+',629,284,'#fff',23);
+ }
+ if(propMode==='shadow'){
+  g.fillStyle=propRun?'#76ff95':'#1d5c58';g.fillRect(screenX,126,13,143);g.fillStyle='#153e48';g.fillRect(screenX,269,13,21);
+  if(propObstacle){g.fillStyle='#fbd89d';g.fillRect(objectX,180,13,34);g.fillRect(objectX-10,190,33,12);text('බාධකය',objectX+5,312,'#f7d39a',15)}
+  if(propRun&&propObstacle){g.fillStyle='#072735';g.fillRect(screenX,180,13,34);g.fillRect(screenX,190,13,12);}
+ }
+ if(propMode==='wheel'&&propObstacle){
+  if(propRun)state.angle+=dt*propSpeed*.036;g.save();g.translate(objectX,mid);g.rotate(state.angle);for(let k=0;k<8;k++){g.save();g.rotate(k*Math.PI/4);g.fillStyle=k%2?'#ffc781':'#c6dafa';g.fillRect(0,-6,57,12);g.restore()}g.fillStyle='#eeffff';g.beginPath();g.arc(0,0,11,0,Math.PI*2);g.fill();g.restore();text('හබල් සකය',objectX,313,'#f7d39a',15);
+ }
+ if(propMode!=='shadow'){g.fillStyle=propRun?'#72f4a7':'#27586a';g.fillRect(screenX,148,13,96)}
+ // The central beam passes through the anode aperture (not through solid electrode metal).
+ if(propRun){const glow=g.createLinearGradient(cx,0,screenX,0);glow.addColorStop(0,'#49d660');glow.addColorStop(.6,'#7fff19');glow.addColorStop(1,'#68ffe0');const ys=propMode==='shadow'?[156,176,196,216,236]:[mid];
+ ys.forEach((y,i)=>{
+  const blocked=propMode==='shadow'&&propObstacle&&y>=180&&y<=214;
+  const stopped=propMode==='wheel'&&propObstacle;
+  const till=blocked||stopped?objectX:screenX;
+  if(propMode==='electric'){
+   const deflection=propField*.70*(propPol===1?-1:1);g.save();g.strokeStyle=glow;g.lineWidth=3;g.shadowColor='#70ff18';g.shadowBlur=14;g.beginPath();g.moveTo(cx,mid);g.lineTo(362,mid);g.quadraticCurveTo(624,mid,732,mid+deflection);g.lineTo(screenX,mid+deflection*1.36);g.stroke();g.restore();
+   for(let n=0;n<7;n++){let f=((state.t*.009+n/7)%1),x=cx+(screenX-cx)*f,yy=mid;if(x>362){const k=Math.min(1,(x-362)/(screenX-362));yy+=deflection*(k*k)*(x<=732?1:1.36)}particle(x,yy,3.4)}
+  }else{seg(cx,y,till,y,glow,3.3,13);for(let n=0;n<6;n++){const f=((state.t*.013+n/6+i*.09)%1),x=cx+(screenX-cx)*f;if(x<till)particle(x,y,3.6)}}
+ });
+ }
+ // External circuit, separate from discharge chamber.
+ seg(162,mid,26,mid,'#9abbd6',3);seg(26,mid,26,427,'#9abbd6',3);seg(26,427,360,427,'#9abbd6',3);seg(754,mid,898,mid,'#ff4b69',3);seg(898,mid,898,427,'#ff4b69',3);seg(898,427,560,427,'#ff4b69',3);
+ g.fillStyle='#6c4428';g.fillRect(360,404,200,56);text('Battery',460,439,'#fff',19);g.fillStyle='#e7f3ff';g.fillRect(360,411,17,14);g.fillStyle='#ff375f';g.fillRect(543,411,17,14);text('−',368,399,'#f2faff',21);text('+',552,399,'#ff879d',23);
+ const result=!propRun?'කිරණ නවතා ඇත.':propMode==='shadow'?(propObstacle?'බාධකය නිසා fluorescent තිරයේ අඳුරු සෙවණැල්ලක් පෙනේ.':'බාධකය ඉවත් කළ විට fluorescent තිරය ආලෝකමත් වේ.'):propMode==='wheel'?(propObstacle?'කිරණ සකයට ගැටෙන විට ගම්‍යතා හුවමාරුව නිරූපණය වේ.':'සකය ඉවත් කළ විට කිරණ බාධාවකින් තොරව ඉදිරියට යයි.'):propField===0?'ක්ෂේත්‍රය ශූන්‍යයි: කිරණ සෘජුව ගමන් කරයි.':(propPol===1?'ධන ඉහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.':'ධන පහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.');if($('propResult').textContent!==result)$('propResult').textContent=result;
+ requestAnimationFrame(draw)}requestAnimationFrame(draw);sync();
 }
 const beforeNewProperties=renderLab;
 renderLab=function(){if(current===0||current===2){if(ionAnimation)ionAnimation.cancelled=true;renderPropLab();if(current===2)renderIonLab();}else{if(propActive)propActive.dead=true;beforeNewProperties();}};
