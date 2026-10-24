@@ -469,7 +469,7 @@ function renderPropLab(){
   if(propRun)state.angle+=dt*propSpeed*.036;g.save();g.translate(objectX,mid);g.rotate(state.angle);for(let k=0;k<8;k++){g.save();g.rotate(k*Math.PI/4);g.fillStyle=k%2?'#ffc781':'#c6dafa';g.fillRect(0,-6,57,12);g.restore()}g.fillStyle='#eeffff';g.beginPath();g.arc(0,0,11,0,Math.PI*2);g.fill();g.restore();text('හබල් සකය',objectX,313,'#f7d39a',15);
  }
  if(propMode!=='shadow'){g.fillStyle=propRun?'#72f4a7':'#27586a';g.fillRect(screenX,126,13,164)}
- // The central beam passes through the anode aperture (not through solid electrode metal).
+ // Schematic electron beam; the solid anode is above the beam path, not perforated.
  if(propRun){const glow=g.createLinearGradient(cx,0,screenX,0);glow.addColorStop(0,'#49d660');glow.addColorStop(.6,'#7fff19');glow.addColorStop(1,'#68ffe0');const ys=propMode==='shadow'?[156,176,196,216,236]:[mid];
  ys.forEach((y,i)=>{
   const blocked=propMode==='shadow'&&propObstacle&&y>=180&&y<=214;
@@ -481,8 +481,14 @@ function renderPropLab(){
   }else{seg(cx,y,till,y,glow,3.3,13);for(let n=0;n<6;n++){const f=((state.t*.013+n/6+i*.09)%1),x=cx+(screenX-cx)*f;if(x<till)particle(x,y,3.6)}}
  });
  }
- // Simplified beam model: omit external supply wiring rather than imply an incomplete circuit.
- text('සංකල්පීය කිරණ ආදර්ශනය • විදුලි සැපයුමේ සම්පූර්ණ පරිපථය මෙහි නොපෙන්වයි',460,410,'#9fbad0',16);
+ // DC supply: negative to cathode, positive to a solid off-axis anode (not a perforated electrode).
+ g.fillStyle='#ff536c';g.fillRect(328,126,40,9);text('ඇනෝඩය (+)',349,115,'#ffb7c3',16);
+ seg(162,211,26,211,'#a9cfe6',3);seg(26,211,26,428,'#a9cfe6',3);seg(26,428,355,428,'#a9cfe6',3);
+ seg(348,126,348,65,'#ff6179',3);seg(348,65,898,65,'#ff6179',3);seg(898,65,898,428,'#ff6179',3);seg(898,428,565,428,'#ff6179',3);
+ g.fillStyle='#70482e';g.fillRect(355,406,210,56);g.fillStyle='#b77c42';g.fillRect(355,406,210,8);
+ g.fillStyle='#dff4ff';g.fillRect(355,419,19,18);g.fillStyle='#ff4165';g.fillRect(546,419,19,18);
+ text('−',364,400,'#eaf8ff',22);text('+',556,400,'#ff9aab',22);text('DC Battery',460,447,'#ffffff',18);
+ text('වීදුරු නළය තුළ අඩු පීඩන වායුව • සංකල්පීය රූපය',460,475,'#a9c5d9',14);
  const result=!propRun?'කිරණ නවතා ඇත.':propMode==='shadow'?(propObstacle?'බාධකය නිසා fluorescent තිරයේ අඳුරු සෙවණැල්ලක් පෙනේ.':'බාධකය ඉවත් කළ විට fluorescent තිරය ආලෝකමත් වේ.'):propMode==='wheel'?(propObstacle?'කිරණ සකයට ගැටෙන විට ගම්‍යතා හුවමාරුව නිරූපණය වේ.':'සකය ඉවත් කළ විට කිරණ බාධාවකින් තොරව ඉදිරියට යයි.'):propField===0?'ක්ෂේත්‍රය ශූන්‍යයි: කිරණ සෘජුව ගමන් කරයි.':(propPol===1?'ධන ඉහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.':'ධන පහළ තහඩුව දෙසට ඉලෙක්ට්‍රෝන හැරේ.');if($('propResult').textContent!==result)$('propResult').textContent=result;
  requestAnimationFrame(draw)}requestAnimationFrame(draw);sync();
 }
@@ -518,7 +524,7 @@ function renderIntegratedPositiveLab(){
  <option value="electric">4. විද්‍යුත් ක්ෂේත්‍රයෙන් අපගමනය</option>
  <option value="gas">5. වායුව අනුව අයන සහ |q|/m වෙනස් වීම</option>
  </select><small style="display:block;margin-top:7px;color:#b9dced">ගුණයක් තෝරද්දී පහළ නළයේ animation එක හා පරීක්ෂණ controls වෙනස් වේ.</small></div>
- <canvas id="integratedCanvas" width="900" height="400" aria-label="වමේ ධන කිරණ ගුණ, මැද සිදුරු කැතෝඩය, දකුණේ ඉලෙක්ට්‍රෝන හා වායු ගැටීම"></canvas>
+ <canvas id="integratedCanvas" width="900" height="490" aria-label="වමේ ධන කිරණ ගුණ, මැද සිදුරු කැතෝඩය, දකුණේ ඉලෙක්ට්‍රෝන හා වායු ගැටීම"></canvas>
  <div class="int-tools"><label>වායුව <select id="integratedGas"><option value="H2">H₂</option><option value="Ne" selected>Ne</option><option value="Ar">Ar</option></select></label>
  <button id="integratedAdd">＋ වායු අංශු 3ක් ඇතුළු කරන්න</button><button id="integratedPower">▶ Start</button>
  <button id="integratedObject">＋ බාධකය තබන්න</button><button id="integratedFlip" hidden>⇅ ධ්‍රැව මාරු කරන්න</button>
@@ -548,7 +554,7 @@ function renderIntegratedPositiveLab(){
  canvas.addEventListener('pointermove',e=>{if(!st.drag)return;let q=coords(e);st.drag.x=st.drag.targetX=Math.min(756,Math.max(415,q.x));st.drag.y=st.drag.targetY=Math.min(303,Math.max(91,q.y))});
  canvas.addEventListener('pointerup',()=>st.drag=null);canvas.addEventListener('pointercancel',()=>st.drag=null);
  function ionY(a){if(st.mode!=='electric')return a.y;let progress=Math.max(0,Math.min(1,(370-a.x)/300));return a.y+st.pol*(st.field*.7)*progress*progress}
- function draw(){let g=ctx.createLinearGradient(0,0,0,400);g.addColorStop(0,'#0d253b');g.addColorStop(1,'#071625');ctx.fillStyle=g;ctx.fillRect(0,0,900,400);
+ function draw(){let g=ctx.createLinearGradient(0,0,0,490);g.addColorStop(0,'#0d253b');g.addColorStop(1,'#071625');ctx.fillStyle=g;ctx.fillRect(0,0,900,490);
  ctx.beginPath();ctx.roundRect(22,52,856,304,47);ctx.fillStyle='#133048';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#5b93b4';ctx.stroke();
  ctx.fillStyle='#b1c9d8';ctx.fillRect(374,72,14,106);ctx.fillRect(374,195,14,136);ctx.fillStyle='#f4c875';ctx.fillRect(807,92,12,237);
  txt('වම: ධන කිරණ ගුණ පරීක්ෂණ',45,27,'#ffca89',16);txt('සිදුරු කැතෝඩය −',329,46,'#d4eafa',13);txt('දකුණ: ගැටීම / අයනීකරණය',562,27,'#8ae9fc',16);
@@ -573,6 +579,12 @@ function renderIntegratedPositiveLab(){
  if(st.mode==='gas'){txt(gasData[st.gas].ion+'   |q|/m = '+gasData[st.gas].ratio+' C kg⁻¹',92,338,'#b3efc8',14)}
  if(st.mode==='shadow')txt('ප්‍රතිදීප්ත තිරය',43,95,'#adfbc0',11);
  if(st.mode==='wheel'&&st.object)txt('හබල් සකය',177,115,'#ffdda8',13);
+ // DC supply: negative to perforated cathode, positive to the anode.
+ line(381,72,381,15,'#aed6ea',2.5);line(381,15,16,15,'#aed6ea',2.5);line(16,15,16,447,'#aed6ea',2.5);line(16,447,352,447,'#aed6ea',2.5);
+ line(813,92,884,92,'#ff6680',2.5);line(884,92,884,447,'#ff6680',2.5);line(884,447,548,447,'#ff6680',2.5);
+ ctx.fillStyle='#754a2e';ctx.fillRect(352,419,196,59);ctx.fillStyle='#ac7544';ctx.fillRect(352,419,196,9);
+ ctx.fillStyle='#e8f6ff';ctx.fillRect(352,439,16,16);ctx.fillStyle='#ff4567';ctx.fillRect(532,439,16,16);
+ txt('−',358,414,'#eff9ff',19,'center');txt('+',540,414,'#ff9bac',19,'center');txt('DC Battery',450,466,'#fff',17,'center');
  txt('අධ්‍යාපනික නිරූපණය — පරිමාණයට අනුව නොවේ',450,393,'#acc9dd',11,'center');
  }
  function tick(t){if(st.dead||!canvas.isConnected)return;let dt=Math.min(2,(t-st.last)/16.67||1);st.last=t;if(st.run){let v=st.speed*.55*dt;st.frames+=v;
