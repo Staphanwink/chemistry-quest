@@ -1309,8 +1309,9 @@ function create(host,positive){
    const projected=entry.point.clone().applyMatrix4(rig.matrixWorld).project(camera);
    const ex=Math.max(8,Math.min(sw-8,(projected.x+1)*sw*.5));
    const ey=Math.max(8,Math.min(sh-8,(1-projected.y)*sh*.5));
-   const startX=parts.offsetLeft+entry.row.offsetLeft+4;
-   const startY=parts.offsetTop+entry.row.offsetTop+entry.row.offsetHeight/2;
+   const rootRect=workspace.getBoundingClientRect(),rowRect=entry.row.getBoundingClientRect();
+   const startX=rowRect.left-rootRect.left+4;
+   const startY=rowRect.top-rootRect.top+rowRect.height/2;
    const bendX=Math.max(ex+22,Math.min(startX-26,sw+6));
    ln.path.setAttribute('d','M '+startX+' '+startY+' L '+bendX+' '+startY+' L '+ex+' '+ey);
    ln.dot.setAttribute('cx',ex);ln.dot.setAttribute('cy',ey);
